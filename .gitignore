@@ -1,0 +1,24 @@
+# Environment files
+.env
+.env.*
+local.env
+
+# Keep example files tracked
+!.env.example
+!.local.env.example
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Runtime and shared outputs
+shared/*
+!shared/.gitkeep
+
+# Local data & databases
+data/
+postgres-data/

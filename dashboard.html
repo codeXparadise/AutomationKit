@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutomationKit — Developer Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root[data-theme="dark"] {
+      --bg-body: #0d1117;
+      --bg-surface: #161b22;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2128;
+      --bg-muted: #21262d;
+      --bg-input: #0d1117;
+      --border: #30363d;
+      --border-hover: #484f58;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #2f81f7;
+      --accent-hover: #388bfd;
+      --accent-subtle: rgba(56, 139, 253, 0.12);
+      --success: #3fb950;
+      --success-subtle: rgba(63, 185, 80, 0.15);
+      --danger: #f85149;
+      --danger-subtle: rgba(248, 81, 73, 0.15);
+      --code-bg: #0d1117;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    :root[data-theme="light"] {
+      --bg-body: #f6f8fa;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f6f8fa;
+      --bg-muted: #eaeef2;
+      --bg-input: #f6f8fa;
+      --border: #d0d7de;
+      --border-hover: #afb8c1;
+      --text-primary: #1f2328;
+      --text-secondary: #656d76;
+      --text-muted: #8c959f;
+      --accent: #0969da;
+      --accent-hover: #0860ca;
+      --accent-subtle: rgba(9, 105, 218, 0.08);
+      --success: #1a7f37;
+      --success-subtle: rgba(26, 127, 55, 0.1);
+      --danger: #cf222e;
+      --danger-subtle: rgba(207, 34, 46, 0.1);
+      --code-bg: #eff2f5;
+      --card-shadow: 0 1px 3px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* Minimal Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--text-primary);
+      color: var(--bg-body);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      border: 1px solid rgba(56, 139, 253, 0.2);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-github {
+      background: var(--bg-muted);
+      border-color: var(--border);
+    }
+
+    /* Tabs Bar */
+    .tabs-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 3px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px;
+      overflow-x: auto;
+    }
+
+    .nav-tab-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-tab-btn.active {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      min-width: 240px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px 6px 30px;
+      font-size: 12px;
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-icon-svg {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-count {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--bg-muted);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    /* Compact Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 14px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-id {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-logo img, .card-logo svg {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .card-title-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--success-subtle);
+      color: var(--success);
+      border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Links Cluster */
+    .links-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 4px;
+      text-decoration: none;
+      background: var(--bg-muted);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      transition: all 0.15s ease;
+    }
+
+    .chip-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .chip-btn.accent {
+      background: var(--accent-subtle);
+      border-color: rgba(56, 139, 253, 0.25);
+      color: var(--accent);
+    }
+
+    .chip-btn.accent:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .chip-btn.docs {
+      background: rgba(168, 85, 247, 0.08);
+      border-color: rgba(168, 85, 247, 0.25);
+      color: #a855f7;
+    }
+
+    .chip-btn.docs:hover {
+      background: #a855f7;
+      color: #ffffff;
+    }
+
+    /* Note pill */
+    .card-note {
+      font-size: 11px;
+      background: var(--bg-muted);
+      border-left: 2px solid var(--accent);
+      padding: 5px 8px;
+      border-radius: 0 4px 4px 0;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    .card-note code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      background: var(--code-bg);
+      padding: 1px 3px;
+      border-radius: 3px;
+      color: var(--text-primary);
+    }
+
+    /* Credentials Key-Value list */
+    .creds-list {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .cred-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cred-k {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cred-v-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 75%;
+    }
+
+    .cred-v {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+      background: var(--code-bg);
+      padding: 1px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Local Docs Section */
+    .docs-section, .blueprints-section, .env-section {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .swagger-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .swagger-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .swagger-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .swagger-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .swagger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 5px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 139, 253, 0.25);
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .swagger-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Blueprints Form Grid */
+    .bp-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .bp-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .bp-field {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 6px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .bp-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .bp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bp-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-primary);
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transform: translateY(60px);
+      opacity: 0;
+      transition: all 0.15s ease;
+      z-index: 9999;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .tabs-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-input-wrapper {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-mark">AK</div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h1 class="brand-title">AutomationKit</h1>
+            <span class="brand-badge">Local Stack</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Official GitHub Link -->
+        <a href="https://github.com/codeXparadise/AutomationKit" target="_blank" class="btn btn-github">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+
+        <!-- Load .env File -->
+        <button class="btn" onclick="document.getElementById('envFileInput').click()">Load .env</button>
+        <input type="file" id="envFileInput" class="hidden" accept=".env,text/plain" onchange="handleEnvFile(event)">
+
+        <!-- Health Check -->
+        <button class="btn btn-primary" onclick="pingAllServices()">Ping Services</button>
+
+        <!-- Dark/Light Theme -->
+        <button class="btn" onclick="toggleTheme()" title="Toggle Theme" id="themeBtn">☀️</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs & Search -->
+    <div class="tabs-bar">
+      <div class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchTab('all', this)">All Tools</button>
+        <button class="nav-tab-btn" onclick="switchTab('dashboards', this)">Dashboards & UIs</button>
+        <button class="nav-tab-btn" onclick="switchTab('services', this)">Background Services</button>
+        <button class="nav-tab-btn" onclick="switchTab('swagger', this)">Local Swagger & API Docs</button>
+        <button class="nav-tab-btn" onclick="switchTab('blueprints', this)">n8n Blueprint</button>
+        <button class="nav-tab-btn" onclick="switchTab('env', this)">.env Secrets</button>
+      </div>
+
+      <div class="search-input-wrapper" id="searchWrapper">
+        <svg class="search-icon-svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Filter tools, ports, hosts..." onkeyup="filterCards()">
+      </div>
+    </div>
+
+    <!-- MAIN TOOLS VIEW -->
+    <div id="mainToolsView">
+
+      <!-- ========================================== -->
+      <!-- SECTION 1: DASHBOARDS & WEB UIS           -->
+      <!-- ========================================== -->
+      <div id="secDashboards">
+        <div class="section-header">
+          <div class="section-title">
+            <span>Dashboards & Web UIs</span>
+          </div>
+          <span class="section-count">7 UIs</span>
+        </div>
+
+        <div class="cards-grid">
+
+          <!-- 1. n8n -->
+          <div class="service-card" data-sec="dash" data-kw="n8n workflow 5678 automation">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/n8n.svg" alt="n8n" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(320deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">n8n Workflow</div>
+                  <div class="card-subtitle">Port 5678</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-n8n"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://n8n.local" target="_blank" class="chip-btn accent">http://n8n.local</a>
+              <a href="http://n8n.localhost" target="_blank" class="chip-btn">http://n8n.localhost</a>
+              <a href="http://localhost:5678" target="_blank" class="chip-btn">:5678 (Direct)</a>
+            </div>
+
+            <div class="card-note">
+              First run: Create Owner Account. Reset password: <code>docker exec -it n8n n8n user-management:reset</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:5678</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:5678')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Internal Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">n8n:5678</span>
+                  <button class="copy-btn" onclick="copyText('n8n:5678')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Encryption Key:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-n8n-enc">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-n8n-enc')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Redis Insight -->
+          <div class="service-card" data-sec="dash" data-kw="redis insight gui cache 5540">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" alt="Redis" style="filter: invert(30%) sepia(90%) saturate(2000%) hue-rotate(345deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">Redis Insight</div>
+                  <div class="card-subtitle">Port 5540</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-redisinsight"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://radis.local" target="_blank" class="chip-btn accent">http://radis.local</a>
+              <a href="http://redis.local" target="_blank" class="chip-btn">http://redis.local</a>
+              <a href="http://localhost:5540" target="_blank" class="chip-btn">:5540 (Direct)</a>
+            </div>
+
+            <div class="card-note">
+              Add DB: Host <code>redis</code> (Docker) or <code>localhost</code> (PC), Port <code>6379</code>, Pass <code>295517vp</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:5540</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:5540')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Redis Target:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">redis:6379</span>
+                  <button class="copy-btn" onclick="copyText('redis:6379')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Password:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-redis-pass">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-redis-pass')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Crawl4AI -->
+          <div class="service-card" data-sec="dash" data-kw="crawl4ai web scraper playground swagger 11235">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <!-- Crawl4AI Spider Vector -->
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="color: #10b981;">
+                    <path d="M12 2a4 4 0 0 0-4 4c0 .73.2 1.41.54 2H5.66A2 2 0 0 0 3.8 9.24L1.13 14.6a1 1 0 0 0 1.74.98L5.2 11h2.12c-.2.62-.32 1.29-.32 2 0 .5.06.98.17 1.45L3.6 17.2a1 1 0 0 0 1.34 1.45l3.8-2.85c.95.75 2.14 1.2 3.44 1.2s2.49-.45 3.44-1.2l3.8 2.85a1 1 0 0 0 1.34-1.45l-3.57-2.75c.11-.47.17-.95.17-1.45 0-.71-.12-1.38-.32-2h2.12l2.33 4.58a1 1 0 0 0 1.74-.98l-2.67-5.36a2 2 0 0 0-1.86-1.24h-2.88c.34-.59.54-1.27.54-2a4 4 0 0 0-4-4zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="card-title-text">Crawl4AI</div>
+                  <div class="card-subtitle">Port 11235</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-crawl4ai"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://crawl.local/playground/" target="_blank" class="chip-btn accent">Playground UI</a>
+              <a href="http://crawl.local/docs" target="_blank" class="chip-btn docs">Swagger /docs</a>
+              <a href="http://crawl.local/dashboard/" target="_blank" class="chip-btn">Monitor</a>
+            </div>
+
+            <div class="card-note">
+              Enter API token <code>295517vp</code> in top-right bar & click <strong>Set</strong>.
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host Swagger:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:11235/docs</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:11235/docs')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker Endpoint:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://crawl4ai:11235/crawl</span>
+                  <button class="copy-btn" onclick="copyText('http://crawl4ai:11235/crawl')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Bearer Token:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-crawl-token">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-crawl-token')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Qdrant -->
+          <div class="service-card" data-sec="dash" data-kw="qdrant vector db rag 6333">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://raw.githubusercontent.com/qdrant/qdrant/master/docs/logo.svg" alt="Qdrant">
+                </div>
+                <div>
+                  <div class="card-title-text">Qdrant Vector DB</div>
+                  <div class="card-subtitle">Port 6333</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-qdrant"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://qdrant.local" target="_blank" class="chip-btn accent">http://qdrant.local</a>
+              <a href="http://localhost:6333/dashboard" target="_blank" class="chip-btn">:6333 Dashboard</a>
+            </div>
+
+            <div class="card-note">
+              Dashboard API Key: <code>admin:295517vp</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:6333</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:6333')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://qdrant:6333</span>
+                  <button class="copy-btn" onclick="copyText('http://qdrant:6333')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">API Key:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-qdrant-key">admin:295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-qdrant-key')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Neo4j -->
+          <div class="service-card" data-sec="dash" data-kw="neo4j graph browser cypher bolt 7474 7687">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/neo4j.svg" alt="Neo4j" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">Neo4j Browser</div>
+                  <div class="card-subtitle">Port 7474 &bull; Bolt 7687</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-neo4j"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://neo.local" target="_blank" class="chip-btn accent">http://neo.local</a>
+              <a href="http://localhost:7474" target="_blank" class="chip-btn">:7474 Browser</a>
+            </div>
+
+            <div class="card-note">
+              Browser Login: URL <code>bolt://localhost:7687</code>, User <code>neo4j</code>, Pass <code>295517vp</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Bolt (Host):</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">bolt://localhost:7687</span>
+                  <button class="copy-btn" onclick="copyText('bolt://localhost:7687')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Bolt (Docker):</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">bolt://neo4j:7687</span>
+                  <button class="copy-btn" onclick="copyText('bolt://neo4j:7687')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">User / Pass:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">neo4j / <span id="val-neo-pass">295517vp</span></span>
+                  <button class="copy-btn" onclick="copyFromId('val-neo-pass')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. SearXNG -->
+          <div class="service-card" data-sec="dash" data-kw="searxng search engine 8080">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/searxng.svg" alt="SearXNG" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(190deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">SearXNG Search</div>
+                  <div class="card-subtitle">Port 8080</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-searxng"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://search.local" target="_blank" class="chip-btn accent">http://search.local</a>
+              <a href="http://localhost:8080" target="_blank" class="chip-btn">:8080 (Direct)</a>
+              <a href="http://localhost:8080/preferences" target="_blank" class="chip-btn docs">Settings</a>
+            </div>
+
+            <div class="card-note">
+              JSON Search: <code>http://searxng:8080/search?q={query}&amp;format=json</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:8080</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:8080')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://searxng:8080</span>
+                  <button class="copy-btn" onclick="copyText('http://searxng:8080')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Auth:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">None (Open)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Docling -->
+          <div class="service-card" data-sec="dash" data-kw="docling document ocr pdf swagger 5001">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://raw.githubusercontent.com/DS4SD/docling/main/docs/assets/logo.png" alt="Docling">
+                </div>
+                <div>
+                  <div class="card-title-text">Docling Parser</div>
+                  <div class="card-subtitle">Port 5001</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-docling"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://docling.local" target="_blank" class="chip-btn accent">Web UI</a>
+              <a href="http://docling.local/docs" target="_blank" class="chip-btn docs">Swagger /docs</a>
+              <a href="http://localhost:5001/ui" target="_blank" class="chip-btn">:5001</a>
+            </div>
+
+            <div class="card-note">
+              Extract PDFs, tables & layout to Markdown. API Key: <code>295517vp</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host Swagger:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:5001/docs</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:5001/docs')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://docling:5001</span>
+                  <button class="copy-btn" onclick="copyText('http://docling:5001')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">API Key:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-docling-key">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-docling-key')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SECTION 2: BACKGROUND SERVICES & APIS     -->
+      <!-- ========================================== -->
+      <div id="secServices">
+        <div class="section-header">
+          <div class="section-title">
+            <span>Background Services & APIs</span>
+          </div>
+          <span class="section-count">4 Services</span>
+        </div>
+
+        <div class="cards-grid">
+
+          <!-- 8. Ollama -->
+          <div class="service-card" data-sec="serv" data-kw="ollama llm llama ai api 11434">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" alt="Ollama" style="filter: invert(80%);">
+                </div>
+                <div>
+                  <div class="card-title-text">Ollama LLM Engine</div>
+                  <div class="card-subtitle">Port 11434</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-ollama"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://localhost:11434/api/tags" target="_blank" class="chip-btn docs">/api/tags (Models)</a>
+              <a href="http://localhost:11434/api/version" target="_blank" class="chip-btn docs">/api/version</a>
+              <a href="http://ollama.local" target="_blank" class="chip-btn">http://ollama.local</a>
+            </div>
+
+            <div class="card-note">
+              Download model: <code>docker exec -it ollama ollama run llama3.2</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host API URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:11434</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:11434')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://ollama:11434</span>
+                  <button class="copy-btn" onclick="copyText('http://ollama:11434')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">API Auth:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">None (Open Local API)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. PostgreSQL -->
+          <div class="service-card" data-sec="serv" data-kw="postgresql postgres sql database 5432">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/postgresql.svg" alt="PostgreSQL" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(185deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">PostgreSQL 16</div>
+                  <div class="card-subtitle">Port 5432</div>
+                </div>
+              </div>
+              <div class="status-pill"><span class="status-dot"></span> Port 5432</div>
+            </div>
+
+            <div class="card-note">
+              DBeaver/pgAdmin: Host <code>localhost</code>, Port <code>5432</code>, DB <code>n8n_database</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">localhost:5432</span>
+                  <button class="copy-btn" onclick="copyText('localhost:5432')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">postgres:5432</span>
+                  <button class="copy-btn" onclick="copyText('postgres:5432')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">User / Pass:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v"><span id="val-pg-user">admin</span> / <span id="val-pg-pass">295517vp</span></span>
+                  <button class="copy-btn" onclick="copyFromId('val-pg-pass')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Database:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-pg-db">n8n_database</span>
+                  <button class="copy-btn" onclick="copyFromId('val-pg-db')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Redis Server -->
+          <div class="service-card" data-sec="serv" data-kw="redis cache store kv 6379">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" alt="Redis" style="filter: invert(30%) sepia(90%) saturate(2000%) hue-rotate(345deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">Redis Server</div>
+                  <div class="card-subtitle">Port 6379</div>
+                </div>
+              </div>
+              <div class="status-pill"><span class="status-dot"></span> Port 6379</div>
+            </div>
+
+            <div class="card-note">
+              URI: <code>redis://:295517vp@localhost:6379</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">localhost:6379</span>
+                  <button class="copy-btn" onclick="copyText('localhost:6379')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker Host:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">redis:6379</span>
+                  <button class="copy-btn" onclick="copyText('redis:6379')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Password:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-redis-pass2">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-redis-pass2')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. Caddy Shared Files -->
+          <div class="service-card" data-sec="serv" data-kw="caddy files shared storage 80">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/caddy.svg" alt="Caddy" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(90deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">Shared File Server</div>
+                  <div class="card-subtitle">Local Directory</div>
+                </div>
+              </div>
+              <div class="status-pill"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://files.local" target="_blank" class="chip-btn accent">http://files.local</a>
+              <a href="http://files.localhost" target="_blank" class="chip-btn">http://files.localhost</a>
+            </div>
+
+            <div class="card-note">
+              Mount path inside containers: <code>/data/shared</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Local Path:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">./shared</span>
+                  <button class="copy-btn" onclick="copyText('./shared')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOCAL SWAGGER & API DOCS VIEW -->
+    <div id="swaggerDocsView" class="docs-section">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px;">
+        <h3 style="font-size: 14px; font-weight: 600;">⚡ Locally Hosted Swagger & Interactive API Documentation</h3>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+          Ye sabhi Swagger UIs aur interactive API documentation tumhare apne machine par locally chal rahe hain:
+        </p>
+      </div>
+
+      <!-- 1. Crawl4AI Swagger -->
+      <div class="swagger-card">
+        <div class="swagger-header">
+          <div class="swagger-title">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fastapi.svg" width="20" height="20" alt="FastAPI" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(130deg);">
+            <span>Crawl4AI Local Swagger UI & OpenAPI</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted);">Port 11235</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary);">
+          Interactive testbench for <code>/crawl</code>, <code>/md</code>, <code>/screenshot</code>, and streaming crawling endpoints.
+        </p>
+        <div class="swagger-links">
+          <a href="http://localhost:11235/docs" target="_blank" class="swagger-btn">
+            <span>Open Swagger UI (:11235/docs) ↗</span>
+          </a>
+          <a href="http://crawl.local/docs" target="_blank" class="swagger-btn">
+            <span>http://crawl.local/docs ↗</span>
+          </a>
+          <a href="http://localhost:11235/redoc" target="_blank" class="swagger-btn" style="background: var(--bg-muted); color: var(--text-primary); border-color: var(--border);">
+            <span>ReDoc UI (:11235/redoc) ↗</span>
+          </a>
+        </div>
+        <div class="card-note">
+          <strong>Auto-Authenticated:</strong> Caddy transparently injects the Bearer token &mdash; Swagger and ReDoc open with zero auth prompts!
+        </div>
+      </div>
+
+      <!-- 2. Docling Swagger -->
+      <div class="swagger-card">
+        <div class="swagger-header">
+          <div class="swagger-title">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fastapi.svg" width="20" height="20" alt="FastAPI" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(130deg);">
+            <span>Docling Local Swagger UI & Endpoints</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted);">Port 5001</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary);">
+          Direct OpenAPI testing for document parsing, PDF OCR, table extraction, and structured JSON conversion.
+        </p>
+        <div class="swagger-links">
+          <a href="http://localhost:5001/docs" target="_blank" class="swagger-btn">
+            <span>Open Swagger UI (:5001/docs) ↗</span>
+          </a>
+          <a href="http://docling.local/docs" target="_blank" class="swagger-btn">
+            <span>http://docling.local/docs ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Ollama Local API -->
+      <div class="swagger-card">
+        <div class="swagger-header">
+          <div class="swagger-title">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" width="20" height="20" alt="Ollama" style="filter: invert(80%);">
+            <span>Ollama Local REST Endpoints</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted);">Port 11434</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary);">
+          Native OpenAI-compatible local endpoints for LLM chat completions and model metadata.
+        </p>
+        <div class="swagger-links">
+          <a href="http://localhost:11434/api/tags" target="_blank" class="swagger-btn">
+            <span>Installed Models JSON (/api/tags) ↗</span>
+          </a>
+          <a href="http://localhost:11434/api/version" target="_blank" class="swagger-btn">
+            <span>Engine Version (/api/version) ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Qdrant REST Console -->
+      <div class="swagger-card">
+        <div class="swagger-header">
+          <div class="swagger-title">
+            <img src="https://raw.githubusercontent.com/qdrant/qdrant/master/docs/logo.svg" width="20" height="20" alt="Qdrant">
+            <span>Qdrant Local REST Query Console</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted);">Port 6333</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary);">
+          Built-in interactive JSON REST console for testing vector distance search, payload filters, and collections.
+        </p>
+        <div class="swagger-links">
+          <a href="http://localhost:6333/dashboard#/console" target="_blank" class="swagger-btn">
+            <span>Open Qdrant REST Console ↗</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BLUEPRINTS VIEW -->
+    <div id="blueprintsView" class="blueprints-section">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px;">
+        <h3 style="font-size: 14px; font-weight: 600;">⚡ n8n Node Configuration Parameters</h3>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+          n8n me workflow create karte waqt in exact connection parameters ko copy karein:
+        </p>
+      </div>
+
+      <!-- Postgres in n8n -->
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">PostgreSQL Node</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Type: PostgreSQL</span>
+        </div>
+        <div class="bp-grid">
+          <div class="bp-field">
+            <span class="bp-label">Host</span>
+            <div class="bp-row">
+              <span class="bp-val">postgres</span>
+              <button class="copy-btn" onclick="copyText('postgres')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Database</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-pg-db">n8n_database</span>
+              <button class="copy-btn" onclick="copyFromId('bp-pg-db')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">User</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-pg-user">admin</span>
+              <button class="copy-btn" onclick="copyFromId('bp-pg-user')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Password</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-pg-pass">295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-pg-pass')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Port</span>
+            <div class="bp-row">
+              <span class="bp-val">5432</span>
+              <button class="copy-btn" onclick="copyText('5432')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">SSL</span>
+            <div class="bp-row">
+              <span class="bp-val">disable</span>
+              <button class="copy-btn" onclick="copyText('disable')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Redis in n8n -->
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">Redis Node</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Type: Redis</span>
+        </div>
+        <div class="bp-grid">
+          <div class="bp-field">
+            <span class="bp-label">Host</span>
+            <div class="bp-row">
+              <span class="bp-val">redis</span>
+              <button class="copy-btn" onclick="copyText('redis')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Port</span>
+            <div class="bp-row">
+              <span class="bp-val">6379</span>
+              <button class="copy-btn" onclick="copyText('6379')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Password</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-redis-pass">295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-redis-pass')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qdrant in n8n -->
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">Qdrant Vector Store Node</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Type: Qdrant API</span>
+        </div>
+        <div class="bp-grid">
+          <div class="bp-field">
+            <span class="bp-label">Qdrant URL</span>
+            <div class="bp-row">
+              <span class="bp-val">http://qdrant:6333</span>
+              <button class="copy-btn" onclick="copyText('http://qdrant:6333')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">API Key</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-qdrant-key">admin:295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-qdrant-key')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Crawl4AI in n8n -->
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">Crawl4AI HTTP Request Node</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Method: POST</span>
+        </div>
+        <div class="bp-grid">
+          <div class="bp-field">
+            <span class="bp-label">URL</span>
+            <div class="bp-row">
+              <span class="bp-val">http://crawl4ai:11235/crawl</span>
+              <button class="copy-btn" onclick="copyText('http://crawl4ai:11235/crawl')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Header: Authorization</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-crawl-auth">Bearer 295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-crawl-auth')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Header: Content-Type</span>
+            <div class="bp-row">
+              <span class="bp-val">application/json</span>
+              <button class="copy-btn" onclick="copyText('application/json')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- .ENV VIEW -->
+    <div id="envView" class="env-section">
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">Loaded .env Configuration</div>
+          <button class="btn btn-primary" onclick="copyAllEnv()">Copy Entire .env</button>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted);">
+                <th style="padding: 6px 10px;">Variable Name</th>
+                <th style="padding: 6px 10px;">Current Value</th>
+                <th style="padding: 6px 10px; width: 70px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="envTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <span>AutomationKit</span> &bull; 
+        <a href="https://github.com/codeXparadise/AutomationKit" target="_blank">https://github.com/codeXparadise/AutomationKit</a>
+      </div>
+      <div>
+        <span>Local Microservices Stack</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast">Copied</div>
+
+  <script>
+    // Theme Management
+    function initTheme() {
+      const saved = localStorage.getItem('ak_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const nxt = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nxt);
+      localStorage.setItem('ak_theme', nxt);
+      document.getElementById('themeBtn').textContent = nxt === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Active .env Variables
+    let envData = {
+      N8N_ENCRYPTION_KEY: "295517vp",
+      N8N_RUNNERS_AUTH_TOKEN: "295517vp",
+      POSTGRES_USER: "admin",
+      POSTGRES_PASSWORD: "295517vp",
+      POSTGRES_DB: "n8n_database",
+      REDIS_PASSWORD: "295517vp",
+      SEARXNG_BASE_URL: "http://search.local",
+      QDRANT_API_KEY: "admin:295517vp",
+      NEO4J_USER: "admin",
+      NEO4J_PASSWORD: "295517vp",
+      CRAWL4AI_API_TOKEN: "295517vp",
+      DOCLING_API_KEY: "295517vp",
+      BROWSERLESS_TOKEN: "295517vp"
+    };
+
+    function renderEnvTable() {
+      const tbody = document.getElementById('envTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      for (const [k, v] of Object.entries(envData)) {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border)';
+        tr.innerHTML = `
+          <td style="padding: 6px 10px; font-weight: 600; color: var(--accent);">${k}</td>
+          <td style="padding: 6px 10px; font-family: 'JetBrains Mono', monospace;">${v}</td>
+          <td style="padding: 6px 10px;">
+            <button class="copy-btn" onclick="copyText('${v}')">Copy</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Tab Switching
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const mainView = document.getElementById('mainToolsView');
+      const secDash = document.getElementById('secDashboards');
+      const secServ = document.getElementById('secServices');
+      const swaggerView = document.getElementById('swaggerDocsView');
+      const bpView = document.getElementById('blueprintsView');
+      const envView = document.getElementById('envView');
+      const searchWrap = document.getElementById('searchWrapper');
+
+      mainView.style.display = 'none';
+      swaggerView.style.display = 'none';
+      bpView.style.display = 'none';
+      envView.style.display = 'none';
+      searchWrap.style.display = 'block';
+
+      if (tab === 'all') {
+        mainView.style.display = 'block';
+        secDash.style.display = 'block';
+        secServ.style.display = 'block';
+        filterCards();
+      } else if (tab === 'dashboards') {
+        mainView.style.display = 'block';
+        secDash.style.display = 'block';
+        secServ.style.display = 'none';
+        filterCards();
+      } else if (tab === 'services') {
+        mainView.style.display = 'block';
+        secDash.style.display = 'none';
+        secServ.style.display = 'block';
+        filterCards();
+      } else if (tab === 'swagger') {
+        swaggerView.style.display = 'flex';
+        searchWrap.style.display = 'none';
+      } else if (tab === 'blueprints') {
+        bpView.style.display = 'flex';
+        searchWrap.style.display = 'none';
+      } else if (tab === 'env') {
+        envView.style.display = 'flex';
+        renderEnvTable();
+        searchWrap.style.display = 'none';
+      }
+    }
+
+    // Filter Cards
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.service-card');
+
+      cards.forEach(c => {
+        const text = c.textContent.toLowerCase();
+        const kw = (c.dataset.kw || '').toLowerCase();
+        if (!q || text.includes(q) || kw.includes(q)) {
+          c.style.display = 'flex';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    // Copying
+    function copyText(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        showToast(`Copied: "${str}"`);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = str;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(`Copied: "${str}"`);
+      });
+    }
+
+    function copyFromId(id) {
+      const el = document.getElementById(id);
+      if (el) copyText(el.textContent.trim());
+    }
+
+    function copyAllEnv() {
+      let text = '';
+      for (const [k, v] of Object.entries(envData)) {
+        text += `${k}=${v}\n`;
+      }
+      copyText(text);
+      showToast('Copied all .env variables');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg || 'Copied';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1800);
+    }
+
+    // Load .env
+    function handleEnvFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const r = new FileReader();
+      r.onload = function(evt) {
+        const lines = evt.target.result.split('\n');
+        lines.forEach(l => {
+          l = l.trim();
+          if (!l || l.startsWith('#')) return;
+          const idx = l.indexOf('=');
+          if (idx !== -1) {
+            envData[l.substring(0, idx).trim()] = l.substring(idx + 1).trim();
+          }
+        });
+        updateDOM();
+        renderEnvTable();
+        showToast('Updated with .env values');
+      };
+      r.readAsText(file);
+    }
+
+    function updateDOM() {
+      if (document.getElementById('val-n8n-enc')) document.getElementById('val-n8n-enc').textContent = envData.N8N_ENCRYPTION_KEY || '295517vp';
+      if (document.getElementById('val-redis-pass')) document.getElementById('val-redis-pass').textContent = envData.REDIS_PASSWORD || '295517vp';
+      if (document.getElementById('val-redis-pass2')) document.getElementById('val-redis-pass2').textContent = envData.REDIS_PASSWORD || '295517vp';
+      if (document.getElementById('val-crawl-token')) document.getElementById('val-crawl-token').textContent = envData.CRAWL4AI_API_TOKEN || '295517vp';
+      if (document.getElementById('val-qdrant-key')) document.getElementById('val-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
+      if (document.getElementById('val-neo-pass')) document.getElementById('val-neo-pass').textContent = envData.NEO4J_PASSWORD || '295517vp';
+      if (document.getElementById('val-docling-key')) document.getElementById('val-docling-key').textContent = envData.DOCLING_API_KEY || '295517vp';
+      if (document.getElementById('val-pg-db')) document.getElementById('val-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
+      if (document.getElementById('val-pg-user')) document.getElementById('val-pg-user').textContent = envData.POSTGRES_USER || 'admin';
+      if (document.getElementById('val-pg-pass')) document.getElementById('val-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
+
+      // Blueprints
+      if (document.getElementById('bp-pg-db')) document.getElementById('bp-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
+      if (document.getElementById('bp-pg-user')) document.getElementById('bp-pg-user').textContent = envData.POSTGRES_USER || 'admin';
+      if (document.getElementById('bp-pg-pass')) document.getElementById('bp-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
+      if (document.getElementById('bp-redis-pass')) document.getElementById('bp-redis-pass').textContent = envData.REDIS_PASSWORD || '295517vp';
+      if (document.getElementById('bp-qdrant-key')) document.getElementById('bp-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
+      if (document.getElementById('bp-crawl-auth')) document.getElementById('bp-crawl-auth').textContent = 'Bearer ' + (envData.CRAWL4AI_API_TOKEN || '295517vp');
+    }
+
+    // Ping check
+    async function pingAllServices() {
+      showToast('Pinging services...');
+      const checks = [
+        { id: 'ping-n8n', url: 'http://localhost:5678' },
+        { id: 'ping-redisinsight', url: 'http://localhost:5540' },
+        { id: 'ping-crawl4ai', url: 'http://localhost:11235' },
+        { id: 'ping-qdrant', url: 'http://localhost:6333/dashboard' },
+        { id: 'ping-neo4j', url: 'http://localhost:7474' },
+        { id: 'ping-searxng', url: 'http://localhost:8080' },
+        { id: 'ping-docling', url: 'http://localhost:5001/ui' },
+        { id: 'ping-ollama', url: 'http://localhost:11434' },
+      ];
+
+      for (const item of checks) {
+        const badge = document.getElementById(item.id);
+        if (!badge) continue;
+
+        try {
+          await fetch(item.url, { mode: 'no-cors', cache: 'no-store' });
+          badge.className = 'status-pill';
+          badge.innerHTML = '<span class="status-dot"></span> Online';
+        } catch (e) {
+          badge.className = 'status-pill';
+          badge.style.color = 'var(--danger)';
+          badge.style.background = 'var(--danger-subtle)';
+          badge.style.borderColor = 'rgba(248, 81, 73, 0.2)';
+          badge.innerHTML = '<span class="status-dot"></span> Offline';
+        }
+      }
+      showToast('Health check complete');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      renderEnvTable();
+      updateDOM();
+    });
+  </script>
+</body>
+</html>

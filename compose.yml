@@ -1,0 +1,284 @@
+networks:
+  Automation:
+    name: Automation
+    driver: bridge
+
+services:
+  # ==========================================
+  # 1. PostgreSQL Database
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ==========================================
+  # 2. Redis Cache & Key-Value Store
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./data/redis:/data
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================
+  # 2b. Redis Insight UI
+  # ==========================================
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    restart: unless-stopped
+    ports:
+      - "5540:5540"
+    volumes:
+      - ./data/redisinsight:/data
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # ==========================================
+  # 3. Ollama Core Engine
+  # ==========================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+    volumes:
+      - ./data/ollama/models:/root/.ollama/models
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    entrypoint: >
+      sh -c "/bin/ollama serve & 
+             pid=$$!; 
+             sleep 5; 
+             ollama pull qwen2.5-coder:3b; 
+             ollama pull nomic-embed-text; 
+             wait $$pid"
+
+  # ==========================================
+  # 4. n8n Main Automation Service
+  # ==========================================
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_LISTEN_ADDRESS=0.0.0.0
+      - N8N_HOST=n8n.local
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://n8n.local/
+      - GENERIC_TIMEZONE=Asia/Kolkata
+
+      # Database Connection
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - NODES_EXCLUDE=[]
+      - N8N_UNVERIFIED_PACKAGES_ENABLED=true
+      - N8N_COMPRESSION_NODE_MAX_DECOMPRESSED_SIZE_BYTES=2147483648
+      - N8N_COMPRESSION_NODE_MAX_ZIP_ENTRIES=5000
+
+      # Official External Task Runner Broker Setup
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_RUNNERS_MODE=external
+      - N8N_RUNNERS_BROKER_PORT=5679
+      - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
+      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
+      - N8N_NATIVE_PYTHON_RUNNER=true
+    volumes:
+      - ./data/n8n/.n8n:/home/node/.n8n
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+
+  # ==========================================
+  # 5. Dedicated n8n External Task Runner
+  # ==========================================
+  task-runners:
+    build:
+      context: ./services/runner
+      dockerfile: Dockerfile
+    container_name: n8n-runners
+    restart: unless-stopped
+    environment:
+      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
+      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
+      - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    depends_on:
+      - n8n
+
+  # ==========================================
+  # 6. Qdrant Vector Database
+  # ==========================================
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    environment:
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+      - ./shared:/data/shared
+    networks:
+      - Automation
+
+  # ==========================================
+  # 7. SearXNG Meta Search Engine
+  # ==========================================
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    environment:
+      - SEARXNG_BASE_URL=${SEARXNG_BASE_URL}
+    volumes:
+      - ./data/searxng:/etc/searxng
+      - ./shared:/data/shared
+    networks:
+      - Automation
+
+  # ==========================================
+  # 8. Crawl4AI Web Crawler
+  # ==========================================
+  crawl4ai:
+    image: unclecode/crawl4ai:latest
+    container_name: crawl4ai
+    restart: unless-stopped
+    environment:
+      - CRAWL4AI_API_TOKEN=${CRAWL4AI_API_TOKEN}
+    shm_size: 1gb
+    volumes:
+      - ./shared:/data/shared
+    networks:
+      - Automation
+
+  # ==========================================
+  # 9. Docling Document Processing
+  # ==========================================
+  docling:
+    image: quay.io/docling-project/docling-serve:latest
+    container_name: docling
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - DOCLING_SERVE_ENABLE_UI=true
+      - DOCLING_SERVE_API_KEY=${DOCLING_API_KEY}
+    volumes:
+      - ./shared:/data/shared
+    networks:
+      - Automation
+
+  # ==========================================
+  # 10. Neo4j Graph Database
+  # ==========================================
+  neo4j:
+    image: neo4j:5-community
+    container_name: neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
+      - NEO4J_server_default__listen__address=0.0.0.0
+      - NEO4J_server_bolt_advertised__address=neo.local:7687
+    volumes:
+      - ./data/neo4j:/data
+      - ./shared:/data/shared
+    networks:
+      - Automation
+
+  # ==========================================
+  # 11. Caddy Reverse Proxy and Shared Files
+  # ==========================================
+  caddy:
+    image: caddy:2-alpine
+    container_name: AutomationKit
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "11235:11235"
+    volumes:
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./portal:/srv/portal:ro
+      - ./shared:/srv/shared
+      - ./data/caddy/data:/data
+      - ./data/caddy/config:/config
+    networks:
+      - Automation
+    depends_on:
+      - n8n
+      - ollama
+      - qdrant
+      - searxng
+      - crawl4ai
+      - docling
+      - neo4j
+      - redisinsight

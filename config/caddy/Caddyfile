@@ -1,0 +1,66 @@
+{
+    auto_https off
+}
+
+# 0. Automation Master Portal Hub
+http://hub.local, http://hub.localhost, http://portal.local, http://portal.localhost, http://localhost {
+    root * /srv/portal
+    file_server
+}
+
+# 1. n8n Main Automation Service
+http://n8n.local, http://n8n.localhost {
+    reverse_proxy n8n:5678 {
+        header_up Host n8n.local
+    }
+}
+
+# 2. Redis Insight GUI
+http://radis.local, http://redis.local, http://redis.localhost, http://radis.localhost {
+    reverse_proxy redisinsight:5540
+}
+
+# 3. Ollama Core Engine
+http://ollama.local, http://ollama.localhost {
+    reverse_proxy ollama:11434
+}
+
+# 4. Qdrant Vector Database
+http://qdrant.local, http://qdrant.localhost {
+    @root path /
+    redir @root /dashboard 302
+    reverse_proxy qdrant:6333
+}
+
+# 5. SearXNG Meta Search Engine
+http://search.local, http://searxng.local, http://search.localhost, http://searxng.localhost {
+    reverse_proxy searxng:8080
+}
+
+# 6. Crawl4AI Web Crawler
+http://crawl.local, http://crawl4ai.local, http://crawl.localhost, http://crawl4ai.localhost, :11235 {
+    reverse_proxy crawl4ai:11235 {
+        header_up Authorization "Bearer 295517vp"
+        header_down -Content-Security-Policy
+    }
+}
+
+# 7. Docling Document Processing
+http://docling.local, http://docling.localhost {
+    @root path /
+    redir @root /ui 302
+    reverse_proxy docling:5001
+}
+
+# 8. Neo4j Graph Database
+http://neo.local, http://neo4j.local, http://neo.localhost, http://neo4j.localhost {
+    @root path /
+    redir @root /browser 302
+    reverse_proxy neo4j:7474
+}
+
+# 9. Caddy Shared File Server
+http://files.local, http://files.localhost {
+    root * /srv/shared
+    file_server browse
+}
