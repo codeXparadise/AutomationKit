@@ -1095,10 +1095,59 @@
           <div class="section-title">
             <span>Background Services & APIs</span>
           </div>
-          <span class="section-count">4 Services</span>
+          <span class="section-count">5 Services</span>
         </div>
 
         <div class="cards-grid">
+
+          <!-- 8. Assistant Sandbox API -->
+          <div class="service-card" data-sec="serv" data-kw="sandbox assistant n8n dind runner code 5681">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="card-logo">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" alt="Sandbox" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
+                </div>
+                <div>
+                  <div class="card-title-text">n8n Assistant Sandbox</div>
+                  <div class="card-subtitle">Port 5681 &bull; DinD Control Plane</div>
+                </div>
+              </div>
+              <div class="status-pill" id="ping-sandbox"><span class="status-dot"></span> Online</div>
+            </div>
+
+            <div class="links-cluster">
+              <a href="http://sandbox.local/healthz" target="_blank" class="chip-btn accent">http://sandbox.local</a>
+              <a href="http://localhost:5681/healthz" target="_blank" class="chip-btn docs">:5681 /healthz</a>
+            </div>
+
+            <div class="card-note">
+              Official isolated execution sandbox for n8n AI Assistant. Header: <code>X-Api-Key: 295517vp</code>
+            </div>
+
+            <div class="creds-list">
+              <div class="cred-item">
+                <span class="cred-k">Host URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://localhost:5681</span>
+                  <button class="copy-btn" onclick="copyText('http://localhost:5681')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Docker URL:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v">http://sandbox-api:8080</span>
+                  <button class="copy-btn" onclick="copyText('http://sandbox-api:8080')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">API Key:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-sandbox-key">295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-sandbox-key')">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- 8. Ollama -->
           <div class="service-card" data-sec="serv" data-kw="ollama llm llama ai api 11434">
@@ -1755,6 +1804,7 @@
       if (document.getElementById('val-qdrant-key')) document.getElementById('val-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
       if (document.getElementById('val-neo-pass')) document.getElementById('val-neo-pass').textContent = envData.NEO4J_PASSWORD || '295517vp';
       if (document.getElementById('val-docling-key')) document.getElementById('val-docling-key').textContent = envData.DOCLING_API_KEY || '295517vp';
+      if (document.getElementById('val-sandbox-key')) document.getElementById('val-sandbox-key').textContent = envData.SANDBOX_API_KEYS || '295517vp';
       if (document.getElementById('val-pg-db')) document.getElementById('val-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
       if (document.getElementById('val-pg-user')) document.getElementById('val-pg-user').textContent = envData.POSTGRES_USER || 'admin';
       if (document.getElementById('val-pg-pass')) document.getElementById('val-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
@@ -1780,6 +1830,7 @@
         { id: 'ping-searxng', url: 'http://localhost:8080' },
         { id: 'ping-docling', url: 'http://localhost:5001/ui' },
         { id: 'ping-ollama', url: 'http://localhost:11434' },
+        { id: 'ping-sandbox', url: 'http://localhost:5681/healthz' },
       ];
 
       for (const item of checks) {

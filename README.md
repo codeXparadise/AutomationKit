@@ -68,6 +68,7 @@ All 11 microservices run inside an isolated Docker bridge network (`automationki
 | <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" width="20" height="20" /> **Ollama** | Local LLMs (Llama 3, Mistral, Qwen) | `Latest` | [ollama.com/library](https://ollama.com/library) |
 | <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/postgresql.svg" width="20" height="20" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) |
 | <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" width="20" height="20" /> **Redis** | In-Memory Key-Value Store | `7-alpine` | [redis.io/docs](https://redis.io/docs/) |
+| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" width="20" height="20" /> **n8n Assistant Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) |
 | <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/caddy.svg" width="20" height="20" /> **Caddy** | Reverse Proxy & Portal Host | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) |
 
 ---
@@ -138,6 +139,7 @@ Once running, double-click **`open-hub.bat`** or navigate to:
 | **Neo4j Browser** | `http://neo.local` / `http://localhost:7474` | `http://neo.localhost` | `bolt://neo4j:7687` | User: `neo4j`, Password: `295517vp` |
 | **SearXNG Search** | `http://search.local` / `http://localhost:8080` | `http://search.localhost` | `searxng:8080` | None (Open) |
 | **Docling Parser UI** | `http://docling.local` / `http://localhost:5001/ui` | `http://docling.localhost` | `docling:5001` | API Key: `295517vp` |
+| **Assistant Sandbox API** | `http://sandbox.local` / `http://localhost:5681` | `http://sandbox.localhost` | `sandbox-api:8080` | Header: `X-Api-Key: 295517vp` |
 | **Ollama Local LLM** | `http://ollama.local` / `http://localhost:11434` | `http://ollama.localhost` | `ollama:11434` | None (Open) |
 | **PostgreSQL DB** | `localhost:5432` *(External SQL clients)* | N/A | `postgres:5432` | User: `admin`, Pass: `295517vp`, DB: `n8n_database` |
 | **Redis Store** | `localhost:6379` *(External Redis clients)* | N/A | `redis:6379` | Password: `295517vp` |

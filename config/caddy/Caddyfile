@@ -64,3 +64,8 @@ http://files.local, http://files.localhost {
     root * /srv/shared
     file_server browse
 }
+
+# 10. n8n Assistant Sandbox API
+http://sandbox.local, http://sandbox.localhost {
+    reverse_proxy sandbox-api:8080
+}

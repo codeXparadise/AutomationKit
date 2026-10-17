@@ -25,7 +25,8 @@ $domains = @(
     'crawl4ai.local',
     'neo.local',
     'neo4j.local',
-    'files.local'
+    'files.local',
+    'sandbox.local'
 )
 
 $hostsContent = Get-Content -LiteralPath $hostsPath -Raw -ErrorAction SilentlyContinue
