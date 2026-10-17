@@ -38,7 +38,7 @@ http://search.local, http://searxng.local, http://search.localhost, http://searx
 }
 
 # 6. Crawl4AI Web Crawler
-http://crawl.local, http://crawl4ai.local, http://crawl.localhost, http://crawl4ai.localhost, :11235 {
+http://crawl.local, http://crawl4ai.local, http://crawl.localhost, http://crawl4ai.localhost {
     reverse_proxy crawl4ai:11235 {
         header_up Authorization "Bearer 295517vp"
         header_down -Content-Security-Policy

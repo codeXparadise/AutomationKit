@@ -211,6 +211,8 @@ services:
     restart: unless-stopped
     environment:
       - CRAWL4AI_API_TOKEN=${CRAWL4AI_API_TOKEN}
+    ports:
+      - "11235:11235"
     shm_size: 1gb
     volumes:
       - ./shared:/data/shared
@@ -259,12 +261,11 @@ services:
   # ==========================================
   caddy:
     image: caddy:2-alpine
-    container_name: AutomationKit
+    container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
-      - "11235:11235"
     volumes:
       - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./portal:/srv/portal:ro
