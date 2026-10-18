@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174 200" role="img" aria-label="Qdrant">
   <title>Qdrant</title>
-  <!-- Official Isometric Multi-Color 3D Vector Cube -->
   <polygon fill="#dc244c" points="86.6 0 0 50 0 150 86.6 200 119.08 181.25 119.08 143.75 86.6 162.5 32.48 131.25 32.48 68.75 86.6 37.5 140.73 68.75 140.73 193.75 173.21 175 173.21 50 86.6 0"/>
   <polygon fill="#dc244c" points="54.13 81.25 54.13 118.75 86.6 137.5 119.08 118.75 119.08 81.25 86.6 62.5 54.13 81.25"/>
   <polygon fill="#9e0d38" points="119.08 143.75 119.08 181.25 86.6 200 86.6 162.5 119.08 143.75"/>
