@@ -4,8 +4,13 @@
 
 # 0. Automation Master Portal Hub
 http://hub.local, http://hub.localhost, http://portal.local, http://portal.localhost, http://localhost {
-    root * /srv/portal
-    file_server
+    handle /api/* {
+        reverse_proxy automation-manager:3005
+    }
+    handle {
+        root * /srv/portal
+        file_server
+    }
 }
 
 # 1. n8n Main Automation Service
@@ -68,4 +73,20 @@ http://files.local, http://files.localhost {
 # 10. n8n Assistant Sandbox API
 http://sandbox.local, http://sandbox.localhost {
     reverse_proxy sandbox-api:8080
+}
+
+# 11. Supabase Local Suite (Studio & API)
+http://supabase.local, http://supabase.localhost {
+    @supabase_api path /auth/v1/* /rest/v1/* /graphql/v1 /realtime/v1/* /storage/v1/* /functions/v1/* /sso/* /.well-known/*
+    handle @supabase_api {
+        reverse_proxy supabase-kong:8000
+    }
+    handle {
+        reverse_proxy supabase-studio:3000
+    }
+}
+
+# 12. Supabase Dedicated API Gateway
+http://api.supabase.local, http://api.supabase.localhost {
+    reverse_proxy supabase-kong:8000
 }

@@ -1,0 +1,13 @@
+{
+  "name": "automation-manager",
+  "version": "1.0.0",
+  "description": "Docker Control Plane and Service Manager for AutomationKit",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

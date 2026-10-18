@@ -18,10 +18,12 @@
 
 <p align="center">
   <a href="#-quickstart-guide">Quickstart</a> •
+  <a href="docs/README.md"><strong>📚 n8n API Docs & Blueprints</strong></a> •
   <a href="#-architecture--networking">Architecture</a> •
   <a href="#-service-matrix--endpoints">Service Matrix</a> •
   <a href="#-n8n-node-integration-blueprints">n8n Blueprints</a> •
   <a href="#-local-swagger--api-docs">Swagger & API Docs</a> •
+  <a href="CHANGELOG.md"><strong>📝 Changelog (v1.0.0)</strong></a> •
   <a href="#-contributing--license">Contributing</a>
 </p>
 
@@ -59,18 +61,18 @@ All 11 microservices run inside an isolated Docker bridge network (`automationki
 
 | Technology | Role | Version | Official Documentation |
 | :--- | :--- | :--- | :--- |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/n8n.svg" width="20" height="20" /> **n8n** | Workflow Automation & AI Agents | `v2.43.7` | [docs.n8n.io](https://docs.n8n.io/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" width="20" height="20" /> **Redis Insight** | Cache & Queue Visual GUI | `Latest` | [redis.io/insight](https://redis.io/insight/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fastapi.svg" width="20" height="20" /> **Crawl4AI** | Async Web Crawler & LLM Parser | `Latest` | [crawl4ai.com](https://crawl4ai.com/) |
-| <img src="https://raw.githubusercontent.com/qdrant/qdrant/master/docs/logo.svg" width="20" height="20" /> **Qdrant** | Vector Search Engine & RAG DB | `v1.19.2` | [qdrant.tech/documentation](https://qdrant.tech/documentation/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/neo4j.svg" width="20" height="20" /> **Neo4j** | Graph Database & Knowledge Graphs | `5-community` | [neo4j.com/docs](https://neo4j.com/docs/) |
-| <img src="https://raw.githubusercontent.com/DS4SD/docling/main/docs/assets/logo.png" width="20" height="20" /> **Docling** | Document Parsing & PDF OCR | `Latest` | [ds4sd.github.io/docling](https://ds4sd.github.io/docling/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/searxng.svg" width="20" height="20" /> **SearXNG** | Private Metasearch Engine | `Latest` | [docs.searxng.org](https://docs.searxng.org/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" width="20" height="20" /> **Ollama** | Local LLMs (Llama 3, Mistral, Qwen) | `Latest` | [ollama.com/library](https://ollama.com/library) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/postgresql.svg" width="20" height="20" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" width="20" height="20" /> **Redis** | In-Memory Key-Value Store | `7-alpine` | [redis.io/docs](https://redis.io/docs/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" width="20" height="20" /> **n8n Assistant Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) |
-| <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/caddy.svg" width="20" height="20" /> **Caddy** | Reverse Proxy & Portal Host | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) |
+| <img src="assets/logos/n8n.svg" width="22" height="22" /> **n8n** | Workflow Automation & AI Agents | `v2.43.7` | [docs.n8n.io](https://docs.n8n.io/) |
+| <img src="assets/logos/supabase.svg" width="22" height="22" /> **Supabase** | PostgREST API, Auth & Storage Cluster | `Latest` | [supabase.com/docs](https://supabase.com/docs) |
+| <img src="assets/logos/docling.svg" width="22" height="22" /> **Docling** | Document Parsing & PDF OCR | `Latest` | [ds4sd.github.io/docling](https://ds4sd.github.io/docling/) |
+| <img src="assets/logos/crawl4ai.svg" width="22" height="22" /> **Crawl4AI** | Async Web Crawler & LLM Parser | `Latest` | [crawl4ai.com](https://crawl4ai.com/) |
+| <img src="assets/logos/qdrant.svg" width="22" height="22" /> **Qdrant** | Vector Search Engine & RAG DB | `v1.19.2` | [qdrant.tech/documentation](https://qdrant.tech/documentation/) |
+| <img src="assets/logos/searxng.svg" width="22" height="22" /> **SearXNG** | Private Metasearch Engine | `Latest` | [docs.searxng.org](https://docs.searxng.org/) |
+| <img src="assets/logos/ollama.svg" width="22" height="22" /> **Ollama** | Local LLMs (Llama 3, Mistral, Qwen) | `Latest` | [ollama.com/library](https://ollama.com/library) |
+| <img src="assets/logos/neo4j.svg" width="22" height="22" /> **Neo4j** | Graph Database & Knowledge Graphs | `5-community` | [neo4j.com/docs](https://neo4j.com/docs/) |
+| <img src="assets/logos/redis.svg" width="22" height="22" /> **Redis & Insight** | In-Memory Cache & Visual GUI | `7-alpine` | [redis.io/docs](https://redis.io/docs/) |
+| <img src="assets/logos/postgres.svg" width="22" height="22" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) |
+| <img src="assets/logos/docker.svg" width="22" height="22" /> **n8n Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) |
+| <img src="assets/logos/caddy.svg" width="22" height="22" /> **Caddy** | Reverse Proxy & Portal Gateway | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) |
 
 ---
 
@@ -96,25 +98,28 @@ copy .env.example .env
 # Linux / macOS / PowerShell
 cp .env.example .env
 ```
-Open `.env` and set your preferred secrets. The default configured test credentials are:
-* `POSTGRES_USER=admin`
-* `POSTGRES_PASSWORD=295517vp`
-* `REDIS_PASSWORD=295517vp`
-* `QDRANT_API_KEY=admin:295517vp`
-* `CRAWL4AI_API_TOKEN=295517vp`
-* `NEO4J_PASSWORD=295517vp`
+Open `.env` and set your preferred secrets. The default configured environment variables follow this structure:
+* `POSTGRES_USER=${POSTGRES_USER:-admin}`
+* `POSTGRES_PASSWORD=${POSTGRES_PASSWORD}`
+* `REDIS_PASSWORD=${REDIS_PASSWORD}`
+* `QDRANT_API_KEY=admin:${QDRANT_PASSWORD}`
+* `CRAWL4AI_API_TOKEN=${CRAWL4AI_API_TOKEN}`
+* `NEO4J_PASSWORD=${NEO4J_PASSWORD}`
+* `DOCLING_API_KEY=${DOCLING_API_KEY}`
+* `SANDBOX_API_KEYS=${SANDBOX_API_KEYS}`
+* `SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}`
 
 ### 4. Setup Local DNS Domains (Windows)
-Run the automated self-elevating setup script to map `.local` domains into your Windows hosts file:
+Run the unified CLI script (or select Option `[6]`) to map `.local` domains into your Windows hosts file:
 ```cmd
-setup-hosts.bat
+automation.bat hosts
 ```
-*(On Linux/macOS, append the entries in `scripts/add-local-domains.ps1` to `/etc/hosts` if you wish to use `.local` names. Otherwise, `.localhost` works natively in modern browsers without any host configuration).*
+*(On Linux/macOS, run `sudo bash scripts/add-local-domains.sh` to append entries to `/etc/hosts`. Otherwise, `.localhost` works natively in modern browsers without any host configuration).*
 
 ### 5. Launch AutomationKit
-Start the entire stack using the automated update and start script:
+Start the entire stack using the unified control CLI:
 ```cmd
-start.bat
+automation.bat start
 ```
 Or directly via Docker Compose:
 ```bash
@@ -123,7 +128,7 @@ docker compose up -d
 ```
 
 ### 6. Launch the Master Hub Portal
-Once running, double-click **`open-hub.bat`** or navigate to:
+Once running, double-click **`automation.bat`** (Option `[4]`), run `automation.bat open`, or navigate to:
 👉 **[http://localhost](http://localhost)** *(or [http://hub.local](http://hub.local))*
 
 ---
@@ -132,19 +137,20 @@ Once running, double-click **`open-hub.bat`** or navigate to:
 
 | Service | Browser Access (`.local` / Host) | Fallback (`.localhost`) | Docker Internal Host | Default Credentials |
 | :--- | :--- | :--- | :--- | :--- |
-| **AutomationKit Hub** | `http://localhost` / `http://hub.local` | `http://hub.localhost` | `caddy:80` | None |
-| **n8n Automation** | `http://n8n.local` / `http://localhost:5678` | `http://n8n.localhost` | `n8n:5678` | Self-register owner on first boot |
-| **Redis Insight** | `http://radis.local` / `http://localhost:5540` | `http://redis.localhost` | `redisinsight:5540` | Host: `redis`, Port: `6379`, Pass: `295517vp` |
-| **Crawl4AI Playground** | `http://crawl.local/playground/` | `http://crawl.localhost/playground/` | `crawl4ai:11235` | Bearer Token: `295517vp` |
-| **Qdrant Dashboard** | `http://qdrant.local` / `http://localhost:6333/dashboard` | `http://qdrant.localhost` | `qdrant:6333` | API Key: `admin:295517vp` |
-| **Neo4j Browser** | `http://neo.local` / `http://localhost:7474` | `http://neo.localhost` | `bolt://neo4j:7687` | User: `neo4j`, Password: `295517vp` |
-| **SearXNG Search** | `http://search.local` / `http://localhost:8080` | `http://search.localhost` | `searxng:8080` | None (Open) |
-| **Docling Parser UI** | `http://docling.local` / `http://localhost:5001/ui` | `http://docling.localhost` | `docling:5001` | API Key: `295517vp` |
-| **Assistant Sandbox API** | `http://sandbox.local` / `http://localhost:5681` | `http://sandbox.localhost` | `sandbox-api:8080` | Header: `X-Api-Key: 295517vp` |
-| **Ollama Local LLM** | `http://ollama.local` / `http://localhost:11434` | `http://ollama.localhost` | `ollama:11434` | None (Open) |
-| **PostgreSQL DB** | `localhost:5432` *(External SQL clients)* | N/A | `postgres:5432` | User: `admin`, Pass: `295517vp`, DB: `n8n_database` |
-| **Redis Store** | `localhost:6379` *(External Redis clients)* | N/A | `redis:6379` | Password: `295517vp` |
-| **Shared Volume** | `http://files.local` | `http://files.localhost` | Mount: `/data/shared` | Local folder: `./shared` |
+| <img src="assets/logos/n8n.svg" width="18" height="18" style="vertical-align: middle;" /> **AutomationKit Hub** | `http://localhost` / `http://hub.local` | `http://hub.localhost` | `caddy:80` | None |
+| <img src="assets/logos/n8n.svg" width="18" height="18" style="vertical-align: middle;" /> **n8n Automation** | `http://n8n.local` / `http://localhost:5678` | `http://n8n.localhost` | `n8n:5678` | Self-register owner on first boot |
+| <img src="assets/logos/supabase.svg" width="18" height="18" style="vertical-align: middle;" /> **Supabase Studio** | `http://supabase.local` / `http://localhost:54323` | `http://supabase.localhost` | `supabase-studio:3000` | Kong API: `8000`, DB: `5432` |
+| <img src="assets/logos/redis.svg" width="18" height="18" style="vertical-align: middle;" /> **Redis Insight** | `http://radis.local` / `http://localhost:5540` | `http://redis.localhost` | `redisinsight:5540` | Host: `redis`, Port: `6379`, Pass: `${REDIS_PASSWORD}` |
+| <img src="assets/logos/crawl4ai.svg" width="18" height="18" style="vertical-align: middle;" /> **Crawl4AI Playground** | `http://crawl.local/playground/` | `http://crawl.localhost/playground/` | `crawl4ai:11235` | Bearer Token: `${CRAWL4AI_API_TOKEN}` |
+| <img src="assets/logos/qdrant.svg" width="18" height="18" style="vertical-align: middle;" /> **Qdrant Dashboard** | `http://qdrant.local` / `http://localhost:6333/dashboard` | `http://qdrant.localhost` | `qdrant:6333` | API Key: `admin:${QDRANT_PASSWORD}` |
+| <img src="assets/logos/neo4j.svg" width="18" height="18" style="vertical-align: middle;" /> **Neo4j Browser** | `http://neo.local` / `http://localhost:7474` | `http://neo.localhost` | `bolt://neo4j:7687` | User: `neo4j`, Password: `${NEO4J_PASSWORD}` |
+| <img src="assets/logos/searxng.svg" width="18" height="18" style="vertical-align: middle;" /> **SearXNG Search** | `http://search.local` / `http://localhost:8080` | `http://search.localhost` | `searxng:8080` | None (Open) |
+| <img src="assets/logos/docling.svg" width="18" height="18" style="vertical-align: middle;" /> **Docling Parser UI** | `http://docling.local` / `http://localhost:5001/ui` | `http://docling.localhost` | `docling:5001` | API Key: `${DOCLING_API_KEY}` |
+| <img src="assets/logos/docker.svg" width="18" height="18" style="vertical-align: middle;" /> **Assistant Sandbox API** | `http://sandbox.local` / `http://localhost:5681` | `http://sandbox.localhost` | `sandbox-api:8080` | Header: `X-Api-Key: ${SANDBOX_API_KEYS}` |
+| <img src="assets/logos/ollama.svg" width="18" height="18" style="vertical-align: middle;" /> **Ollama Local LLM** | `http://ollama.local` / `http://localhost:11434` | `http://ollama.localhost` | `ollama:11434` | None (Open) |
+| <img src="assets/logos/postgres.svg" width="18" height="18" style="vertical-align: middle;" /> **PostgreSQL DB** | `localhost:5432` *(External SQL clients)* | N/A | `postgres:5432` | User: `admin`, Pass: `${POSTGRES_PASSWORD}`, DB: `n8n_database` |
+| <img src="assets/logos/redis.svg" width="18" height="18" style="vertical-align: middle;" /> **Redis Store** | `localhost:6379` *(External Redis clients)* | N/A | `redis:6379` | Password: `${REDIS_PASSWORD}` |
+| <img src="assets/logos/docker.svg" width="18" height="18" style="vertical-align: middle;" /> **Shared Volume** | `http://files.local` | `http://files.localhost` | Mount: `/data/shared` | Local folder: `./shared` |
 
 ---
 
@@ -156,30 +162,30 @@ When building workflows inside n8n, use these connection parameters in your node
 * **Host:** `postgres`
 * **Port:** `5432`
 * **Database:** `n8n_database`
-* **User:** `admin`
-* **Password:** `295517vp`
+* **User:** `${POSTGRES_USER:-admin}`
+* **Password:** `${POSTGRES_PASSWORD}`
 * **SSL:** `disable`
 
 ### 2. Redis Node
 * **Host:** `redis`
 * **Port:** `6379`
-* **Password:** `295517vp`
+* **Password:** `${REDIS_PASSWORD}`
 * **SSL:** `false`
 
 ### 3. Qdrant Vector Store Node
 * **Qdrant API URL:** `http://qdrant:6333`
-* **API Key:** `admin:295517vp`
+* **API Key:** `admin:${QDRANT_PASSWORD}`
 
 ### 4. Neo4j Graph Database Node
 * **Bolt URL:** `bolt://neo4j:7687`
 * **Username:** `neo4j`
-* **Password:** `295517vp`
+* **Password:** `${NEO4J_PASSWORD}`
 
 ### 5. Crawl4AI (HTTP Request Node)
 * **Method:** `POST`
 * **URL:** `http://crawl4ai:11235/crawl`
 * **Headers:**
-  * `Authorization`: `Bearer 295517vp`
+  * `Authorization`: `Bearer ${CRAWL4AI_API_TOKEN}`
   * `Content-Type`: `application/json`
 * **JSON Body:**
 ```json
@@ -205,15 +211,15 @@ When building workflows inside n8n, use these connection parameters in your node
 ### 8. n8n Assistant Sandbox Execution Integration
 * **Sandbox Provider:** `n8n-sandbox`
 * **Sandbox Service URL:** `http://sandbox-api:8080` (or `http://sandbox.local`)
-* **API Key:** `295517vp` (Header: `X-Api-Key: 295517vp`)
-* **Runner Registration Token:** `runner-reg-295517vp`
-* **Runner Control API Key:** `runner-key-295517vp`
+* **API Key:** `${SANDBOX_API_KEYS}` (Header: `X-Api-Key: ${SANDBOX_API_KEYS}`)
+* **Runner Registration Token:** `${SANDBOX_RUNNER_REGISTRATION_TOKEN}`
+* **Runner Control API Key:** `${SANDBOX_API_RUNNER_API_KEY}`
 * **Sandbox Container Image:** `ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0`
 * **Direct REST API Endpoints:**
   * **Health Status:** `GET http://localhost:5681/healthz`
-  * **List Active Sandboxes:** `GET http://localhost:5681/sandboxes` (Header: `X-Api-Key: 295517vp`)
-  * **Spawn Ephemeral Sandbox:** `POST http://localhost:5681/sandboxes` (Header: `X-Api-Key: 295517vp`, Body: `{}`)
-  * **Terminate Sandbox:** `DELETE http://localhost:5681/sandboxes/{id}` (Header: `X-Api-Key: 295517vp`)
+  * **List Active Sandboxes:** `GET http://localhost:5681/sandboxes` (Header: `X-Api-Key: ${SANDBOX_API_KEYS}`)
+  * **Spawn Ephemeral Sandbox:** `POST http://localhost:5681/sandboxes` (Header: `X-Api-Key: ${SANDBOX_API_KEYS}`, Body: `{}`)
+  * **Terminate Sandbox:** `DELETE http://localhost:5681/sandboxes/{id}` (Header: `X-Api-Key: ${SANDBOX_API_KEYS}`)
 
 ---
 
@@ -221,25 +227,35 @@ When building workflows inside n8n, use these connection parameters in your node
 
 AutomationKit features built-in, local Swagger and interactive API documentation running inside your containers:
 
-* **Crawl4AI Swagger UI:** [http://localhost:11235/docs](http://localhost:11235/docs) *(Auto-authenticated)*
-* **Crawl4AI ReDoc:** [http://localhost:11235/redoc](http://localhost:11235/redoc)
-* **Docling Swagger UI:** [http://localhost:5001/docs](http://localhost:5001/docs)
-* **Qdrant REST Console:** [http://localhost:6333/dashboard#/console](http://localhost:6333/dashboard#/console)
-* **Ollama Installed Models:** [http://localhost:11434/api/tags](http://localhost:11434/api/tags)
-* **SearXNG Settings & JSON API:** [http://localhost:8080/preferences](http://localhost:8080/preferences)
-* **n8n Assistant Sandbox API:** [http://localhost:5681/healthz](http://localhost:5681/healthz) | Sandboxes: [http://localhost:5681/sandboxes](http://localhost:5681/sandboxes) *(Header: `X-Api-Key: 295517vp`)*
+* <img src="assets/logos/crawl4ai.svg" width="16" height="16" style="vertical-align: middle;" /> **Crawl4AI Swagger UI:** [http://localhost:11235/docs](http://localhost:11235/docs) *(Auto-authenticated)*
+* <img src="assets/logos/crawl4ai.svg" width="16" height="16" style="vertical-align: middle;" /> **Crawl4AI ReDoc:** [http://localhost:11235/redoc](http://localhost:11235/redoc)
+* <img src="assets/logos/docling.svg" width="16" height="16" style="vertical-align: middle;" /> **Docling Swagger UI:** [http://localhost:5001/docs](http://localhost:5001/docs)
+* <img src="assets/logos/qdrant.svg" width="16" height="16" style="vertical-align: middle;" /> **Qdrant REST Console:** [http://localhost:6333/dashboard#/console](http://localhost:6333/dashboard#/console)
+* <img src="assets/logos/ollama.svg" width="16" height="16" style="vertical-align: middle;" /> **Ollama Installed Models:** [http://localhost:11434/api/tags](http://localhost:11434/api/tags)
+* <img src="assets/logos/searxng.svg" width="16" height="16" style="vertical-align: middle;" /> **SearXNG Settings & JSON API:** [http://localhost:8080/preferences](http://localhost:8080/preferences)
+* <img src="assets/logos/docker.svg" width="16" height="16" style="vertical-align: middle;" /> **n8n Assistant Sandbox API:** [http://localhost:5681/healthz](http://localhost:5681/healthz) | Sandboxes: [http://localhost:5681/sandboxes](http://localhost:5681/sandboxes) *(Header: `X-Api-Key: ${SANDBOX_API_KEYS}`)*
 
 ---
 
-## 🛠 Developer Scripts Reference
+## 🛠 Unified Control CLI Reference
 
-| Script | Purpose |
-| :--- | :--- |
-| **`start.bat`** | Pulls updated images and starts the stack cleanly with `--remove-orphans`. |
-| **`setup-hosts.bat`** | Self-elevating script to map all 10+ `.local` domains in Windows hosts. |
-| **`open-hub.bat`** | Launches the AutomationKit Master Hub Portal in your default browser. |
-| **`scripts/add-local-domains.ps1`** | Core PowerShell logic for safe, idempotency-checked hosts modifications. |
-| **`scripts/start.ps1`** | PowerShell orchestration script ensuring healthy boot orders. |
+AutomationKit provides a single, consolidated control script **`automation.bat`** (or `automation.sh` for Linux) for zero-friction management:
+
+```bash
+# Interactive menu (or double-click automation.bat)
+automation.bat
+
+# Direct commands
+automation.bat start            # Pull images and start all 24+ containers
+automation.bat stop             # Safely shut down all containers
+automation.bat restart          # Restart stack
+automation.bat open             # Open Web Control Center (http://localhost)
+automation.bat docs             # Open Knowledge Hub & Docs (http://localhost/docs.html)
+automation.bat hosts            # Configure .local DNS domains in Windows hosts
+automation.bat status           # View live container status table
+automation.bat logs [service]   # Tail live container logs
+automation.bat reset-n8n        # Reset n8n owner credentials
+```
 
 ---
 

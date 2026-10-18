@@ -3,55 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutomationKit — Developer Hub</title>
+  <title>Automation Kit — Control Center</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logos/n8n.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root[data-theme="dark"] {
-      --bg-body: #0d1117;
-      --bg-surface: #161b22;
-      --bg-card: #161b22;
-      --bg-card-hover: #1c2128;
-      --bg-muted: #21262d;
-      --bg-input: #0d1117;
-      --border: #30363d;
-      --border-hover: #484f58;
-      --text-primary: #f0f6fc;
-      --text-secondary: #8b949e;
-      --text-muted: #6e7681;
-      --accent: #2f81f7;
-      --accent-hover: #388bfd;
-      --accent-subtle: rgba(56, 139, 253, 0.12);
-      --success: #3fb950;
-      --success-subtle: rgba(63, 185, 80, 0.15);
-      --danger: #f85149;
-      --danger-subtle: rgba(248, 81, 73, 0.15);
-      --code-bg: #0d1117;
-      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    :root[data-theme="light"] {
-      --bg-body: #f6f8fa;
+  <style>
+    :root {
+      --bg-page: #f8fafc;
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
-      --bg-card-hover: #f6f8fa;
-      --bg-muted: #eaeef2;
-      --bg-input: #f6f8fa;
-      --border: #d0d7de;
-      --border-hover: #afb8c1;
-      --text-primary: #1f2328;
-      --text-secondary: #656d76;
-      --text-muted: #8c959f;
-      --accent: #0969da;
-      --accent-hover: #0860ca;
-      --accent-subtle: rgba(9, 105, 218, 0.08);
-      --success: #1a7f37;
-      --success-subtle: rgba(26, 127, 55, 0.1);
-      --danger: #cf222e;
-      --danger-subtle: rgba(207, 34, 46, 0.1);
-      --code-bg: #eff2f5;
-      --card-shadow: 0 1px 3px rgba(31, 35, 40, 0.08);
+      --bg-subtle: #f1f5f9;
+      --bg-input: #ffffff;
+      --border: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --accent: #ff6d5a;
+      --accent-hover: #f05540;
+      --accent-subtle: #fff1ee;
+      --success: #10b981;
+      --success-subtle: #ecfdf5;
+      --danger: #ef4444;
+      --danger-subtle: #fef2f2;
+      --terminal-bg: #0f172a;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+      --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #09090b;
+      --bg-surface: #121215;
+      --bg-card: #18181b;
+      --bg-subtle: #202024;
+      --bg-input: #141416;
+      --border: #27272a;
+      --border-subtle: #1f1f23;
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --accent: #ff6d5a;
+      --accent-hover: #ff8575;
+      --accent-subtle: rgba(255, 109, 90, 0.12);
+      --success: #10b981;
+      --success-subtle: rgba(16, 185, 129, 0.12);
+      --danger: #ef4444;
+      --danger-subtle: rgba(239, 68, 68, 0.12);
+      --terminal-bg: #0a0a0c;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.4);
+      --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     * {
@@ -61,95 +65,278 @@
     }
 
     body {
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-size: 13.5px;
+      line-height: 1.5;
       min-height: 100vh;
-      line-height: 1.45;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.15s ease, color 0.15s ease;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-
-    /* Minimal Navbar */
-    header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-      gap: 14px;
+      flex-direction: column;
     }
 
-    .brand {
+    /* ========================================== */
+    /* 1. Header (Sticky)                         */
+    /* ========================================== */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(255, 109, 90, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-mark img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    /* Header Search Box */
+    .header-search {
+      display: flex;
+      align-items: center;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 12px;
+      width: 240px;
+      gap: 8px;
+    }
+
+    .header-search input {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 12.5px;
+      outline: none;
+      width: 100%;
+    }
+
+    .header-search input::placeholder {
+      color: var(--text-dim);
+    }
+
+    /* Core Tools Circular Logos in Header */
+    .header-core-logos {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 8px;
+      border-left: 1px solid var(--border);
+      padding-left: 14px;
+    }
+
+    .circle-tool-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .circle-tool-btn:hover {
+      border-color: var(--accent);
+      background: var(--bg-subtle);
+      transform: translateY(-1px);
+    }
+
+    .circle-tool-btn img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .header-right {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      background: var(--text-primary);
-      color: var(--bg-body);
-      border-radius: 6px;
-      display: flex;
+    /* Custom Orange Border / Black Filled Docs Button */
+    .btn-docs {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .brand-title {
-      font-size: 18px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.3px;
+      padding: 6px 16px;
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      border: 1.5px solid var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      user-select: none;
     }
 
-    .brand-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 7px;
+    .btn-docs:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(255, 109, 90, 0.4);
+    }
+
+    .btn-docs:active {
+      transform: translateY(0);
+    }
+
+    /* Beautiful Custom Thin Scrollbar matching Theme Accent (#ff6d5a) */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 109, 90, 0.3);
       border-radius: 999px;
-      background: var(--accent-subtle);
-      color: var(--accent);
-      border: 1px solid rgba(56, 139, 253, 0.2);
+      transition: background 0.2s ease;
     }
 
-    .nav-actions {
-      display: flex;
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 109, 90, 0.35) transparent;
+    }
+
+    /* Buffering Spinner Animations */
+    .spinner-circle {
+      width: 9px;
+      height: 9px;
+      border: 1.8px solid var(--accent);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spinBuff 0.65s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spinBuff {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .pill-loading {
+      background: var(--accent-subtle) !important;
+      color: var(--accent) !important;
+      border: 1px solid rgba(255, 109, 90, 0.35) !important;
+    }
+
+    /* Switch loading: Toggle button itself is hidden, and in its exact place, circular spinner spins */
+    .switch .switch-spinner-slot {
+      display: none;
+      width: 100%;
+      height: 100%;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
+    .switch.loading {
+      cursor: wait;
+      pointer-events: none;
+    }
+
+    .switch.loading .slider {
+      display: none !important;
+    }
+
+    .switch.loading .switch-spinner-slot {
+      display: flex !important;
+    }
+
+    .switch-spinner-circle {
+      width: 18px;
+      height: 18px;
+      border: 2.2px solid var(--accent);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spinBuff 0.65s linear infinite;
+    }
+
+    /* 3D Tactile Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--bg-surface);
-      color: var(--text-primary);
-      text-decoration: none;
+      color: var(--text-main);
       cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
+      text-decoration: none;
+      transition: all 0.12s ease;
+      box-shadow: var(--shadow-btn);
+      user-select: none;
     }
 
     .btn:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-hover);
+      background: var(--bg-subtle);
+      border-color: var(--text-dim);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: none;
     }
 
     .btn-primary {
@@ -163,1805 +350,1471 @@
       border-color: var(--accent-hover);
     }
 
-    .btn-github {
-      background: var(--bg-muted);
-      border-color: var(--border);
+    .btn-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Tabs Bar */
-    .tabs-bar {
+    /* ========================================== */
+    /* 2. Sticky Live Telemetry Meter             */
+    /* ========================================== */
+    .telemetry-sticky-bar {
+      position: sticky;
+      top: 58px;
+      z-index: 90;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .telemetry-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
-    .nav-tabs {
-      display: flex;
-      gap: 3px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 3px;
-      overflow-x: auto;
-    }
-
-    .nav-tab-btn {
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 4px;
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .nav-tab-btn:hover {
-      color: var(--text-primary);
-    }
-
-    .nav-tab-btn.active {
-      background: var(--bg-muted);
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .search-input-wrapper {
-      position: relative;
-      min-width: 240px;
-    }
-
-    .search-input {
-      width: 100%;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px 6px 30px;
-      font-size: 12px;
-      color: var(--text-primary);
-      outline: none;
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-    }
-
-    .search-icon-svg {
-      position: absolute;
-      left: 9px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 14px;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    /* Section Headers */
-    .section-header {
+    .telemetry-card {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin: 24px 0 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-count {
-      font-size: 11px;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: var(--bg-muted);
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-
-    /* Compact Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
       gap: 14px;
-    }
-
-    .service-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
-      box-shadow: var(--card-shadow);
+      border-radius: 10px;
+      padding: 7px 14px;
+      min-width: 250px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .telemetry-card:hover {
+      border-color: var(--text-dim);
+    }
+
+    .telemetry-info {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.15s ease;
+      gap: 2px;
+      min-width: 95px;
     }
 
-    .service-card:hover {
-      border-color: var(--border-hover);
-    }
-
-    .card-top {
+    .telemetry-top-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      gap: 6px;
     }
 
-    .card-id {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .telemetry-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .card-logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 5px;
+    .telemetry-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .telemetry-badge-green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .telemetry-badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .telemetry-badge-red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .telemetry-main-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .telemetry-sub-val {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .telemetry-graph-box {
+      width: 120px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
 
-    .card-logo img, .card-logo svg {
+    .telemetry-cluster-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 7px 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* View Switcher: Tools | Services */
+    .view-switcher {
+      display: flex;
+      align-items: center;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2px;
+    }
+
+    .view-switch-btn {
+      padding: 5px 14px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .view-switch-btn.active {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ========================================== */
+    /* 3. Main Body Split Layout                  */
+    /* ========================================== */
+    .app-workspace {
+      flex: 1;
+      display: flex;
+      max-width: 1680px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px 60px;
+      gap: 24px;
+    }
+
+    /* Left Pane: Tools & Services (Scrollable) */
+    .pane-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pane-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pane-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tools Cards Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tool-card:hover {
+      border-color: var(--text-dim);
+    }
+
+    .tool-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tool-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tool-icon-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tool-icon-circle img {
       width: 22px;
       height: 22px;
       object-fit: contain;
     }
 
-    .card-title-text {
+    .tool-meta h3 {
       font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-weight: 700;
+      color: var(--text-main);
       line-height: 1.2;
     }
 
-    .card-subtitle {
+    .tool-meta span {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--text-muted);
     }
 
+    /* Status Pill */
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 7px;
+      gap: 6px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: var(--success-subtle);
-      color: var(--success);
-      border: 1px solid rgba(63, 185, 80, 0.2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
     }
 
-    .status-dot {
+    .pill-running {
+      background: var(--success-subtle);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .pill-running .dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: currentColor;
+      background: var(--success);
     }
 
-    /* Links Cluster */
-    .links-cluster {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .chip-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      font-size: 11px;
-      font-weight: 500;
-      border-radius: 4px;
-      text-decoration: none;
-      background: var(--bg-muted);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      transition: all 0.15s ease;
-    }
-
-    .chip-btn:hover {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-    }
-
-    .chip-btn.accent {
-      background: var(--accent-subtle);
-      border-color: rgba(56, 139, 253, 0.25);
-      color: var(--accent);
-    }
-
-    .chip-btn.accent:hover {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
-    .chip-btn.docs {
-      background: rgba(168, 85, 247, 0.08);
-      border-color: rgba(168, 85, 247, 0.25);
-      color: #a855f7;
-    }
-
-    .chip-btn.docs:hover {
-      background: #a855f7;
-      color: #ffffff;
-    }
-
-    /* Note pill */
-    .card-note {
-      font-size: 11px;
-      background: var(--bg-muted);
-      border-left: 2px solid var(--accent);
-      padding: 5px 8px;
-      border-radius: 0 4px 4px 0;
-      color: var(--text-secondary);
-      line-height: 1.35;
-    }
-
-    .card-note code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      background: var(--code-bg);
-      padding: 1px 3px;
-      border-radius: 3px;
-      color: var(--text-primary);
-    }
-
-    /* Credentials Key-Value list */
-    .creds-list {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 6px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 11px;
-    }
-
-    .cred-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .cred-k {
+    .pill-stopped {
+      background: var(--bg-subtle);
       color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .cred-v-group {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      max-width: 75%;
-    }
-
-    .cred-v {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-primary);
-      background: var(--code-bg);
-      padding: 1px 5px;
-      border-radius: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .copy-btn {
-      background: transparent;
       border: 1px solid var(--border);
-      color: var(--text-secondary);
-      border-radius: 3px;
-      padding: 1px 5px;
-      font-size: 10px;
-      cursor: pointer;
-      transition: all 0.15s ease;
     }
 
-    .copy-btn:hover {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
+    .pill-stopped .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
     }
 
-    /* Local Docs Section */
-    .docs-section, .blueprints-section, .env-section {
-      display: none;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .swagger-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .swagger-header {
+    /* Tool Card Actions Foot */
+    .tool-card-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
     }
 
-    .swagger-title {
+    .card-btn-group {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .swagger-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .swagger-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 5px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(56, 139, 253, 0.25);
-      color: var(--accent);
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-
-    .swagger-btn:hover {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
-    /* Blueprints Form Grid */
-    .bp-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-    }
-
-    .bp-title-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .bp-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 10px;
-    }
-
-    .bp-field {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 6px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .bp-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .bp-row {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
       gap: 6px;
     }
 
-    .bp-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--text-primary);
+    /* Smooth Apple-Style Toggle Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 22px;
+      flex-shrink: 0;
     }
 
-    /* Toast */
-    #toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transform: translateY(60px);
+    .switch input {
       opacity: 0;
-      transition: all 0.15s ease;
-      z-index: 9999;
+      width: 0;
+      height: 0;
     }
 
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--border);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 999px;
     }
 
-    .hidden {
-      display: none !important;
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 50%;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    footer {
-      margin-top: 40px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      gap: 10px;
+    input:checked + .slider {
+      background-color: var(--success);
     }
 
-    footer a {
-      color: var(--text-secondary);
-      text-decoration: none;
+    input:checked + .slider:before {
+      transform: translateX(16px);
     }
 
-    footer a:hover {
+    /* Sub-Services Expandable Drawer */
+    .subservices-drawer-btn {
+      background: transparent;
+      border: none;
       color: var(--accent);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0;
     }
 
-    @media (max-width: 768px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .tabs-bar {
+    .subservices-panel {
+      display: none;
+      border-top: 1px dashed var(--border);
+      padding-top: 12px;
+      margin-top: 4px;
+    }
+
+    .subservices-panel.open {
+      display: block;
+    }
+
+    .subservice-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12px;
+    }
+
+    .subservice-row:last-child {
+      border-bottom: none;
+    }
+
+    /* Services Section Container */
+    .services-group-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .services-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    /* ========================================== */
+    /* 4. Right Pane: 2 Linux Real Terminals      */
+    /* ========================================== */
+    .pane-terminals {
+      width: 440px;
+      position: sticky;
+      top: 124px;
+      height: calc(100vh - 144px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .terminal-card {
+      flex: 1;
+      min-height: 240px;
+      background: var(--terminal-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .terminal-bar {
+      height: 34px;
+      background: #090e17;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .terminal-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .terminal-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .term-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .term-btn:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .terminal-screen {
+      flex: 1;
+      padding: 10px 12px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: #38bdf8;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .terminal-screen::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .terminal-screen::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
+
+    .terminal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: #090e17;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .terminal-prompt {
+      color: var(--success);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .terminal-input::placeholder {
+      color: #475569;
+    }
+
+    /* Toast Box */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast-item {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: slideIn 0.2s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 1180px) {
+      .app-workspace {
         flex-direction: column;
-        align-items: stretch;
       }
-      .search-input-wrapper {
-        min-width: 100%;
+      .pane-terminals {
+        width: 100%;
+        position: static;
+        height: auto;
+      }
+      .terminal-card {
+        height: 280px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-
-    <!-- Header -->
-    <header>
-      <div class="brand">
-        <div class="brand-mark">AK</div>
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <h1 class="brand-title">AutomationKit</h1>
-            <span class="brand-badge">Local Stack</span>
-          </div>
+  <!-- ========================================== -->
+  <!-- 1. Header (Sticky)                         -->
+  <!-- ========================================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand-box" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <div class="brand-mark">
+          <img src="/assets/logos/n8n.svg" alt="Automation Kit">
         </div>
+        <span class="brand-title">Automation kit</span>
       </div>
 
-      <div class="nav-actions">
-        <!-- Official GitHub Link -->
-        <a href="https://github.com/codeXparadise/AutomationKit" target="_blank" class="btn btn-github">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-          </svg>
-          <span>GitHub</span>
+      <!-- Search Box -->
+      <div class="header-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="toolSearchInput" placeholder="Search tools, ports..." oninput="filterTools(this.value)">
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- Circular Logos of Core Tools (Right-aligned) -->
+      <div class="header-core-logos" style="border-left: none; margin-left: 0; padding-left: 0; margin-right: 4px;">
+        <a href="http://n8n.local" target="_blank" class="circle-tool-btn" title="n8n Workflow Engine">
+          <img src="/assets/logos/n8n.svg" alt="n8n">
         </a>
-
-        <!-- Load .env File -->
-        <button class="btn" onclick="document.getElementById('envFileInput').click()">Load .env</button>
-        <input type="file" id="envFileInput" class="hidden" accept=".env,text/plain" onchange="handleEnvFile(event)">
-
-        <!-- Health Check -->
-        <button class="btn btn-primary" onclick="pingAllServices()">Ping Services</button>
-
-        <!-- Dark/Light Theme -->
-        <button class="btn" onclick="toggleTheme()" title="Toggle Theme" id="themeBtn">☀️</button>
-      </div>
-    </header>
-
-    <!-- Navigation Tabs & Search -->
-    <div class="tabs-bar">
-      <div class="nav-tabs">
-        <button class="nav-tab-btn active" onclick="switchTab('all', this)">All Tools</button>
-        <button class="nav-tab-btn" onclick="switchTab('dashboards', this)">Dashboards & UIs</button>
-        <button class="nav-tab-btn" onclick="switchTab('services', this)">Background Services</button>
-        <button class="nav-tab-btn" onclick="switchTab('swagger', this)">Local Swagger & API Docs</button>
-        <button class="nav-tab-btn" onclick="switchTab('blueprints', this)">n8n Blueprint</button>
-        <button class="nav-tab-btn" onclick="switchTab('env', this)">.env Secrets</button>
+        <a href="http://supabase.local" target="_blank" class="circle-tool-btn" title="Supabase Suite">
+          <img src="/assets/logos/supabase.svg" alt="Supabase">
+        </a>
+        <a href="http://docling.local" target="_blank" class="circle-tool-btn" title="Docling Parser">
+          <img src="/assets/logos/docling.svg" alt="Docling">
+        </a>
+        <a href="http://search.local" target="_blank" class="circle-tool-btn" title="SearXNG Metasearch">
+          <img src="/assets/logos/searxng.svg" alt="SearXNG">
+        </a>
       </div>
 
-      <div class="search-input-wrapper" id="searchWrapper">
-        <svg class="search-icon-svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-        </svg>
-        <input type="text" id="searchInput" class="search-input" placeholder="Filter tools, ports, hosts..." onkeyup="filterCards()">
-      </div>
+      <!-- Docs Button (Orange border, black filled, white text, orange hover) -->
+      <a href="/docs.html" target="_blank" class="btn-docs" title="Open API & Knowledge Docs in new tab">
+        Docs ↗
+      </a>
+
+      <!-- GitHub Circular Logo Button -->
+      <a href="https://github.com/codeXparadise/AutomationKit" target="_blank" class="circle-tool-btn" title="GitHub Repository">
+        <img src="/assets/logos/github.svg" alt="GitHub">
+      </a>
+
+      <!-- Dark/Light Mode Toggle -->
+      <button class="circle-tool-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        🌙
+      </button>
     </div>
+  </header>
 
-    <!-- MAIN TOOLS VIEW -->
-    <div id="mainToolsView">
-
-      <!-- ========================================== -->
-      <!-- SECTION 1: DASHBOARDS & WEB UIS           -->
-      <!-- ========================================== -->
-      <div id="secDashboards">
-        <div class="section-header">
-          <div class="section-title">
-            <span>Dashboards & Web UIs</span>
+  <!-- ========================================== -->
+  <!-- 2. Sticky Live Telemetry Meter             -->
+  <!-- ========================================== -->
+  <div class="telemetry-sticky-bar">
+    <div class="telemetry-group">
+      <!-- CPU Live Card with Deflection Sparkline -->
+      <div class="telemetry-card" id="cpuTelemetryCard">
+        <div class="telemetry-info">
+          <div class="telemetry-top-row">
+            <span class="telemetry-label">CPU Load</span>
+            <span class="telemetry-badge telemetry-badge-green" id="cpuHealthBadge">HEALTHY</span>
           </div>
-          <span class="section-count">7 UIs</span>
+          <span class="telemetry-main-val" id="meterCpuVal">0.0%</span>
+          <span class="telemetry-sub-val" id="cpuCoreVal">Multi-Core</span>
         </div>
-
-        <div class="cards-grid">
-
-          <!-- 1. n8n -->
-          <div class="service-card" data-sec="dash" data-kw="n8n workflow 5678 automation">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/n8n.svg" alt="n8n" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(320deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">n8n Workflow</div>
-                  <div class="card-subtitle">Port 5678</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-n8n"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://n8n.local" target="_blank" class="chip-btn accent">http://n8n.local</a>
-              <a href="http://n8n.localhost" target="_blank" class="chip-btn">http://n8n.localhost</a>
-              <a href="http://localhost:5678" target="_blank" class="chip-btn">:5678 (Direct)</a>
-            </div>
-
-            <div class="card-note">
-              First run: Create Owner Account. Reset password: <code>docker exec -it n8n n8n user-management:reset</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:5678</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:5678')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Internal Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">n8n:5678</span>
-                  <button class="copy-btn" onclick="copyText('n8n:5678')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Encryption Key:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-n8n-enc">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-n8n-enc')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2. Redis Insight -->
-          <div class="service-card" data-sec="dash" data-kw="redis insight gui cache 5540">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" alt="Redis" style="filter: invert(30%) sepia(90%) saturate(2000%) hue-rotate(345deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">Redis Insight</div>
-                  <div class="card-subtitle">Port 5540</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-redisinsight"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://radis.local" target="_blank" class="chip-btn accent">http://radis.local</a>
-              <a href="http://redis.local" target="_blank" class="chip-btn">http://redis.local</a>
-              <a href="http://localhost:5540" target="_blank" class="chip-btn">:5540 (Direct)</a>
-            </div>
-
-            <div class="card-note">
-              Add DB: Host <code>redis</code> (Docker) or <code>localhost</code> (PC), Port <code>6379</code>, Pass <code>295517vp</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:5540</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:5540')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Redis Target:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">redis:6379</span>
-                  <button class="copy-btn" onclick="copyText('redis:6379')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Password:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-redis-pass">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-redis-pass')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Crawl4AI -->
-          <div class="service-card" data-sec="dash" data-kw="crawl4ai web scraper playground swagger 11235">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <!-- Crawl4AI Spider Vector -->
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="color: #10b981;">
-                    <path d="M12 2a4 4 0 0 0-4 4c0 .73.2 1.41.54 2H5.66A2 2 0 0 0 3.8 9.24L1.13 14.6a1 1 0 0 0 1.74.98L5.2 11h2.12c-.2.62-.32 1.29-.32 2 0 .5.06.98.17 1.45L3.6 17.2a1 1 0 0 0 1.34 1.45l3.8-2.85c.95.75 2.14 1.2 3.44 1.2s2.49-.45 3.44-1.2l3.8 2.85a1 1 0 0 0 1.34-1.45l-3.57-2.75c.11-.47.17-.95.17-1.45 0-.71-.12-1.38-.32-2h2.12l2.33 4.58a1 1 0 0 0 1.74-.98l-2.67-5.36a2 2 0 0 0-1.86-1.24h-2.88c.34-.59.54-1.27.54-2a4 4 0 0 0-4-4zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="card-title-text">Crawl4AI</div>
-                  <div class="card-subtitle">Port 11235</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-crawl4ai"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://crawl.local/playground/" target="_blank" class="chip-btn accent">Playground UI</a>
-              <a href="http://crawl.local/docs" target="_blank" class="chip-btn docs">Swagger /docs</a>
-              <a href="http://crawl.local/dashboard/" target="_blank" class="chip-btn">Monitor</a>
-            </div>
-
-            <div class="card-note">
-              Enter API token <code>295517vp</code> in top-right bar & click <strong>Set</strong>.
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host Swagger:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:11235/docs</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:11235/docs')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker Endpoint:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://crawl4ai:11235/crawl</span>
-                  <button class="copy-btn" onclick="copyText('http://crawl4ai:11235/crawl')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Bearer Token:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-crawl-token">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-crawl-token')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. Qdrant -->
-          <div class="service-card" data-sec="dash" data-kw="qdrant vector db rag 6333">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://raw.githubusercontent.com/qdrant/qdrant/master/docs/logo.svg" alt="Qdrant">
-                </div>
-                <div>
-                  <div class="card-title-text">Qdrant Vector DB</div>
-                  <div class="card-subtitle">Port 6333</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-qdrant"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://qdrant.local" target="_blank" class="chip-btn accent">http://qdrant.local</a>
-              <a href="http://localhost:6333/dashboard" target="_blank" class="chip-btn">:6333 Dashboard</a>
-            </div>
-
-            <div class="card-note">
-              Dashboard API Key: <code>admin:295517vp</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:6333</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:6333')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://qdrant:6333</span>
-                  <button class="copy-btn" onclick="copyText('http://qdrant:6333')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">API Key:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-qdrant-key">admin:295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-qdrant-key')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5. Neo4j -->
-          <div class="service-card" data-sec="dash" data-kw="neo4j graph browser cypher bolt 7474 7687">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/neo4j.svg" alt="Neo4j" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">Neo4j Browser</div>
-                  <div class="card-subtitle">Port 7474 &bull; Bolt 7687</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-neo4j"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://neo.local" target="_blank" class="chip-btn accent">http://neo.local</a>
-              <a href="http://localhost:7474" target="_blank" class="chip-btn">:7474 Browser</a>
-            </div>
-
-            <div class="card-note">
-              Browser Login: URL <code>bolt://localhost:7687</code>, User <code>neo4j</code>, Pass <code>295517vp</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Bolt (Host):</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">bolt://localhost:7687</span>
-                  <button class="copy-btn" onclick="copyText('bolt://localhost:7687')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Bolt (Docker):</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">bolt://neo4j:7687</span>
-                  <button class="copy-btn" onclick="copyText('bolt://neo4j:7687')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">User / Pass:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">neo4j / <span id="val-neo-pass">295517vp</span></span>
-                  <button class="copy-btn" onclick="copyFromId('val-neo-pass')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6. SearXNG -->
-          <div class="service-card" data-sec="dash" data-kw="searxng search engine 8080">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/searxng.svg" alt="SearXNG" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(190deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">SearXNG Search</div>
-                  <div class="card-subtitle">Port 8080</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-searxng"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://search.local" target="_blank" class="chip-btn accent">http://search.local</a>
-              <a href="http://localhost:8080" target="_blank" class="chip-btn">:8080 (Direct)</a>
-              <a href="http://localhost:8080/preferences" target="_blank" class="chip-btn docs">Settings</a>
-            </div>
-
-            <div class="card-note">
-              JSON Search: <code>http://searxng:8080/search?q={query}&amp;format=json</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:8080</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:8080')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://searxng:8080</span>
-                  <button class="copy-btn" onclick="copyText('http://searxng:8080')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Auth:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">None (Open)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 7. Docling -->
-          <div class="service-card" data-sec="dash" data-kw="docling document ocr pdf swagger 5001">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://raw.githubusercontent.com/DS4SD/docling/main/docs/assets/logo.png" alt="Docling">
-                </div>
-                <div>
-                  <div class="card-title-text">Docling Parser</div>
-                  <div class="card-subtitle">Port 5001</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-docling"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://docling.local" target="_blank" class="chip-btn accent">Web UI</a>
-              <a href="http://docling.local/docs" target="_blank" class="chip-btn docs">Swagger /docs</a>
-              <a href="http://localhost:5001/ui" target="_blank" class="chip-btn">:5001</a>
-            </div>
-
-            <div class="card-note">
-              Extract PDFs, tables & layout to Markdown. API Key: <code>295517vp</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host Swagger:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:5001/docs</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:5001/docs')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://docling:5001</span>
-                  <button class="copy-btn" onclick="copyText('http://docling:5001')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">API Key:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-docling-key">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-docling-key')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="telemetry-graph-box" id="cpuSparklineBox">
+          <!-- Live SVG deflection sparkline generated dynamically -->
         </div>
       </div>
 
-      <!-- ========================================== -->
-      <!-- SECTION 2: BACKGROUND SERVICES & APIS     -->
-      <!-- ========================================== -->
-      <div id="secServices">
-        <div class="section-header">
-          <div class="section-title">
-            <span>Background Services & APIs</span>
+      <!-- RAM Live Card with Deflection Sparkline -->
+      <div class="telemetry-card" id="ramTelemetryCard">
+        <div class="telemetry-info">
+          <div class="telemetry-top-row">
+            <span class="telemetry-label">System RAM</span>
+            <span class="telemetry-badge telemetry-badge-green" id="ramHealthBadge">OPTIMAL</span>
           </div>
-          <span class="section-count">5 Services</span>
+          <span class="telemetry-main-val" id="meterRamVal">0.0 GB</span>
+          <span class="telemetry-sub-val" id="meterRamSubVal">0% of 0 GB</span>
         </div>
-
-        <div class="cards-grid">
-
-          <!-- 8. Assistant Sandbox API -->
-          <div class="service-card" data-sec="serv" data-kw="sandbox assistant n8n dind runner code 5681">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" alt="Sandbox" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">n8n Assistant Sandbox</div>
-                  <div class="card-subtitle">Port 5681 &bull; DinD Control Plane</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-sandbox"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://sandbox.local/healthz" target="_blank" class="chip-btn accent">http://sandbox.local</a>
-              <a href="http://localhost:5681/healthz" target="_blank" class="chip-btn docs">:5681 /healthz</a>
-              <a href="http://localhost:5681/sandboxes" target="_blank" class="chip-btn">:5681 /sandboxes</a>
-            </div>
-
-            <div class="card-note">
-              Official isolated execution sandbox for n8n AI Assistant. Header: <code>X-Api-Key: 295517vp</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:5681</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:5681')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://sandbox-api:8080</span>
-                  <button class="copy-btn" onclick="copyText('http://sandbox-api:8080')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">API Key:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-sandbox-key">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-sandbox-key')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Runner Token:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-sandbox-runner-reg">runner-reg-295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-sandbox-runner-reg')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Runner API Key:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-sandbox-runner-key">runner-key-295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-sandbox-runner-key')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 8. Ollama -->
-          <div class="service-card" data-sec="serv" data-kw="ollama llm llama ai api 11434">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" alt="Ollama" style="filter: invert(80%);">
-                </div>
-                <div>
-                  <div class="card-title-text">Ollama LLM Engine</div>
-                  <div class="card-subtitle">Port 11434</div>
-                </div>
-              </div>
-              <div class="status-pill" id="ping-ollama"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://localhost:11434/api/tags" target="_blank" class="chip-btn docs">/api/tags (Models)</a>
-              <a href="http://localhost:11434/api/version" target="_blank" class="chip-btn docs">/api/version</a>
-              <a href="http://ollama.local" target="_blank" class="chip-btn">http://ollama.local</a>
-            </div>
-
-            <div class="card-note">
-              Download model: <code>docker exec -it ollama ollama run llama3.2</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host API URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://localhost:11434</span>
-                  <button class="copy-btn" onclick="copyText('http://localhost:11434')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker URL:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">http://ollama:11434</span>
-                  <button class="copy-btn" onclick="copyText('http://ollama:11434')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">API Auth:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">None (Open Local API)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 9. PostgreSQL -->
-          <div class="service-card" data-sec="serv" data-kw="postgresql postgres sql database 5432">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/postgresql.svg" alt="PostgreSQL" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(185deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">PostgreSQL 16</div>
-                  <div class="card-subtitle">Port 5432</div>
-                </div>
-              </div>
-              <div class="status-pill"><span class="status-dot"></span> Port 5432</div>
-            </div>
-
-            <div class="card-note">
-              DBeaver/pgAdmin: Host <code>localhost</code>, Port <code>5432</code>, DB <code>n8n_database</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">localhost:5432</span>
-                  <button class="copy-btn" onclick="copyText('localhost:5432')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">postgres:5432</span>
-                  <button class="copy-btn" onclick="copyText('postgres:5432')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">User / Pass:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v"><span id="val-pg-user">admin</span> / <span id="val-pg-pass">295517vp</span></span>
-                  <button class="copy-btn" onclick="copyFromId('val-pg-pass')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Database:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-pg-db">n8n_database</span>
-                  <button class="copy-btn" onclick="copyFromId('val-pg-db')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 10. Redis Server -->
-          <div class="service-card" data-sec="serv" data-kw="redis cache store kv 6379">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/redis.svg" alt="Redis" style="filter: invert(30%) sepia(90%) saturate(2000%) hue-rotate(345deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">Redis Server</div>
-                  <div class="card-subtitle">Port 6379</div>
-                </div>
-              </div>
-              <div class="status-pill"><span class="status-dot"></span> Port 6379</div>
-            </div>
-
-            <div class="card-note">
-              URI: <code>redis://:295517vp@localhost:6379</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">localhost:6379</span>
-                  <button class="copy-btn" onclick="copyText('localhost:6379')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Docker Host:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">redis:6379</span>
-                  <button class="copy-btn" onclick="copyText('redis:6379')">Copy</button>
-                </div>
-              </div>
-              <div class="cred-item">
-                <span class="cred-k">Password:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v" id="val-redis-pass2">295517vp</span>
-                  <button class="copy-btn" onclick="copyFromId('val-redis-pass2')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 11. Caddy Shared Files -->
-          <div class="service-card" data-sec="serv" data-kw="caddy files shared storage 80">
-            <div class="card-top">
-              <div class="card-id">
-                <div class="card-logo">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/caddy.svg" alt="Caddy" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(90deg);">
-                </div>
-                <div>
-                  <div class="card-title-text">Shared File Server</div>
-                  <div class="card-subtitle">Local Directory</div>
-                </div>
-              </div>
-              <div class="status-pill"><span class="status-dot"></span> Online</div>
-            </div>
-
-            <div class="links-cluster">
-              <a href="http://files.local" target="_blank" class="chip-btn accent">http://files.local</a>
-              <a href="http://files.localhost" target="_blank" class="chip-btn">http://files.localhost</a>
-            </div>
-
-            <div class="card-note">
-              Mount path inside containers: <code>/data/shared</code>
-            </div>
-
-            <div class="creds-list">
-              <div class="cred-item">
-                <span class="cred-k">Local Path:</span>
-                <div class="cred-v-group">
-                  <span class="cred-v">./shared</span>
-                  <button class="copy-btn" onclick="copyText('./shared')">Copy</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="telemetry-graph-box" id="ramSparklineBox">
+          <!-- Live SVG deflection sparkline generated dynamically -->
         </div>
       </div>
 
-    </div>
-
-    <!-- LOCAL SWAGGER & API DOCS VIEW -->
-    <div id="swaggerDocsView" class="docs-section">
-      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px;">
-        <h3 style="font-size: 14px; font-weight: 600;">⚡ Locally Hosted Swagger & Interactive API Documentation</h3>
-        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
-          Ye sabhi Swagger UIs aur interactive API documentation tumhare apne machine par locally chal rahe hain:
-        </p>
-      </div>
-
-      <!-- 1. Crawl4AI Swagger -->
-      <div class="swagger-card">
-        <div class="swagger-header">
-          <div class="swagger-title">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fastapi.svg" width="20" height="20" alt="FastAPI" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(130deg);">
-            <span>Crawl4AI Local Swagger UI & OpenAPI</span>
+      <!-- Cluster Containers Status -->
+      <div class="telemetry-cluster-card">
+        <div class="telemetry-info">
+          <div class="telemetry-top-row">
+            <span class="telemetry-label">Cluster Status</span>
+            <span class="telemetry-badge telemetry-badge-green" id="clusterHealthBadge">100% ONLINE</span>
           </div>
-          <span style="font-size: 11px; color: var(--text-muted);">Port 11235</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary);">
-          Interactive testbench for <code>/crawl</code>, <code>/md</code>, <code>/screenshot</code>, and streaming crawling endpoints.
-        </p>
-        <div class="swagger-links">
-          <a href="http://crawl.local/docs" target="_blank" class="swagger-btn">
-            <span>Swagger UI (http://crawl.local/docs) ↗</span>
-          </a>
-          <a href="http://crawl.local/redoc" target="_blank" class="swagger-btn" style="background: var(--bg-muted); color: var(--text-primary); border-color: var(--border);">
-            <span>ReDoc (http://crawl.local/redoc) ↗</span>
-          </a>
-          <a href="http://crawl.localhost/docs" target="_blank" class="swagger-btn" style="background: var(--bg-muted); color: var(--text-muted); border-color: var(--border);">
-            <span>.localhost Fallback ↗</span>
-          </a>
-        </div>
-        <div class="card-note">
-          <strong>Auto-Authenticated:</strong> Caddy transparently injects the Bearer token &mdash; Swagger and ReDoc open with zero auth prompts!
-        </div>
-      </div>
-
-      <!-- 2. Docling Swagger -->
-      <div class="swagger-card">
-        <div class="swagger-header">
-          <div class="swagger-title">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fastapi.svg" width="20" height="20" alt="FastAPI" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(130deg);">
-            <span>Docling Local Swagger UI & Endpoints</span>
-          </div>
-          <span style="font-size: 11px; color: var(--text-muted);">Port 5001</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary);">
-          Direct OpenAPI testing for document parsing, PDF OCR, table extraction, and structured JSON conversion.
-        </p>
-        <div class="swagger-links">
-          <a href="http://localhost:5001/docs" target="_blank" class="swagger-btn">
-            <span>Open Swagger UI (:5001/docs) ↗</span>
-          </a>
-          <a href="http://docling.local/docs" target="_blank" class="swagger-btn">
-            <span>http://docling.local/docs ↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 3. Ollama Local API -->
-      <div class="swagger-card">
-        <div class="swagger-header">
-          <div class="swagger-title">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg" width="20" height="20" alt="Ollama" style="filter: invert(80%);">
-            <span>Ollama Local REST Endpoints</span>
-          </div>
-          <span style="font-size: 11px; color: var(--text-muted);">Port 11434</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary);">
-          Native OpenAI-compatible local endpoints for LLM chat completions and model metadata.
-        </p>
-        <div class="swagger-links">
-          <a href="http://localhost:11434/api/tags" target="_blank" class="swagger-btn">
-            <span>Installed Models JSON (/api/tags) ↗</span>
-          </a>
-          <a href="http://localhost:11434/api/version" target="_blank" class="swagger-btn">
-            <span>Engine Version (/api/version) ↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4. Qdrant REST Console -->
-      <div class="swagger-card">
-        <div class="swagger-header">
-          <div class="swagger-title">
-            <img src="https://raw.githubusercontent.com/qdrant/qdrant/master/docs/logo.svg" width="20" height="20" alt="Qdrant">
-            <span>Qdrant Local REST Query Console</span>
-          </div>
-          <span style="font-size: 11px; color: var(--text-muted);">Port 6333</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary);">
-          Built-in interactive JSON REST console for testing vector distance search, payload filters, and collections.
-        </p>
-        <div class="swagger-links">
-          <a href="http://localhost:6333/dashboard#/console" target="_blank" class="swagger-btn">
-            <span>Open Qdrant REST Console ↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 5. n8n Assistant Sandbox REST & Control Plane -->
-      <div class="swagger-card">
-        <div class="swagger-header">
-          <div class="swagger-title">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" width="20" height="20" alt="Docker Sandbox" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
-            <span>n8n Assistant Sandbox REST & DinD Control API</span>
-          </div>
-          <span style="font-size: 11px; color: var(--text-muted);">Port 5681 &bull; Internal 8080</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary);">
-          Control plane API for managing isolated Docker-in-Docker execution environments for n8n AI Assistant code execution.
-        </p>
-        <div class="swagger-links">
-          <a href="http://sandbox.local/healthz" target="_blank" class="swagger-btn">
-            <span>Health Check (/healthz) ↗</span>
-          </a>
-          <a href="http://localhost:5681/sandboxes" target="_blank" class="swagger-btn">
-            <span>Active Sandboxes (/sandboxes) ↗</span>
-          </a>
-          <a href="http://sandbox.localhost/healthz" target="_blank" class="swagger-btn" style="background: var(--bg-muted); color: var(--text-muted); border-color: var(--border);">
-            <span>.localhost Fallback ↗</span>
-          </a>
-        </div>
-        <div class="card-note">
-          <strong>Authentication:</strong> Pass <code>X-Api-Key: 295517vp</code> header. Supports <code>GET /sandboxes</code>, <code>POST /sandboxes</code> (provision container), and <code>DELETE /sandboxes/{id}</code>.
-        </div>
-      </div>
-
-    </div>
-
-    <!-- BLUEPRINTS VIEW -->
-    <div id="blueprintsView" class="blueprints-section">
-      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px;">
-        <h3 style="font-size: 14px; font-weight: 600;">⚡ n8n Node Configuration Parameters</h3>
-        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
-          n8n me workflow create karte waqt in exact connection parameters ko copy karein:
-        </p>
-      </div>
-
-      <!-- Postgres in n8n -->
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">PostgreSQL Node</div>
-          <span style="font-size: 11px; color: var(--text-muted);">Type: PostgreSQL</span>
-        </div>
-        <div class="bp-grid">
-          <div class="bp-field">
-            <span class="bp-label">Host</span>
-            <div class="bp-row">
-              <span class="bp-val">postgres</span>
-              <button class="copy-btn" onclick="copyText('postgres')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Database</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-pg-db">n8n_database</span>
-              <button class="copy-btn" onclick="copyFromId('bp-pg-db')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">User</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-pg-user">admin</span>
-              <button class="copy-btn" onclick="copyFromId('bp-pg-user')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Password</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-pg-pass">295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-pg-pass')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Port</span>
-            <div class="bp-row">
-              <span class="bp-val">5432</span>
-              <button class="copy-btn" onclick="copyText('5432')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">SSL</span>
-            <div class="bp-row">
-              <span class="bp-val">disable</span>
-              <button class="copy-btn" onclick="copyText('disable')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Redis in n8n -->
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">Redis Node</div>
-          <span style="font-size: 11px; color: var(--text-muted);">Type: Redis</span>
-        </div>
-        <div class="bp-grid">
-          <div class="bp-field">
-            <span class="bp-label">Host</span>
-            <div class="bp-row">
-              <span class="bp-val">redis</span>
-              <button class="copy-btn" onclick="copyText('redis')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Port</span>
-            <div class="bp-row">
-              <span class="bp-val">6379</span>
-              <button class="copy-btn" onclick="copyText('6379')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Password</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-redis-pass">295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-redis-pass')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Qdrant in n8n -->
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">Qdrant Vector Store Node</div>
-          <span style="font-size: 11px; color: var(--text-muted);">Type: Qdrant API</span>
-        </div>
-        <div class="bp-grid">
-          <div class="bp-field">
-            <span class="bp-label">Qdrant URL</span>
-            <div class="bp-row">
-              <span class="bp-val">http://qdrant:6333</span>
-              <button class="copy-btn" onclick="copyText('http://qdrant:6333')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">API Key</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-qdrant-key">admin:295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-qdrant-key')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Crawl4AI in n8n -->
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">Crawl4AI HTTP Request Node</div>
-          <span style="font-size: 11px; color: var(--text-muted);">Method: POST</span>
-        </div>
-        <div class="bp-grid">
-          <div class="bp-field">
-            <span class="bp-label">URL</span>
-            <div class="bp-row">
-              <span class="bp-val">http://crawl4ai:11235/crawl</span>
-              <button class="copy-btn" onclick="copyText('http://crawl4ai:11235/crawl')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Header: Authorization</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-crawl-auth">Bearer 295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-crawl-auth')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Header: Content-Type</span>
-            <div class="bp-row">
-              <span class="bp-val">application/json</span>
-              <button class="copy-btn" onclick="copyText('application/json')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- n8n Assistant Sandbox Integration -->
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">n8n Assistant Sandbox Configuration</div>
-          <span style="font-size: 11px; color: var(--text-muted);">Type: DinD Sandbox Provider</span>
-        </div>
-        <div class="bp-grid">
-          <div class="bp-field">
-            <span class="bp-label">Provider</span>
-            <div class="bp-row">
-              <span class="bp-val">n8n-sandbox</span>
-              <button class="copy-btn" onclick="copyText('n8n-sandbox')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Service URL</span>
-            <div class="bp-row">
-              <span class="bp-val">http://sandbox-api:8080</span>
-              <button class="copy-btn" onclick="copyText('http://sandbox-api:8080')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">API Key (X-Api-Key)</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-sandbox-key">295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-sandbox-key')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Runner Token</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-sandbox-reg-token">runner-reg-295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-sandbox-reg-token')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Runner API Key</span>
-            <div class="bp-row">
-              <span class="bp-val" id="bp-sandbox-runner-key">runner-key-295517vp</span>
-              <button class="copy-btn" onclick="copyFromId('bp-sandbox-runner-key')">Copy</button>
-            </div>
-          </div>
-          <div class="bp-field">
-            <span class="bp-label">Sandbox Image</span>
-            <div class="bp-row">
-              <span class="bp-val">ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0</span>
-              <button class="copy-btn" onclick="copyText('ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0')">Copy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- .ENV VIEW -->
-    <div id="envView" class="env-section">
-      <div class="bp-card">
-        <div class="bp-title-bar">
-          <div style="font-size: 13px; font-weight: 600;">Loaded .env Configuration</div>
-          <button class="btn btn-primary" onclick="copyAllEnv()">Copy Entire .env</button>
-        </div>
-
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
-            <thead>
-              <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted);">
-                <th style="padding: 6px 10px;">Variable Name</th>
-                <th style="padding: 6px 10px;">Current Value</th>
-                <th style="padding: 6px 10px; width: 70px;">Action</th>
-              </tr>
-            </thead>
-            <tbody id="envTableBody"></tbody>
-          </table>
+          <span class="telemetry-main-val" id="meterContainersVal">-- / --</span>
+          <span class="telemetry-sub-val">Docker Engine Stack</span>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-      <div>
-        <span>AutomationKit</span> &bull; 
-        <a href="https://github.com/codeXparadise/AutomationKit" target="_blank">https://github.com/codeXparadise/AutomationKit</a>
-      </div>
-      <div>
-        <span>Local Microservices Stack</span>
-      </div>
-    </footer>
-
+    <!-- View Switcher Tabs: Tools | Services -->
+    <div class="view-switcher">
+      <button class="view-switch-btn active" id="viewBtnTools" onclick="switchMainView('tools')">Tools</button>
+      <button class="view-switch-btn" id="viewBtnServices" onclick="switchMainView('services')">Services</button>
+    </div>
   </div>
 
-  <!-- Toast -->
-  <div id="toast">Copied</div>
+  <!-- ========================================== -->
+  <!-- 3. Main Workspace Split Layout             -->
+  <!-- ========================================== -->
+  <div class="app-workspace">
+    <!-- Left Pane: Tools or Services -->
+    <main class="pane-main">
+      
+      <!-- Section A: Tools Dashboard Cards -->
+      <section id="toolsViewSection">
+        <div class="pane-header-row" style="margin-bottom: 14px;">
+          <h2 class="pane-title">
+            <span>Primary Tools Dashboards</span>
+            <span style="font-size: 12px; font-weight: 500; color: var(--text-muted);">(UI Accessible)</span>
+          </h2>
+          <div style="font-size: 11.5px; color: var(--text-dim);">Live Status & Instant Launch</div>
+        </div>
+
+        <div class="tools-grid" id="toolsCardsContainer">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Section B: Services & Container Hierarchy -->
+      <section id="servicesViewSection" style="display: none;">
+        <div class="pane-header-row" style="margin-bottom: 14px;">
+          <h2 class="pane-title">
+            <span>Service Containers & Microservices</span>
+          </h2>
+          <div style="font-size: 11.5px; color: var(--text-dim);">Grouped by Stack Role</div>
+        </div>
+
+        <div id="servicesGroupsContainer">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Pane: 2 Dedicated Linux Real Terminals (Sticky) -->
+    <aside class="pane-terminals">
+      <!-- Terminal 1: n8n Runner Environment -->
+      <div class="terminal-card">
+        <div class="terminal-bar">
+          <div class="terminal-title-group">
+            <div class="terminal-dot"></div>
+            <span class="terminal-name">runner-env (Python / Node)</span>
+          </div>
+          <div class="terminal-actions">
+            <button class="term-btn" onclick="clearTerm('screenRunner')">Clear</button>
+          </div>
+        </div>
+        <div class="terminal-screen" id="screenRunner">n8n runner environment ready.
+Run pip, uv, npm or test scripts directly.</div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt">$</span>
+          <input type="text" class="terminal-input" id="inputRunner" placeholder="Enter command (e.g. uv pip list, python3 --version)..." onkeydown="if(event.key==='Enter') execTerminal('n8n-runners', 'inputRunner', 'screenRunner')">
+          <button class="term-btn" onclick="execTerminal('n8n-runners', 'inputRunner', 'screenRunner')">Run</button>
+        </div>
+      </div>
+
+      <!-- Terminal 2: Ollama Real Terminal -->
+      <div class="terminal-card">
+        <div class="terminal-bar">
+          <div class="terminal-title-group">
+            <div class="terminal-dot" style="background: #38bdf8;"></div>
+            <span class="terminal-name">ollama (LLM CLI)</span>
+          </div>
+          <div class="terminal-actions">
+            <button class="term-btn" onclick="clearTerm('screenOllama')">Clear</button>
+          </div>
+        </div>
+        <div class="terminal-screen" id="screenOllama">Ollama terminal ready.
+Run ollama list, ollama ps, or custom commands.</div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt" style="color: #38bdf8;">ollama $</span>
+          <input type="text" class="terminal-input" id="inputOllama" placeholder="Enter command (e.g. ollama list, ollama ps)..." onkeydown="if(event.key==='Enter') execTerminal('ollama', 'inputOllama', 'screenOllama')">
+          <button class="term-btn" onclick="execTerminal('ollama', 'inputOllama', 'screenOllama')">Run</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="toast-box" id="toastBox"></div>
 
   <script>
-    // Theme Management
-    function initTheme() {
-      const saved = localStorage.getItem('ak_theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', saved);
-      document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+    // STRICT LIST OF 8 UI TOOLS REQUESTED BY USER
+    const UI_TOOLS = [
+      {
+        id: 'n8n',
+        name: 'n8n Workflow Engine',
+        port: ':5678',
+        container: 'n8n',
+        url: 'http://n8n.local',
+        docFile: 'README.md',
+        icon: 'n8n.svg',
+        hasSubservices: true,
+        subservices: [
+          { name: 'n8n-runners', role: 'Python/Node Task Runner' },
+          { name: 'sandbox-runner-1', role: 'DinD Isolated Sandbox' }
+        ]
+      },
+      {
+        id: 'docling',
+        name: 'IBM Docling Parser',
+        port: ':5001',
+        container: 'docling',
+        url: 'http://docling.local',
+        docFile: 'docling.md',
+        icon: 'docling.svg'
+      },
+      {
+        id: 'searxng',
+        name: 'SearXNG Metasearch',
+        port: ':8080',
+        container: 'searxng',
+        url: 'http://search.local',
+        docFile: 'searxng.md',
+        icon: 'searxng.svg'
+      },
+      {
+        id: 'redisinsight',
+        name: 'Redis Insight GUI',
+        port: ':5540',
+        container: 'redisinsight',
+        url: 'http://redis.local',
+        docFile: 'redis.md',
+        icon: 'redis.svg'
+      },
+      {
+        id: 'crawl4ai',
+        name: 'Crawl4AI Web Scraper',
+        port: ':11235',
+        container: 'crawl4ai',
+        url: 'http://crawl.local',
+        docFile: 'crawl4ai.md',
+        icon: 'crawl4ai.svg'
+      },
+      {
+        id: 'neo4j',
+        name: 'Neo4j Browser GUI',
+        port: ':7474',
+        container: 'neo4j',
+        url: 'http://localhost:7474',
+        docFile: 'neo4j.md',
+        icon: 'neo4j.svg'
+      },
+      {
+        id: 'qdrant',
+        name: 'Qdrant Vector Dashboard',
+        port: ':6333',
+        container: 'qdrant',
+        url: 'http://qdrant.local',
+        docFile: 'qdrant.md',
+        icon: 'qdrant.svg'
+      },
+      {
+        id: 'supabase',
+        name: 'Supabase Studio Console',
+        port: ':54323',
+        container: 'supabase-studio',
+        url: 'http://supabase.local',
+        docFile: 'supabase.md',
+        icon: 'supabase.svg',
+        hasSubservices: true,
+        subservices: [
+          { name: 'supabase-kong', role: 'Kong API Gateway' },
+          { name: 'supabase-db', role: 'PostgreSQL 17' },
+          { name: 'supabase-auth', role: 'GoTrue Auth Engine' },
+          { name: 'supabase-rest', role: 'PostgREST API' },
+          { name: 'realtime-dev.supabase-realtime', role: 'Realtime Server' },
+          { name: 'supabase-storage', role: 'Storage API' },
+          { name: 'supabase-meta', role: 'Postgres Meta' },
+          { name: 'supabase-edge-functions', role: 'Edge Runtime' },
+          { name: 'supabase-imgproxy', role: 'ImgProxy Engine' }
+        ]
+      }
+    ];
+
+    // ALL SERVICES GROUPED FOR SERVICES TAB
+    const SERVICE_GROUPS = [
+      {
+        group: 'Supabase Cluster (10 Microservices)',
+        icon: 'supabase.svg',
+        containers: [
+          'supabase-studio', 'supabase-kong', 'supabase-db', 'supabase-auth',
+          'supabase-rest', 'realtime-dev.supabase-realtime', 'supabase-storage',
+          'supabase-meta', 'supabase-edge-functions', 'supabase-imgproxy'
+        ]
+      },
+      {
+        group: 'AI & Inference Engines',
+        icon: 'docling.svg',
+        containers: ['ollama', 'docling', 'qdrant', 'neo4j']
+      },
+      {
+        group: 'Crawling & Search',
+        icon: 'crawl4ai.svg',
+        containers: ['crawl4ai', 'searxng']
+      },
+      {
+        group: 'Runners & Isolated Sandbox',
+        icon: 'docker.svg',
+        containers: ['n8n-runners', 'sandbox-api', 'sandbox-runner-1']
+      },
+      {
+        group: 'Databases & In-Memory Store',
+        icon: 'postgres.svg',
+        containers: ['postgres', 'redis', 'redisinsight']
+      },
+      {
+        group: 'Core Infrastructure',
+        icon: 'n8n.svg',
+        containers: ['n8n', 'caddy', 'automation-manager']
+      }
+    ];
+
+    function getContainerLogo(name) {
+      if (!name) return 'n8n.svg';
+      const n = name.toLowerCase();
+      if (n.includes('supabase') || n.includes('realtime')) return 'supabase.svg';
+      if (n.includes('docling')) return 'docling.svg';
+      if (n.includes('crawl')) return 'crawl4ai.svg';
+      if (n.includes('ollama')) {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        return isLight ? 'ollama-black.svg' : 'ollama-white.svg';
+      }
+      if (n.includes('qdrant')) return 'qdrant.svg';
+      if (n.includes('neo4j') || n.includes('neo')) return 'neo4j.svg';
+      if (n.includes('redis')) return 'redis.svg';
+      if (n.includes('postgres')) return 'postgres.svg';
+      if (n.includes('searxng') || n.includes('search')) return 'searxng.svg';
+      if (n.includes('sandbox')) return 'docker.svg';
+      if (n.includes('caddy')) return 'caddy.svg';
+      return 'n8n.svg';
+    }
+
+    let rawContainers = [];
+    let systemStats = null;
+    let searchQuery = '';
+    const openDrawers = new Set();
+    const pendingToggles = new Map(); // containerName -> 'running' | 'stopped'
+
+    // Telemetry Sparkline Deflection History
+    const cpuHistory = [8, 12, 10, 15, 14, 18, 12, 16, 20, 14, 12, 16, 18, 15, 12, 14, 16, 12, 15, 14];
+    const ramHistory = [28, 28, 29, 28, 29, 29, 28, 29, 30, 29, 29, 28, 29, 29, 29, 28, 29, 29, 29, 29];
+
+    function generateSparklineSvg(history, color, gradId) {
+      const width = 120;
+      const height = 34;
+      const pad = 3;
+      const max = 100;
+      const min = 0;
+      const step = width / (history.length - 1);
+
+      const pts = history.map((val, i) => {
+        const x = i * step;
+        const clamped = Math.max(0, Math.min(100, val));
+        const y = height - pad - ((clamped - min) / (max - min || 1)) * (height - pad * 2);
+        return { x, y };
+      });
+
+      const lineD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+      const areaD = `${lineD} L ${width} ${height} L 0 ${height} Z`;
+      const lastP = pts[pts.length - 1];
+
+      return `
+        <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="overflow: visible;">
+          <defs>
+            <linearGradient id="${gradId}" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.38"/>
+              <stop offset="100%" stop-color="${color}" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          <path d="${areaD}" fill="url(#${gradId})"/>
+          <path d="${lineD}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="${lastP.x.toFixed(1)}" cy="${lastP.y.toFixed(1)}" r="3" fill="${color}"/>
+        </svg>
+      `;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchData();
+      setInterval(fetchData, 2000);
+    });
+
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/containers');
+        if (!res.ok) throw new Error('API down');
+        const data = await res.json();
+        rawContainers = data.containers || [];
+        systemStats = data.system || null;
+        updateDashboard();
+      } catch (_) {}
+    }
+
+    function updateDashboard() {
+      const containerMap = new Map();
+      rawContainers.forEach(c => containerMap.set(c.name, c));
+
+      // Resolve pending toggles when target state is reached
+      pendingToggles.forEach((targetState, cName) => {
+        const live = containerMap.get(cName);
+        if (targetState === 'running') {
+          if (live && live.state === 'running') {
+            pendingToggles.delete(cName);
+          }
+        } else if (targetState === 'stopped') {
+          if (!live || live.state !== 'running') {
+            pendingToggles.delete(cName);
+          }
+        }
+      });
+
+      // 1. Live Sticky Telemetry Bar with Deflection Graphs
+      if (systemStats) {
+        const cpuNum = parseFloat(systemStats.cpuPercent) || 0;
+        const ramNum = parseFloat(systemStats.ramPercent) || 0;
+
+        cpuHistory.push(cpuNum);
+        cpuHistory.shift();
+        ramHistory.push(ramNum);
+        ramHistory.shift();
+
+        // CPU color coding: <60% green, 60-80% amber, >80% red
+        let cpuColor = '#10b981';
+        let cpuBadgeClass = 'telemetry-badge-green';
+        let cpuBadgeText = 'HEALTHY';
+        if (cpuNum >= 80) {
+          cpuColor = '#ef4444';
+          cpuBadgeClass = 'telemetry-badge-red';
+          cpuBadgeText = 'HIGH LOAD';
+        } else if (cpuNum >= 60) {
+          cpuColor = '#f59e0b';
+          cpuBadgeClass = 'telemetry-badge-amber';
+          cpuBadgeText = 'MODERATE';
+        }
+
+        document.getElementById('meterCpuVal').innerText = `${cpuNum.toFixed(1)}%`;
+        const cpuBadge = document.getElementById('cpuHealthBadge');
+        if (cpuBadge) {
+          cpuBadge.className = `telemetry-badge ${cpuBadgeClass}`;
+          cpuBadge.innerText = cpuBadgeText;
+        }
+        const cpuBox = document.getElementById('cpuSparklineBox');
+        if (cpuBox) {
+          cpuBox.innerHTML = generateSparklineSvg(cpuHistory, cpuColor, 'cpuGrad');
+        }
+
+        // RAM color coding
+        let ramColor = '#10b981';
+        let ramBadgeClass = 'telemetry-badge-green';
+        let ramBadgeText = 'OPTIMAL';
+        if (ramNum >= 80) {
+          ramColor = '#ef4444';
+          ramBadgeClass = 'telemetry-badge-red';
+          ramBadgeText = 'HIGH LOAD';
+        } else if (ramNum >= 60) {
+          ramColor = '#f59e0b';
+          ramBadgeClass = 'telemetry-badge-amber';
+          ramBadgeText = 'MODERATE';
+        }
+
+        const ramValEl = document.getElementById('meterRamVal');
+        if (ramValEl) ramValEl.innerText = `${systemStats.ramUsedGb} GB`;
+        const ramSubEl = document.getElementById('meterRamSubVal');
+        if (ramSubEl) ramSubEl.innerText = `${ramNum.toFixed(1)}% of ${systemStats.ramTotalGb} GB`;
+        const ramBadge = document.getElementById('ramHealthBadge');
+        if (ramBadge) {
+          ramBadge.className = `telemetry-badge ${ramBadgeClass}`;
+          ramBadge.innerText = ramBadgeText;
+        }
+        const ramBox = document.getElementById('ramSparklineBox');
+        if (ramBox) {
+          ramBox.innerHTML = generateSparklineSvg(ramHistory, ramColor, 'ramGrad');
+        }
+      }
+
+      const runningCount = rawContainers.filter(c => c.state === 'running').length;
+      const countEl = document.getElementById('meterContainersVal');
+      if (countEl) countEl.innerText = `${runningCount} / ${rawContainers.length} Active`;
+      const clusterBadge = document.getElementById('clusterHealthBadge');
+      if (clusterBadge) {
+        const allUp = runningCount === rawContainers.length && rawContainers.length > 0;
+        clusterBadge.className = `telemetry-badge ${allUp ? 'telemetry-badge-green' : 'telemetry-badge-amber'}`;
+        clusterBadge.innerText = allUp ? '100% ONLINE' : `${runningCount} UP`;
+      }
+
+      // 2. Render Tools Cards
+      renderToolsCards(containerMap);
+
+      // 3. Render Services Grouped
+      renderServicesSection(containerMap);
+    }
+
+    function renderToolsCards(containerMap) {
+      const container = document.getElementById('toolsCardsContainer');
+      const filtered = UI_TOOLS.filter(t => {
+        if (!searchQuery) return true;
+        return t.name.toLowerCase().includes(searchQuery) || t.port.toLowerCase().includes(searchQuery);
+      });
+
+      container.innerHTML = filtered.map(tool => {
+        const live = containerMap.get(tool.container);
+        const isUp = live && live.state === 'running';
+        const isProtected = live && live.protected;
+        const isPending = pendingToggles.has(tool.container);
+        const pendingTarget = pendingToggles.get(tool.container);
+
+        // Subservices rendering if tool has them
+        let subservicesHtml = '';
+        if (tool.hasSubservices && tool.subservices) {
+          const isOpen = openDrawers.has(`drawer-${tool.id}`);
+          const subRows = tool.subservices.map(sub => {
+            const subLive = containerMap.get(sub.name);
+            const subUp = subLive && subLive.state === 'running';
+            const subPending = pendingToggles.has(sub.name);
+
+            return `
+              <div class="subservice-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img src="/assets/logos/${tool.icon}" width="16" height="16" style="vertical-align: middle; flex-shrink: 0;" alt="${tool.name}">
+                  <div>
+                    <strong style="color: var(--text-main); font-family: 'JetBrains Mono';">${sub.name}</strong>
+                    <span style="color: var(--text-muted); margin-left: 6px;">(${sub.role})</span>
+                  </div>
+                </div>
+                <label class="switch ${subPending ? 'loading' : ''}">
+                  <input type="checkbox" ${subPending ? 'disabled' : ''} ${subUp ? 'checked' : ''} onchange="toggleContainer('${sub.name}', this.checked)">
+                  <span class="slider"></span>
+                  <div class="switch-spinner-slot"><div class="switch-spinner-circle"></div></div>
+                </label>
+              </div>
+            `;
+          }).join('');
+
+          subservicesHtml = `
+            <div style="margin-top: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="subservices-drawer-btn" onclick="toggleDrawer('drawer-${tool.id}')">
+                  <span>Services (${tool.subservices.length}) ${isOpen ? '▲' : '▼'}</span>
+                </button>
+                <button class="btn btn-sm" style="font-size: 11px; padding: 2px 8px;" onclick="toggleAllSubservices('${tool.id}')">
+                  Toggle All
+                </button>
+              </div>
+              <div class="subservices-panel ${isOpen ? 'open' : ''}" id="drawer-${tool.id}">
+                ${subRows}
+              </div>
+            </div>
+          `;
+        }
+
+        // Status pill: if pending, show buffering spinner!
+        let statusPillHtml = '';
+        if (isPending) {
+          statusPillHtml = `
+            <div class="status-pill pill-loading">
+              <span class="spinner-circle"></span>
+              <span>${pendingTarget === 'running' ? 'STARTING...' : 'STOPPING...'}</span>
+            </div>
+          `;
+        } else if (isUp) {
+          statusPillHtml = `
+            <div class="status-pill pill-running">
+              <span class="dot"></span>
+              <span>ACTIVE</span>
+            </div>
+          `;
+        } else {
+          statusPillHtml = `
+            <div class="status-pill pill-stopped">
+              <span class="dot"></span>
+              <span>OFF</span>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="tool-card">
+            <div class="tool-card-head">
+              <div class="tool-brand">
+                <div class="tool-icon-circle">
+                  <img src="/assets/logos/${tool.icon}" alt="${tool.name}">
+                </div>
+                <div class="tool-meta">
+                  <h3>${tool.name}</h3>
+                  <span>PORT ${tool.port}</span>
+                </div>
+              </div>
+
+              ${statusPillHtml}
+            </div>
+
+            ${subservicesHtml}
+
+            <div class="tool-card-foot">
+              <div class="card-btn-group">
+                <a href="${tool.url}" target="_blank" class="btn btn-sm ${isUp ? 'btn-primary' : ''}">
+                  Dashboard ↗
+                </a>
+                <a href="/docs.html?tool=${tool.id}" target="_blank" class="btn btn-sm">
+                  Docs
+                </a>
+              </div>
+
+              <div>
+                ${isProtected ? `
+                  <span style="font-size: 11px; font-weight: 600; color: var(--accent);">🔒 Core</span>
+                ` : `
+                  <label class="switch ${isPending ? 'loading' : ''}" title="Toggle ${tool.container}">
+                    <input type="checkbox" ${isPending ? 'disabled' : ''} ${isUp ? 'checked' : ''} onchange="toggleContainer('${tool.container}', this.checked)">
+                    <span class="slider"></span>
+                    <div class="switch-spinner-slot"><div class="switch-spinner-circle"></div></div>
+                  </label>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderServicesSection(containerMap) {
+      const container = document.getElementById('servicesGroupsContainer');
+      container.innerHTML = SERVICE_GROUPS.map((grp, idx) => {
+        const rows = grp.containers.map(cName => {
+          const live = containerMap.get(cName);
+          const isUp = live && live.state === 'running';
+          const isProtected = live && live.protected;
+          const cpu = live?.metrics?.cpu || '0.0%';
+          const mem = live?.metrics?.memory || '0 MB';
+          const isPending = pendingToggles.has(cName);
+          const pendingTarget = pendingToggles.get(cName);
+
+          let statusHtml = '';
+          if (isPending) {
+            statusHtml = `
+              <span class="status-pill pill-loading">
+                <span class="spinner-circle"></span>
+                <span>${pendingTarget === 'running' ? 'STARTING...' : 'STOPPING...'}</span>
+              </span>
+            `;
+          } else {
+            statusHtml = `
+              <span class="status-pill ${isUp ? 'pill-running' : 'pill-stopped'}">
+                <span class="dot"></span>
+                <span>${isUp ? 'RUNNING' : 'STOPPED'}</span>
+              </span>
+            `;
+          }
+
+          const cLogo = getContainerLogo(cName);
+
+          return `
+            <div class="subservice-row" style="padding: 10px 0;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 26px; height: 26px; border-radius: 6px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px; border: 1px solid var(--border);">
+                  <img src="/assets/logos/${cLogo}" style="width: 100%; height: 100%; object-fit: contain;" alt="${cName}">
+                </div>
+                <div>
+                  <strong style="font-family: 'JetBrains Mono'; font-size: 13px;">${cName}</strong>
+                  <span style="font-size: 11.5px; color: var(--text-muted); margin-left: 12px;">CPU: ${cpu} • RAM: ${mem}</span>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                ${statusHtml}
+                ${isProtected ? `
+                  <span style="font-size: 11px; font-weight: 600; color: var(--accent);">🔒</span>
+                ` : `
+                  <label class="switch ${isPending ? 'loading' : ''}">
+                    <input type="checkbox" ${isPending ? 'disabled' : ''} ${isUp ? 'checked' : ''} onchange="toggleContainer('${cName}', this.checked)">
+                    <span class="slider"></span>
+                    <div class="switch-spinner-slot"><div class="switch-spinner-circle"></div></div>
+                  </label>
+                `}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="services-group-card">
+            <div class="services-group-head">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="/assets/logos/${grp.icon || 'n8n.svg'}" width="20" height="20" alt="Group Icon">
+                <strong style="font-size: 14px;">${grp.group}</strong>
+              </div>
+              <button class="btn btn-sm" onclick="toggleEntireGroup(${idx})">Toggle Group</button>
+            </div>
+            <div>${rows}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleDrawer(id) {
+      if (openDrawers.has(id)) {
+        openDrawers.delete(id);
+      } else {
+        openDrawers.add(id);
+      }
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('open');
+      const containerMap = new Map();
+      rawContainers.forEach(c => containerMap.set(c.name, c));
+      renderToolsCards(containerMap);
+    }
+
+    async function toggleContainer(name, start) {
+      const action = start ? 'start' : 'stop';
+      const targetState = start ? 'running' : 'stopped';
+      pendingToggles.set(name, targetState);
+      
+      // Auto-expire pending after 6s safety timeout so it never spins indefinitely
+      setTimeout(() => {
+        if (pendingToggles.has(name)) {
+          pendingToggles.delete(name);
+          updateDashboard();
+        }
+      }, 6000);
+
+      // Immediately render with buffering spinner
+      const containerMap = new Map();
+      rawContainers.forEach(c => containerMap.set(c.name, c));
+      renderToolsCards(containerMap);
+      renderServicesSection(containerMap);
+
+      notify(`${action === 'start' ? 'Starting' : 'Stopping'} ${name}...`);
+      try {
+        const res = await fetch(`/api/containers/${encodeURIComponent(name)}/${action}`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          notify(`${name} ${action} command sent`, 'success');
+          setTimeout(fetchData, 600);
+          setTimeout(fetchData, 1500);
+        } else {
+          pendingToggles.delete(name);
+          notify(`Failed: ${data.error}`, 'error');
+          updateDashboard();
+        }
+      } catch (e) {
+        pendingToggles.delete(name);
+        notify(e.message, 'error');
+        updateDashboard();
+      }
+    }
+
+    async function toggleAllSubservices(toolId) {
+      const tool = UI_TOOLS.find(t => t.id === toolId);
+      if (!tool || !tool.subservices) return;
+      notify(`Toggling all services for ${tool.name}...`);
+      for (const sub of tool.subservices) {
+        const live = rawContainers.find(c => c.name === sub.name);
+        const currentlyUp = live && live.state === 'running';
+        await fetch(`/api/containers/${encodeURIComponent(sub.name)}/${currentlyUp ? 'stop' : 'start'}`, { method: 'POST' });
+      }
+      setTimeout(fetchData, 1500);
+    }
+
+    async function toggleEntireGroup(groupIdx) {
+      const grp = SERVICE_GROUPS[groupIdx];
+      if (!grp) return;
+      notify(`Toggling group: ${grp.group}...`);
+      for (const name of grp.containers) {
+        const live = rawContainers.find(c => c.name === name);
+        if (live && live.protected) continue;
+        const currentlyUp = live && live.state === 'running';
+        await fetch(`/api/containers/${encodeURIComponent(name)}/${currentlyUp ? 'stop' : 'start'}`, { method: 'POST' });
+      }
+      setTimeout(fetchData, 1500);
+    }
+
+    function switchMainView(view) {
+      const toolsSec = document.getElementById('toolsViewSection');
+      const servSec = document.getElementById('servicesViewSection');
+      const btnTools = document.getElementById('viewBtnTools');
+      const btnServ = document.getElementById('viewBtnServices');
+
+      if (view === 'tools') {
+        toolsSec.style.display = 'block';
+        servSec.style.display = 'none';
+        btnTools.classList.add('active');
+        btnServ.classList.remove('active');
+      } else {
+        toolsSec.style.display = 'none';
+        servSec.style.display = 'block';
+        btnTools.classList.remove('active');
+        btnServ.classList.add('active');
+      }
+    }
+
+    function filterTools(val) {
+      searchQuery = val.toLowerCase().trim();
+      const containerMap = new Map();
+      rawContainers.forEach(c => containerMap.set(c.name, c));
+      renderToolsCards(containerMap);
+    }
+
+    // ==========================================
+    // Real Linux Terminal Execution Streaming
+    // ==========================================
+    async function execTerminal(target, inputId, screenId) {
+      const input = document.getElementById(inputId);
+      const cmd = input.value.trim();
+      if (!cmd) return;
+      input.value = '';
+
+      const screen = document.getElementById(screenId);
+      screen.innerText += `\n$ ${cmd}\n`;
+      screen.scrollTop = screen.scrollHeight;
+
+      try {
+        const response = await fetch('/api/runner/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ target, command: cmd })
+        });
+
+        if (!response.ok) throw new Error(`Exec failed (${response.statusText})`);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          screen.innerText += decoder.decode(value, { stream: true });
+          screen.scrollTop = screen.scrollHeight;
+        }
+      } catch (e) {
+        screen.innerText += `\n[Error]: ${e.message}\n`;
+      }
+    }
+
+    function clearTerm(screenId) {
+      document.getElementById(screenId).innerText = 'Terminal cleared.\n';
+    }
+
+    function notify(msg, type = 'info') {
+      const box = document.getElementById('toastBox');
+      const toast = document.createElement('div');
+      toast.className = 'toast-item';
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️')}</span><span>${msg}</span>`;
+      box.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 3200);
     }
 
     function toggleTheme() {
-      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-      const nxt = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', nxt);
-      localStorage.setItem('ak_theme', nxt);
-      document.getElementById('themeBtn').textContent = nxt === 'dark' ? '☀️' : '🌙';
-    }
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').innerText = next === 'dark' ? '🌙' : '☀️';
 
-    // Active .env Variables
-    let envData = {
-      N8N_ENCRYPTION_KEY: "295517vp",
-      N8N_RUNNERS_AUTH_TOKEN: "295517vp",
-      POSTGRES_USER: "admin",
-      POSTGRES_PASSWORD: "295517vp",
-      POSTGRES_DB: "n8n_database",
-      REDIS_PASSWORD: "295517vp",
-      SEARXNG_BASE_URL: "http://search.local",
-      QDRANT_API_KEY: "admin:295517vp",
-      NEO4J_USER: "admin",
-      NEO4J_PASSWORD: "295517vp",
-      CRAWL4AI_API_TOKEN: "295517vp",
-      DOCLING_API_KEY: "295517vp",
-      BROWSERLESS_TOKEN: "295517vp",
-      N8N_SANDBOX_VERSION: "1.9.0",
-      SANDBOX_API_KEYS: "295517vp",
-      SANDBOX_API_RUNNER_REGISTRATION_TOKEN: "runner-reg-295517vp",
-      SANDBOX_API_RUNNER_API_KEY: "runner-key-295517vp",
-      N8N_SANDBOX_SERVICE_API_KEY: "295517vp"
-    };
-
-    function renderEnvTable() {
-      const tbody = document.getElementById('envTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      for (const [k, v] of Object.entries(envData)) {
-        const tr = document.createElement('tr');
-        tr.style.borderBottom = '1px solid var(--border)';
-        tr.innerHTML = `
-          <td style="padding: 6px 10px; font-weight: 600; color: var(--accent);">${k}</td>
-          <td style="padding: 6px 10px; font-family: 'JetBrains Mono', monospace;">${v}</td>
-          <td style="padding: 6px 10px;">
-            <button class="copy-btn" onclick="copyText('${v}')">Copy</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      }
-    }
-
-    // Tab Switching
-    function switchTab(tab, btn) {
-      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      const mainView = document.getElementById('mainToolsView');
-      const secDash = document.getElementById('secDashboards');
-      const secServ = document.getElementById('secServices');
-      const swaggerView = document.getElementById('swaggerDocsView');
-      const bpView = document.getElementById('blueprintsView');
-      const envView = document.getElementById('envView');
-      const searchWrap = document.getElementById('searchWrapper');
-
-      mainView.style.display = 'none';
-      swaggerView.style.display = 'none';
-      bpView.style.display = 'none';
-      envView.style.display = 'none';
-      searchWrap.style.display = 'block';
-
-      if (tab === 'all') {
-        mainView.style.display = 'block';
-        secDash.style.display = 'block';
-        secServ.style.display = 'block';
-        filterCards();
-      } else if (tab === 'dashboards') {
-        mainView.style.display = 'block';
-        secDash.style.display = 'block';
-        secServ.style.display = 'none';
-        filterCards();
-      } else if (tab === 'services') {
-        mainView.style.display = 'block';
-        secDash.style.display = 'none';
-        secServ.style.display = 'block';
-        filterCards();
-      } else if (tab === 'swagger') {
-        swaggerView.style.display = 'flex';
-        searchWrap.style.display = 'none';
-      } else if (tab === 'blueprints') {
-        bpView.style.display = 'flex';
-        searchWrap.style.display = 'none';
-      } else if (tab === 'env') {
-        envView.style.display = 'flex';
-        renderEnvTable();
-        searchWrap.style.display = 'none';
-      }
-    }
-
-    // Filter Cards
-    function filterCards() {
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
-      const cards = document.querySelectorAll('.service-card');
-
-      cards.forEach(c => {
-        const text = c.textContent.toLowerCase();
-        const kw = (c.dataset.kw || '').toLowerCase();
-        if (!q || text.includes(q) || kw.includes(q)) {
-          c.style.display = 'flex';
-        } else {
-          c.style.display = 'none';
-        }
+      // Dynamically switch Ollama logo between white (dark mode) and black (light mode)
+      const ollamaImgs = document.querySelectorAll('img[src*="ollama"]');
+      ollamaImgs.forEach(img => {
+        img.src = next === 'light' ? '/assets/logos/ollama-black.svg' : '/assets/logos/ollama-white.svg';
       });
     }
-
-    // Copying
-    function copyText(str) {
-      navigator.clipboard.writeText(str).then(() => {
-        showToast(`Copied: "${str}"`);
-      }).catch(() => {
-        const ta = document.createElement('textarea');
-        ta.value = str;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast(`Copied: "${str}"`);
-      });
-    }
-
-    function copyFromId(id) {
-      const el = document.getElementById(id);
-      if (el) copyText(el.textContent.trim());
-    }
-
-    function copyAllEnv() {
-      let text = '';
-      for (const [k, v] of Object.entries(envData)) {
-        text += `${k}=${v}\n`;
-      }
-      copyText(text);
-      showToast('Copied all .env variables');
-    }
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg || 'Copied';
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 1800);
-    }
-
-    // Load .env
-    function handleEnvFile(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const r = new FileReader();
-      r.onload = function(evt) {
-        const lines = evt.target.result.split('\n');
-        lines.forEach(l => {
-          l = l.trim();
-          if (!l || l.startsWith('#')) return;
-          const idx = l.indexOf('=');
-          if (idx !== -1) {
-            envData[l.substring(0, idx).trim()] = l.substring(idx + 1).trim();
-          }
-        });
-        updateDOM();
-        renderEnvTable();
-        showToast('Updated with .env values');
-      };
-      r.readAsText(file);
-    }
-
-    function updateDOM() {
-      if (document.getElementById('val-n8n-enc')) document.getElementById('val-n8n-enc').textContent = envData.N8N_ENCRYPTION_KEY || '295517vp';
-      if (document.getElementById('val-redis-pass')) document.getElementById('val-redis-pass').textContent = envData.REDIS_PASSWORD || '295517vp';
-      if (document.getElementById('val-redis-pass2')) document.getElementById('val-redis-pass2').textContent = envData.REDIS_PASSWORD || '295517vp';
-      if (document.getElementById('val-crawl-token')) document.getElementById('val-crawl-token').textContent = envData.CRAWL4AI_API_TOKEN || '295517vp';
-      if (document.getElementById('val-qdrant-key')) document.getElementById('val-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
-      if (document.getElementById('val-neo-pass')) document.getElementById('val-neo-pass').textContent = envData.NEO4J_PASSWORD || '295517vp';
-      if (document.getElementById('val-docling-key')) document.getElementById('val-docling-key').textContent = envData.DOCLING_API_KEY || '295517vp';
-      if (document.getElementById('val-sandbox-key')) document.getElementById('val-sandbox-key').textContent = envData.SANDBOX_API_KEYS || '295517vp';
-      if (document.getElementById('val-sandbox-runner-reg')) document.getElementById('val-sandbox-runner-reg').textContent = envData.SANDBOX_API_RUNNER_REGISTRATION_TOKEN || 'runner-reg-295517vp';
-      if (document.getElementById('val-sandbox-runner-key')) document.getElementById('val-sandbox-runner-key').textContent = envData.SANDBOX_API_RUNNER_API_KEY || 'runner-key-295517vp';
-      if (document.getElementById('val-pg-db')) document.getElementById('val-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
-      if (document.getElementById('val-pg-user')) document.getElementById('val-pg-user').textContent = envData.POSTGRES_USER || 'admin';
-      if (document.getElementById('val-pg-pass')) document.getElementById('val-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
-
-      // Blueprints
-      if (document.getElementById('bp-pg-db')) document.getElementById('bp-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
-      if (document.getElementById('bp-pg-user')) document.getElementById('bp-pg-user').textContent = envData.POSTGRES_USER || 'admin';
-      if (document.getElementById('bp-pg-pass')) document.getElementById('bp-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
-      if (document.getElementById('bp-redis-pass')) document.getElementById('bp-redis-pass').textContent = envData.REDIS_PASSWORD || '295517vp';
-      if (document.getElementById('bp-qdrant-key')) document.getElementById('bp-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
-      if (document.getElementById('bp-crawl-auth')) document.getElementById('bp-crawl-auth').textContent = 'Bearer ' + (envData.CRAWL4AI_API_TOKEN || '295517vp');
-      if (document.getElementById('bp-sandbox-key')) document.getElementById('bp-sandbox-key').textContent = envData.SANDBOX_API_KEYS || '295517vp';
-      if (document.getElementById('bp-sandbox-reg-token')) document.getElementById('bp-sandbox-reg-token').textContent = envData.SANDBOX_API_RUNNER_REGISTRATION_TOKEN || 'runner-reg-295517vp';
-      if (document.getElementById('bp-sandbox-runner-key')) document.getElementById('bp-sandbox-runner-key').textContent = envData.SANDBOX_API_RUNNER_API_KEY || 'runner-key-295517vp';
-    }
-
-    // Ping check
-    async function pingAllServices() {
-      showToast('Pinging services...');
-      const checks = [
-        { id: 'ping-n8n', url: 'http://localhost:5678' },
-        { id: 'ping-redisinsight', url: 'http://localhost:5540' },
-        { id: 'ping-crawl4ai', url: 'http://localhost:11235' },
-        { id: 'ping-qdrant', url: 'http://localhost:6333/dashboard' },
-        { id: 'ping-neo4j', url: 'http://localhost:7474' },
-        { id: 'ping-searxng', url: 'http://localhost:8080' },
-        { id: 'ping-docling', url: 'http://localhost:5001/ui' },
-        { id: 'ping-ollama', url: 'http://localhost:11434' },
-        { id: 'ping-sandbox', url: 'http://localhost:5681/healthz' },
-      ];
-
-      for (const item of checks) {
-        const badge = document.getElementById(item.id);
-        if (!badge) continue;
-
-        try {
-          await fetch(item.url, { mode: 'no-cors', cache: 'no-store' });
-          badge.className = 'status-pill';
-          badge.innerHTML = '<span class="status-dot"></span> Online';
-        } catch (e) {
-          badge.className = 'status-pill';
-          badge.style.color = 'var(--danger)';
-          badge.style.background = 'var(--danger-subtle)';
-          badge.style.borderColor = 'rgba(248, 81, 73, 0.2)';
-          badge.innerHTML = '<span class="status-dot"></span> Offline';
-        }
-      }
-      showToast('Health check complete');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initTheme();
-      renderEnvTable();
-      updateDOM();
-    });
   </script>
 </body>
 </html>

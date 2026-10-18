@@ -26,7 +26,9 @@ $domains = @(
     'neo.local',
     'neo4j.local',
     'files.local',
-    'sandbox.local'
+    'sandbox.local',
+    'supabase.local',
+    'api.supabase.local'
 )
 
 $hostsContent = Get-Content -LiteralPath $hostsPath -Raw -ErrorAction SilentlyContinue
@@ -53,6 +55,7 @@ Write-Host "DNS cache flushed." -ForegroundColor Cyan
 Write-Host "`n=======================================================" -ForegroundColor Cyan
 Write-Host " SUCCESS! All .local domains are now active:" -ForegroundColor Green
 Write-Host "   n8n:           http://n8n.local" -ForegroundColor White
+Write-Host "   Supabase:      http://supabase.local (API: http://api.supabase.local)" -ForegroundColor White
 Write-Host "   Redis Insight: http://radis.local or http://redis.local" -ForegroundColor White
 Write-Host "   Search:        http://search.local" -ForegroundColor White
 Write-Host "   Qdrant:        http://qdrant.local" -ForegroundColor White

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <title>Crawl4AI</title>
+  <!-- Cyber Radar Rings -->
+  <circle cx="50" cy="50" r="42" stroke="#8B5CF6" stroke-width="2.5" stroke-dasharray="6 3" opacity="0.75"/>
+  <circle cx="50" cy="50" r="30" stroke="#FF2EC4" stroke-width="3" opacity="0.85"/>
+  <!-- AI Core Scanner -->
+  <circle cx="50" cy="50" r="18" fill="#8B5CF6" opacity="0.3"/>
+  <circle cx="50" cy="50" r="12" fill="#0BC5EA"/>
+  <circle cx="50" cy="50" r="6" fill="#FFFFFF"/>
+  <!-- Cross Laser / Radar Line -->
+  <line x1="16" y1="50" x2="84" y2="50" stroke="#0BC5EA" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Crawler Antennae Dots -->
+  <circle cx="24" cy="24" r="4" fill="#0BC5EA"/>
+  <circle cx="76" cy="24" r="4" fill="#FF2EC4"/>
+  <circle cx="24" cy="76" r="4" fill="#8B5CF6"/>
+  <circle cx="76" cy="76" r="4" fill="#0BC5EA"/>
+  <!-- Angular Crawler Legs -->
+  <path d="M 32 32 L 24 24" stroke="#0BC5EA" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 68 32 L 76 24" stroke="#FF2EC4" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 32 68 L 24 76" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 68 68 L 76 76" stroke="#0BC5EA" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation Kit — Knowledge Hub & API Docs</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logos/n8n.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" id="hljsTheme">
+
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-input: #ffffff;
+      --border: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --accent: #ff6d5a;
+      --accent-hover: #f05540;
+      --accent-subtle: #fff1ee;
+      --success: #10b981;
+      --success-subtle: #ecfdf5;
+      --danger: #ef4444;
+      --danger-subtle: #fef2f2;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+      --code-bg: #0f172a;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #09090b;
+      --bg-surface: #121215;
+      --bg-card: #18181b;
+      --bg-subtle: #202024;
+      --bg-input: #141416;
+      --border: #27272a;
+      --border-subtle: #1f1f23;
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --accent: #ff6d5a;
+      --accent-hover: #ff8575;
+      --accent-subtle: rgba(255, 109, 90, 0.12);
+      --success: #10b981;
+      --success-subtle: rgba(16, 185, 129, 0.12);
+      --danger: #ef4444;
+      --danger-subtle: rgba(239, 68, 68, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.4);
+      --code-bg: #0a0a0c;
+    }
+
+    /* Beautiful Custom Thin Scrollbar matching Theme Accent (#ff6d5a) */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 109, 90, 0.3);
+      border-radius: 999px;
+      transition: background 0.2s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 109, 90, 0.35) transparent;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      font-size: 14px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Sticky Header */
+    .docs-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(255, 109, 90, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-icon img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-subtle);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 109, 90, 0.2);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 12px;
+      width: 260px;
+      gap: 8px;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      width: 100%;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--text-dim);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Sub Navigation Tabs for Docs */
+    .docs-nav-strip {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .nav-tab:hover {
+      color: var(--text-main);
+    }
+
+    .nav-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-tab img {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* View 1: Hub Home */
+    .hub-view {
+      flex: 1;
+      padding: 32px 24px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .card-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    /* Modern Table */
+    .docs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .docs-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .docs-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    .docs-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .docs-table tr:hover td {
+      background: var(--bg-subtle);
+    }
+
+    .tool-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tool-icon-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tool-icon-circle img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .tool-name-col strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .tool-name-col span {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .code-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--accent);
+    }
+
+    /* n8n Credentials Split Section */
+    .cred-split-container {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .cred-split-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cred-tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .cred-tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .cred-tool-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .cred-tool-btn.active {
+      background: var(--accent-subtle);
+      color: var(--accent);
+      border-color: rgba(255, 109, 90, 0.3);
+    }
+
+    .cred-tool-btn img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cred-guide-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cred-guide-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .cred-step-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .step-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content strong {
+      color: var(--text-main);
+    }
+
+    .cred-curl-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .curl-terminal-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ========================================== */
+    /* View 2: Collapsible & Adjustable Reader   */
+    /* ========================================== */
+    .reader-view {
+      display: none;
+      flex: 1;
+      width: 100%;
+      position: relative;
+    }
+
+    .reader-view.active {
+      display: flex;
+    }
+
+    /* Collapsible & Adjustable Sidebar */
+    .reader-sidebar {
+      width: 280px;
+      min-width: 220px;
+      max-width: 500px;
+      position: sticky;
+      top: 98px;
+      height: calc(100vh - 98px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      border-right: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-shrink: 0;
+      transition: width 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
+    }
+
+    .reader-sidebar.collapsed {
+      width: 0 !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      border-right: none !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sidebar-resizer {
+      width: 6px;
+      cursor: col-resize;
+      background: transparent;
+      transition: background 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .sidebar-resizer:hover, .sidebar-resizer.resizing {
+      background: var(--accent);
+    }
+
+    .sidebar-heading {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+    }
+
+    .sidebar-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-nav-link {
+      display: block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-nav-link:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    .sidebar-nav-link.active {
+      background: var(--accent-subtle) !important;
+      color: var(--accent) !important;
+      font-weight: 700 !important;
+      border-left: 3px solid var(--accent) !important;
+      padding-left: 8px !important;
+    }
+
+    .sidebar-subnav-link {
+      padding-left: 20px;
+      font-size: 11.5px;
+      color: var(--text-dim);
+    }
+
+    .sidebar-subnav-link.active {
+      padding-left: 17px !important;
+    }
+
+    /* Main Reader Content Area */
+    .reader-content-pane {
+      flex: 1;
+      min-width: 0;
+      padding: 28px 40px 80px;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .reader-top-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .reader-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .reader-breadcrumbs a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Interactive Collapsible Reading Sections */
+    details.doc-topic-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      background: var(--bg-surface);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    summary.doc-topic-summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      background: var(--bg-subtle);
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+    }
+
+    details[open].doc-topic-card summary.doc-topic-summary {
+      border-bottom: 1px solid var(--border);
+    }
+
+    summary.doc-topic-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.doc-topic-summary:after {
+      content: "▼";
+      font-size: 11px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    details[open].doc-topic-card summary.doc-topic-summary:after {
+      transform: rotate(180deg);
+    }
+
+    .doc-topic-body {
+      padding: 18px 20px;
+      line-height: 1.7;
+    }
+
+    /* Split-screen Endpoint Layout (Left: Request/Curl, Right: Swagger/Output) */
+    .endpoint-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 18px 0;
+      overflow: hidden;
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .endpoint-head {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .endpoint-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .method-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-post { background: #10b981; }
+    .badge-get { background: #3b82f6; }
+    .badge-delete { background: #ef4444; }
+
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .endpoint-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--code-bg);
+    }
+
+    @media (max-width: 1000px) {
+      .endpoint-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .split-col {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .split-left {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .split-col-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 6px;
+    }
+
+    .split-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .code-copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s ease;
+    }
+
+    .code-copy-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Standard Markdown Elements */
+    .markdown-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+
+    .markdown-body h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin: 20px 0 14px;
+    }
+
+    .markdown-body h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      margin: 24px 0 12px;
+    }
+
+    .markdown-body h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 18px 0 8px;
+    }
+
+    .markdown-body p, .markdown-body ul, .markdown-body ol {
+      margin-bottom: 14px;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      padding-left: 20px;
+    }
+
+    .markdown-body li {
+      margin-bottom: 4px;
+    }
+
+    .markdown-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: var(--bg-subtle);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .markdown-body th {
+      background: var(--bg-subtle);
+      padding: 8px 12px;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .markdown-body td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .markdown-body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    .markdown-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      overflow-x: auto;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .markdown-body pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Circular Navigation Buttons at Bottom of Doc */
+    .doc-footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-arrow-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-arrow-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .nav-arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* Toast Box */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast-item {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: slideIn 0.2s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="docs-header">
+    <a href="/docs.html" class="brand-group" onclick="switchView('hub'); return false;">
+      <div class="brand-icon">
+        <img src="/assets/logos/n8n.svg" alt="Automation Kit">
+      </div>
+      <span class="brand-title">Automation kit</span>
+      <span class="brand-badge">Docs Hub</span>
+    </a>
+
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="globalDocSearch" placeholder="Search guides, ports, endpoints..." oninput="handleSearch(this.value)">
+    </div>
+
+    <div class="header-actions">
+      <a href="/" class="btn" title="Return to Dashboard">
+        <span>← Dashboard</span>
+      </a>
+      <a href="https://github.com/codeXparadise/AutomationKit" target="_blank" class="btn btn-circle" title="View GitHub Repository">
+        <img src="/assets/logos/github.svg" style="width: 18px; height: 18px;" alt="GitHub">
+      </a>
+      <button class="btn btn-circle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- Sub Navigation Strip -->
+  <nav class="docs-nav-strip">
+    <div class="nav-tab active" id="tab-hub" onclick="switchView('hub')">
+      📋 Overview & Credentials
+    </div>
+    <div class="nav-tab" id="tab-docling" onclick="loadDoc('docling.md')">
+      <img src="/assets/logos/docling.svg" alt="Docling">
+      <span>Docling Parser</span>
+    </div>
+    <div class="nav-tab" id="tab-crawl4ai" onclick="loadDoc('crawl4ai.md')">
+      <img src="/assets/logos/crawl4ai.svg" alt="Crawl4AI">
+      <span>Crawl4AI Scraper</span>
+    </div>
+    <div class="nav-tab" id="tab-ollama" onclick="loadDoc('ollama.md')">
+      <img src="/assets/logos/ollama.svg" alt="Ollama">
+      <span>Ollama LLMs</span>
+    </div>
+    <div class="nav-tab" id="tab-qdrant" onclick="loadDoc('qdrant.md')">
+      <img src="/assets/logos/qdrant.svg" alt="Qdrant">
+      <span>Qdrant Vectors</span>
+    </div>
+    <div class="nav-tab" id="tab-searxng" onclick="loadDoc('searxng.md')">
+      <img src="/assets/logos/searxng.svg" alt="SearXNG">
+      <span>SearXNG Search</span>
+    </div>
+    <div class="nav-tab" id="tab-supabase" onclick="loadDoc('supabase.md')">
+      <img src="/assets/logos/supabase.svg" alt="Supabase">
+      <span>Supabase Suite</span>
+    </div>
+    <div class="nav-tab" id="tab-neo4j" onclick="loadDoc('neo4j.md')">
+      <img src="/assets/logos/neo4j.svg" alt="Neo4j">
+      <span>Neo4j Graphs</span>
+    </div>
+    <div class="nav-tab" id="tab-redis" onclick="loadDoc('redis.md')">
+      <img src="/assets/logos/redis.svg" alt="Redis">
+      <span>Redis Cache</span>
+    </div>
+    <div class="nav-tab" id="tab-postgres" onclick="loadDoc('postgres.md')">
+      <img src="/assets/logos/postgres.svg" alt="Postgres">
+      <span>PostgreSQL 16</span>
+    </div>
+    <div class="nav-tab" id="tab-sandbox" onclick="loadDoc('sandbox.md')">
+      <img src="/assets/logos/docker.svg" alt="Sandbox">
+      <span>DinD Sandbox</span>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- View 1: Hub Home (Table + Credential Guide)-->
+  <!-- ========================================== -->
+  <main class="hub-view" id="hubView">
+    <!-- 1. Master Tool Table -->
+    <div class="section-title">
+      <span>⚡ Available Automation Tools & Endpoints</span>
+    </div>
+    <p class="section-desc">Direct internal Docker endpoints and n8n-compatible services running on your machine.</p>
+
+    <div class="card-box">
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Tool & Purpose</th>
+            <th>Host Port</th>
+            <th>n8n Internal Docker URL</th>
+            <th>Auth Protocol</th>
+            <th style="text-align: right;">Documentation</th>
+          </tr>
+        </thead>
+        <tbody id="toolsTableBody">
+          <!-- Populated dynamically via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2. n8n Credential Integration Guide & cURL Generator -->
+    <div class="section-title">
+      <span>🧩 n8n One-Click Credential & cURL Setup</span>
+    </div>
+    <p class="section-desc">Select a tool to view its exact n8n Header/Auth configuration and ready-to-test cURL snippet with live credentials.</p>
+
+    <div class="cred-split-container">
+      <!-- Submenu of tools -->
+      <div class="cred-tools-list" id="credToolsMenu">
+        <!-- Generated dynamically -->
+      </div>
+
+      <!-- Left: Step-by-step n8n Guide -->
+      <div class="cred-guide-card" id="credGuideCard">
+        <div class="cred-guide-header">
+          <img id="credGuideIcon" src="/assets/logos/docling.svg" style="width: 24px; height: 24px;" alt="Icon">
+          <strong id="credGuideTitle" style="font-size: 15px;">IBM Docling Setup</strong>
+        </div>
+        <div id="credGuideSteps" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Right: Live cURL Command -->
+      <div class="cred-curl-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 13.5px;">Ready-to-Test cURL</strong>
+          <button class="btn btn-primary" onclick="copyCurl(this)">Copy cURL</button>
+        </div>
+        <div class="curl-terminal-box" id="credCurlContent">
+          Loading cURL command...
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- View 2: Collapsible & Split Reader         -->
+  <!-- ========================================== -->
+  <div class="reader-view" id="readerView">
+    <!-- Collapsible & Adjustable Left Sidebar -->
+    <aside class="reader-sidebar" id="readerSidebar">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+        <span class="sidebar-heading">Document Outline</span>
+        <button class="btn btn-sm" onclick="toggleSidebar()" style="padding: 2px 7px; font-size: 11px;" title="Collapse Outline">
+          ◀ Hide
+        </button>
+      </div>
+      
+      <ul class="sidebar-nav-list" id="sidebarToc">
+        <!-- Dynamically generated from markdown headings -->
+      </ul>
+
+    </aside>
+
+    <!-- Sidebar Resize Drag Handle -->
+    <div class="sidebar-resizer" id="sidebarResizer" title="Drag to resize sidebar width"></div>
+
+    <!-- Main Reader Content Area -->
+    <main class="reader-content-pane">
+      <div class="reader-top-controls">
+        <div class="reader-breadcrumbs">
+          <a href="javascript:void(0)" onclick="switchView('hub')">Docs Hub</a>
+          <span>/</span>
+          <span id="readerBreadcrumbDoc">Docling</span>
+        </div>
+
+        <button class="btn btn-sm" id="sidebarExpandBtn" onclick="toggleSidebar()" style="display: none;" title="Show Outline Sidebar">
+          ☰ Show Outline
+        </button>
+      </div>
+
+      <!-- Formatted Reading Content (Split code snippets & compact sections) -->
+      <div class="markdown-body" id="readerMarkdownContent">
+        <div style="text-align: center; padding: 60px; color: var(--text-muted);">
+          Loading documentation...
+        </div>
+      </div>
+
+      <!-- Circular Navigation Buttons at Bottom -->
+      <div class="doc-footer-nav">
+        <button class="nav-arrow-btn" id="prevDocBtn" onclick="navDoc(-1)">
+          <div class="nav-arrow-circle">←</div>
+          <div style="text-align: left;">
+            <span style="font-size: 11px; color: var(--text-muted); display: block;">Previous Guide</span>
+            <strong id="prevDocLabel" style="font-size: 13px;">Overview</strong>
+          </div>
+        </button>
+
+        <button class="nav-arrow-btn" id="nextDocBtn" onclick="navDoc(1)">
+          <div style="text-align: right;">
+            <span style="font-size: 11px; color: var(--text-muted); display: block;">Next Guide</span>
+            <strong id="nextDocLabel" style="font-size: 13px;">Crawl4AI</strong>
+          </div>
+          <div class="nav-arrow-circle">→</div>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-box" id="toastBox"></div>
+
+  <script>
+    const TOOLS_CATALOG = [
+      { id: 'docling', name: 'IBM Docling', file: 'docling.md', port: ':5001', internal: 'http://docling:5001', auth: 'Header: X-API-Key', icon: 'docling.svg', role: 'Document OCR & Multi-Format Parsing' },
+      { id: 'crawl4ai', name: 'Crawl4AI', file: 'crawl4ai.md', port: ':11235', internal: 'http://crawl4ai:11235', auth: 'Bearer Token: Authorization', icon: 'crawl4ai.svg', role: 'LLM-Friendly Web Scraping & Extraction' },
+      { id: 'ollama', name: 'Ollama LLMs', file: 'ollama.md', port: ':11434', internal: 'http://ollama:11434', auth: 'Open / None (Local Engine)', icon: 'ollama.svg', role: 'Local Neural Inference & Embeddings' },
+      { id: 'qdrant', name: 'Qdrant Vector DB', file: 'qdrant.md', port: ':6333', internal: 'http://qdrant:6333', auth: 'Header: api-key', icon: 'qdrant.svg', role: 'Fast Semantic & Dense Vector Search' },
+      { id: 'searxng', name: 'SearXNG', file: 'searxng.md', port: ':8080', internal: 'http://searxng:8080', auth: 'Open (JSON API Format)', icon: 'searxng.svg', role: 'Privacy-Preserving Search Aggregator' },
+      { id: 'supabase', name: 'Supabase Suite', file: 'supabase.md', port: ':54321 / :54323', internal: 'http://supabase-kong:8000', auth: 'Header: apikey / Bearer', icon: 'supabase.svg', role: 'PostgREST API, Auth & Storage Cluster' },
+      { id: 'neo4j', name: 'Neo4j Graph DB', file: 'neo4j.md', port: ':7474', internal: 'http://neo4j:7474', auth: 'Basic Auth: neo4j / password', icon: 'neo4j.svg', role: 'Knowledge Graph & Cypher Query Engine' },
+      { id: 'redis', name: 'Redis Database', file: 'redis.md', port: ':6379', internal: 'redis:6379', auth: 'AUTH: password', icon: 'redis.svg', role: 'In-Memory Caching & Pub/Sub Queue' },
+      { id: 'postgres', name: 'PostgreSQL 16', file: 'postgres.md', port: ':5432', internal: 'postgres:5432', auth: 'DB User & Password', icon: 'postgres.svg', role: 'Relational Database Engine' },
+      { id: 'sandbox', name: 'DinD Sandbox', file: 'sandbox.md', port: ':8080', internal: 'http://sandbox-runner-1:8080', auth: 'Header: X-Runner-Key', icon: 'docker.svg', role: 'n8n Isolated Code Execution Sandbox' }
+    ];
+
+    let cachedEnv = {};
+    let activeCredToolId = 'docling';
+    let activeDocIndex = 0;
+    let currentDocRawContent = '';
+    let isSidebarCollapsed = false;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      initSidebarResizer();
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedTool = urlParams.get('tool');
+      const requestedFile = urlParams.get('file');
+
+      await fetchEnv();
+      renderMasterTable();
+      renderCredToolsMenu();
+      selectCredTool('docling');
+
+      if (requestedTool) {
+        const found = TOOLS_CATALOG.find(t => t.id === requestedTool);
+        if (found) loadDoc(found.file);
+      } else if (requestedFile) {
+        loadDoc(requestedFile);
+      }
+    });
+
+    async function fetchEnv() {
+      try {
+        const res = await fetch('/api/env');
+        const data = await res.json();
+        cachedEnv = data.env || {};
+      } catch (_) {}
+    }
+
+    function renderMasterTable() {
+      const tbody = document.getElementById('toolsTableBody');
+      tbody.innerHTML = TOOLS_CATALOG.map(t => `
+        <tr>
+          <td>
+            <div class="tool-cell">
+              <div class="tool-icon-circle">
+                <img src="/assets/logos/${t.icon}" alt="${t.name}">
+              </div>
+              <div class="tool-name-col">
+                <strong>${t.name}</strong>
+                <span>${t.role}</span>
+              </div>
+            </div>
+          </td>
+          <td><span class="code-badge">${t.port}</span></td>
+          <td><span class="code-badge" style="color: var(--text-main);">${t.internal}</span></td>
+          <td><span style="font-size: 12px; color: var(--text-muted);">${t.auth}</span></td>
+          <td style="text-align: right;">
+            <button class="btn btn-sm btn-primary" onclick="loadDoc('${t.file}')">Read Guide ↗</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderCredToolsMenu() {
+      const menu = document.getElementById('credToolsMenu');
+      menu.innerHTML = TOOLS_CATALOG.map(t => `
+        <button class="cred-tool-btn ${t.id === activeCredToolId ? 'active' : ''}" onclick="selectCredTool('${t.id}')">
+          <img src="/assets/logos/${t.icon}" alt="${t.name}">
+          <span>${t.name}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectCredTool(toolId) {
+      activeCredToolId = toolId;
+      document.querySelectorAll('.cred-tool-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.cred-tool-btn')).find(b => b.innerText.includes(toolId) || b.querySelector(`img[src*="${toolId}"]`));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const tool = TOOLS_CATALOG.find(t => t.id === toolId) || TOOLS_CATALOG[0];
+      document.getElementById('credGuideIcon').src = `/assets/logos/${tool.icon}`;
+      document.getElementById('credGuideTitle').innerText = `${tool.name} Setup`;
+
+      let stepsHtml = '';
+      let curlCmd = '';
+
+      const doclingKey = cachedEnv['DOCLING_API_KEY'] || 'your-docling-key';
+      const crawlToken = cachedEnv['CRAWL4AI_API_TOKEN'] || cachedEnv['CRAWL4AI_API_KEY'] || 'your-crawl4ai-token';
+      const qdrantKey = cachedEnv['QDRANT_API_KEY'] || 'your-qdrant-key';
+      const supaKey = cachedEnv['SUPABASE_SERVICE_ROLE_KEY'] || 'your-supabase-key';
+
+      if (toolId === 'docling') {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, click <strong>Credentials</strong> → <strong>Add Credential</strong>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Select <strong>Header Auth</strong>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">Set Header Name to <code class="code-badge">X-API-Key</code> and Value to <code class="code-badge">${doclingKey}</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">4</div>
+            <div class="step-content">In your HTTP Request node, use URL: <code class="code-badge">http://docling:5001/v1/convert/source</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -X POST "http://localhost:5001/v1/convert/source" \\
+  -H "X-API-Key: ${doclingKey}" \\
+  -H "Content-Type: application/json" \\
+  -d '{"http_sources": [{"url": "https://arxiv.org/pdf/2408.09869"}], "to_formats": ["md"]}'`;
+      } else if (toolId === 'crawl4ai') {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, navigate to <strong>Credentials</strong> → <strong>Header Auth</strong>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Set Header Name to <code class="code-badge">Authorization</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">Set Header Value to <code class="code-badge">Bearer ${crawlToken}</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">4</div>
+            <div class="step-content">Target internal endpoint: <code class="code-badge">http://crawl4ai:11235/crawl</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -X POST "http://localhost:11235/crawl" \\
+  -H "Authorization: Bearer ${crawlToken}" \\
+  -H "Content-Type: application/json" \\
+  -d '{"urls": ["https://news.ycombinator.com"], "priority": 10}'`;
+      } else if (toolId === 'ollama') {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, add an <strong>Ollama Chat Model</strong> or <strong>HTTP Request</strong> node.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Set Base URL to <code class="code-badge">http://ollama:11434</code> (No auth required for local engine).</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">Select model tag (e.g. <code class="code-badge">llama3.2:1b</code> or <code class="code-badge">qwen2.5-coder:3b</code>).</div>
+          </div>
+        `;
+        curlCmd = `curl -X POST "http://localhost:11434/api/generate" \\
+  -H "Content-Type: application/json" \\
+  -d '{"model": "llama3.2:1b", "prompt": "Hello from n8n Automation Kit!", "stream": false}'`;
+      } else if (toolId === 'qdrant') {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, create a <strong>Qdrant Vector Store</strong> credential.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Host: <code class="code-badge">http://qdrant:6333</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">API Key: <code class="code-badge">${qdrantKey}</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -X GET "http://localhost:6333/collections" \\
+  -H "api-key: ${qdrantKey}"`;
+      } else if (toolId === 'supabase') {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, add <strong>Supabase</strong> credential or <strong>Header Auth</strong>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Host / Gateway: <code class="code-badge">http://supabase-kong:8000</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">Service Role Key: <code class="code-badge">${supaKey.substring(0, 20)}...</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -X GET "http://localhost:54321/rest/v1/" \\
+  -H "apikey: ${supaKey}" \\
+  -H "Authorization: Bearer ${supaKey}"`;
+      } else {
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">Connect using Docker internal service name: <code class="code-badge">${tool.internal}</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Auth requirement: <code class="code-badge">${tool.auth}</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -I "http://localhost${tool.port}"`;
+      }
+
+      document.getElementById('credGuideSteps').innerHTML = stepsHtml;
+      document.getElementById('credCurlContent').innerText = curlCmd;
+    }
+
+    function copyCurl(btn) {
+      const text = document.getElementById('credCurlContent').innerText;
+      copyText(text, btn || (typeof event !== 'undefined' ? event.target : null));
+    }
+
+    function switchView(view) {
+      const hub = document.getElementById('hubView');
+      const reader = document.getElementById('readerView');
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+      if (view === 'hub') {
+        hub.style.display = 'block';
+        reader.classList.remove('active');
+        document.getElementById('tab-hub').classList.add('active');
+        window.history.pushState({}, '', '/docs.html');
+      } else {
+        hub.style.display = 'none';
+        reader.classList.add('active');
+      }
+    }
+
+    // ==========================================
+    // Sidebar Collapsing & Width Adjustments
+    // ==========================================
+    function toggleSidebar() {
+      const sidebar = document.getElementById('readerSidebar');
+      const expandBtn = document.getElementById('sidebarExpandBtn');
+      const resizer = document.getElementById('sidebarResizer');
+      isSidebarCollapsed = !isSidebarCollapsed;
+
+      if (isSidebarCollapsed) {
+        sidebar.classList.add('collapsed');
+        resizer.style.display = 'none';
+        expandBtn.style.display = 'inline-flex';
+      } else {
+        sidebar.classList.remove('collapsed');
+        resizer.style.display = 'block';
+        expandBtn.style.display = 'none';
+      }
+    }
+
+    function initSidebarResizer() {
+      const sidebar = document.getElementById('readerSidebar');
+      const resizer = document.getElementById('sidebarResizer');
+      if (!resizer || !sidebar) return;
+
+      let isResizing = false;
+
+      resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        resizer.classList.add('resizing');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const newWidth = Math.max(220, Math.min(520, e.clientX));
+        sidebar.style.width = `${newWidth}px`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isResizing) {
+          isResizing = false;
+          resizer.classList.remove('resizing');
+          document.body.style.cursor = '';
+          document.body.style.userSelect = '';
+        }
+      });
+    }
+
+    // ==========================================
+    // Load & Format Document (Split Screen + TOC stripped)
+    // ==========================================
+    async function loadDoc(filename) {
+      switchView('reader');
+
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      const toolMatch = TOOLS_CATALOG.find(t => t.file === filename);
+      if (toolMatch) {
+        const tabEl = document.getElementById(`tab-${toolMatch.id}`);
+        if (tabEl) tabEl.classList.add('active');
+        document.getElementById('readerBreadcrumbDoc').innerText = toolMatch.name;
+        activeDocIndex = TOOLS_CATALOG.findIndex(t => t.file === filename);
+      } else {
+        document.getElementById('readerBreadcrumbDoc').innerText = filename;
+      }
+
+      updateNavButtons();
+
+      const container = document.getElementById('readerMarkdownContent');
+      container.innerHTML = '<div style="text-align: center; padding: 60px; color: var(--text-muted);">⏳ Loading documentation with dynamic .env injection...</div>';
+
+      try {
+        const res = await fetch(`/api/docs/render?file=${encodeURIComponent(filename)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to render file');
+
+        let rawMarkdown = data.content || '';
+
+        // 1. Remove redundant Table of Contents from markdown body (Since left sidebar has it)
+        rawMarkdown = rawMarkdown.replace(/##\s+(?:Table of Contents|Topics|Index)[\s\S]*?(?=\n##\s+|$)/i, '');
+
+        // 2. Parse markdown
+        marked.setOptions({
+          highlight: function(code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+          }
+        });
+
+        const parsedHtml = marked.parse(rawMarkdown);
+        container.innerHTML = parsedHtml;
+
+        // 3. Post-Process: Convert to Split-Screen (Request / Output) & Collapsible Cards
+        formatDocForCompactReading(container);
+
+        // 4. Build Table of Contents for left sidebar with scrollspy
+        buildSidebarToc();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.history.pushState({}, '', `/docs.html?file=${encodeURIComponent(filename)}`);
+      } catch (e) {
+        container.innerHTML = `<div style="color: var(--danger); padding: 40px;">Error loading documentation: ${e.message}</div>`;
+      }
+    }
+
+    function formatDocForCompactReading(container) {
+      // 1. Wrap pairs of curl/request code block + response code block in split-screen grids
+      const allPres = Array.from(container.querySelectorAll('pre'));
+      for (let i = 0; i < allPres.length - 1; i++) {
+        const cur = allPres[i];
+        const next = allPres[i + 1];
+        const curText = cur.innerText;
+        const nextText = next.innerText;
+
+        // Detect if cur is a request (curl/http) and next is a response (JSON output)
+        const isCurRequest = /curl\s+|POST\s+|GET\s+|fetch\(|http:/i.test(curText);
+        const isNextResponse = nextText.trim().startsWith('{') || nextText.trim().startsWith('[') || /status|schema|response/i.test(nextText);
+
+        if (isCurRequest && isNextResponse) {
+          const splitGrid = document.createElement('div');
+          splitGrid.className = 'endpoint-card';
+          splitGrid.innerHTML = `
+            <div class="endpoint-head">
+              <div class="endpoint-badges">
+                <span class="method-badge ${curText.includes('POST') ? 'badge-post' : 'badge-get'}">${curText.includes('POST') ? 'POST' : 'GET'}</span>
+                <span class="endpoint-path">API Request & Live Response Spec</span>
+              </div>
+            </div>
+            <div class="endpoint-split">
+              <div class="split-col split-left">
+                <div class="split-col-title">
+                  <span>Request Snippet / cURL</span>
+                  <button class="code-copy-btn" onclick="copySnippetFromCol(this)">Copy Request</button>
+                </div>
+                <div class="split-code">${cur.innerHTML}</div>
+              </div>
+              <div class="split-col">
+                <div class="split-col-title">
+                  <span>Output / Swagger Response</span>
+                  <button class="code-copy-btn" onclick="copySnippetFromCol(this)">Copy Output</button>
+                </div>
+                <div class="split-code">${next.innerHTML}</div>
+              </div>
+            </div>
+          `;
+
+          cur.parentNode.insertBefore(splitGrid, cur);
+          cur.remove();
+          next.remove();
+          i++; // skip next
+        }
+      }
+
+      // 2. Add copy button to any remaining standalone pre blocks
+      const remainingPres = container.querySelectorAll('pre');
+      remainingPres.forEach((pre) => {
+        if (pre.closest('.endpoint-split')) return;
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'relative';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'code-copy-btn';
+        copyBtn.innerText = 'Copy';
+        copyBtn.style.position = 'absolute';
+        copyBtn.style.top = '10px';
+        copyBtn.style.right = '10px';
+        copyBtn.style.zIndex = '5';
+        copyBtn.onclick = () => {
+          const codeText = pre.querySelector('code')?.innerText || pre.innerText;
+          copyText(codeText, copyBtn);
+        };
+        wrapper.appendChild(copyBtn);
+      });
+    }
+
+    function copySnippetFromCol(btn) {
+      const col = btn.closest('.split-col');
+      const codeEl = col ? col.querySelector('.split-code') : null;
+      const text = codeEl ? (codeEl.querySelector('pre')?.innerText || codeEl.innerText) : '';
+      copyText(text, btn);
+    }
+
+    let tocScrollListenerAdded = false;
+    let isUserHoveringSidebar = false;
+    let sidebarHoverInit = false;
+
+    function initSidebarHover() {
+      if (sidebarHoverInit) return;
+      const sb = document.getElementById('readerSidebar');
+      if (sb) {
+        sb.addEventListener('mouseenter', () => { isUserHoveringSidebar = true; });
+        sb.addEventListener('mouseleave', () => { isUserHoveringSidebar = false; });
+        sidebarHoverInit = true;
+      }
+    }
+
+    function updateActiveToc() {
+      const headings = Array.from(document.querySelectorAll('#readerMarkdownContent h2, #readerMarkdownContent h3'));
+      if (headings.length === 0) return;
+
+      const links = document.querySelectorAll('#sidebarToc .sidebar-nav-link');
+      if (links.length === 0) return;
+
+      let currentHeadingId = null;
+      const scrollPosition = window.scrollY || window.pageYOffset;
+      const isBottom = (window.innerHeight + scrollPosition) >= (document.documentElement.scrollHeight - 40);
+
+      if (isBottom) {
+        currentHeadingId = headings[headings.length - 1].id;
+      } else {
+        for (let i = 0; i < headings.length; i++) {
+          const h = headings[i];
+          const rect = h.getBoundingClientRect();
+          if (rect.top <= 140) {
+            currentHeadingId = h.id;
+          } else {
+            break;
+          }
+        }
+        if (!currentHeadingId && headings.length > 0) {
+          currentHeadingId = headings[0].id;
+        }
+      }
+
+      links.forEach(link => {
+        if (currentHeadingId && link.getAttribute('data-heading-id') === currentHeadingId) {
+          if (!link.classList.contains('active')) {
+            link.classList.add('active');
+            // Only smoothly bring into view if user is NOT actively hovering/browsing the sidebar
+            if (!isUserHoveringSidebar) {
+              link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+          }
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    function buildSidebarToc() {
+      initSidebarHover();
+      const toc = document.getElementById('sidebarToc');
+      const headings = document.querySelectorAll('#readerMarkdownContent h2, #readerMarkdownContent h3');
+      
+      if (headings.length === 0) {
+        toc.innerHTML = '<li style="font-size: 12px; color: var(--text-dim); padding: 6px;">No sub-sections found.</li>';
+        return;
+      }
+
+      toc.innerHTML = Array.from(headings).map((h, i) => {
+        const id = 'heading-' + i;
+        h.id = id;
+        const isH3 = h.tagName.toLowerCase() === 'h3';
+        return `
+          <li>
+            <a href="#${id}" data-heading-id="${id}" class="sidebar-nav-link ${isH3 ? 'sidebar-subnav-link' : ''}" onclick="smoothScroll('${id}'); return false;">
+              ${h.innerText}
+            </a>
+          </li>
+        `;
+      }).join('');
+
+      if (!tocScrollListenerAdded) {
+        window.addEventListener('scroll', updateActiveToc, { passive: true });
+        tocScrollListenerAdded = true;
+      }
+
+      updateActiveToc();
+    }
+
+    function smoothScroll(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        const yOffset = -110;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('prevDocBtn');
+      const nextBtn = document.getElementById('nextDocBtn');
+
+      if (activeDocIndex > 0) {
+        prevBtn.style.visibility = 'visible';
+        document.getElementById('prevDocLabel').innerText = TOOLS_CATALOG[activeDocIndex - 1].name;
+      } else {
+        prevBtn.style.visibility = 'hidden';
+      }
+
+      if (activeDocIndex < TOOLS_CATALOG.length - 1) {
+        nextBtn.style.visibility = 'visible';
+        document.getElementById('nextDocLabel').innerText = TOOLS_CATALOG[activeDocIndex + 1].name;
+      } else {
+        nextBtn.style.visibility = 'hidden';
+      }
+    }
+
+    function navDoc(direction) {
+      const targetIndex = activeDocIndex + direction;
+      if (targetIndex >= 0 && targetIndex < TOOLS_CATALOG.length) {
+        loadDoc(TOOLS_CATALOG[targetIndex].file);
+      }
+    }
+
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        renderMasterTable();
+        return;
+      }
+
+      const filtered = TOOLS_CATALOG.filter(t => 
+        t.name.toLowerCase().includes(q) ||
+        t.port.toLowerCase().includes(q) ||
+        t.internal.toLowerCase().includes(q) ||
+        t.role.toLowerCase().includes(q)
+      );
+
+      const tbody = document.getElementById('toolsTableBody');
+      tbody.innerHTML = filtered.map(t => `
+        <tr>
+          <td>
+            <div class="tool-cell">
+              <div class="tool-icon-circle">
+                <img src="/assets/logos/${t.icon}" alt="${t.name}">
+              </div>
+              <div class="tool-name-col">
+                <strong>${t.name}</strong>
+                <span>${t.role}</span>
+              </div>
+            </div>
+          </td>
+          <td><span class="code-badge">${t.port}</span></td>
+          <td><span class="code-badge">${t.internal}</span></td>
+          <td><span style="font-size: 12px; color: var(--text-muted);">${t.auth}</span></td>
+          <td style="text-align: right;">
+            <button class="btn btn-sm btn-primary" onclick="loadDoc('${t.file}')">Read Guide ↗</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function copyText(txt, btnElement) {
+      if (!txt) return;
+      const cleanText = txt.trim();
+
+      const indicateSuccess = () => {
+        notify('Copied to clipboard!', 'success');
+        if (btnElement) {
+          const orig = btnElement.innerText;
+          const origBg = btnElement.style.background;
+          const origBorder = btnElement.style.borderColor;
+          const origColor = btnElement.style.color;
+
+          btnElement.innerText = 'Copied! ✅';
+          if (btnElement.classList.contains('btn-primary')) {
+            btnElement.style.background = 'var(--success, #10b981)';
+            btnElement.style.borderColor = 'var(--success, #10b981)';
+            btnElement.style.color = '#ffffff';
+          } else {
+            btnElement.style.borderColor = 'var(--success, #10b981)';
+            btnElement.style.color = 'var(--success, #10b981)';
+          }
+
+          setTimeout(() => {
+            btnElement.innerText = orig;
+            btnElement.style.background = origBg;
+            btnElement.style.borderColor = origBorder;
+            btnElement.style.color = origColor;
+          }, 2000);
+        }
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(cleanText)
+          .then(indicateSuccess)
+          .catch(() => fallbackCopyText(cleanText, indicateSuccess));
+      } else {
+        fallbackCopyText(cleanText, indicateSuccess);
+      }
+    }
+
+    function fallbackCopyText(txt, onSuccess) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = txt;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '-9999px';
+        textArea.style.left = '-9999px';
+        textArea.setAttribute('readonly', '');
+        document.body.appendChild(textArea);
+        textArea.select();
+        textArea.setSelectionRange(0, 99999);
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (successful) {
+          if (onSuccess) onSuccess();
+          else notify('Copied to clipboard!', 'success');
+        } else {
+          notify('Clipboard access restricted', 'error');
+        }
+      } catch (err) {
+        notify('Failed to copy: ' + err.message, 'error');
+      }
+    }
+
+    function notify(msg, type = 'info') {
+      const box = document.getElementById('toastBox');
+      const toast = document.createElement('div');
+      toast.className = 'toast-item';
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : 'ℹ️'}</span><span>${msg}</span>`;
+      box.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 3000);
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const nextTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', nextTheme);
+      document.getElementById('themeToggleBtn').innerText = nextTheme === 'dark' ? '🌙' : '☀️';
+
+      // Dynamically switch Ollama logo between white (dark mode) and black (light mode)
+      const ollamaImgs = document.querySelectorAll('img[src*="ollama"]');
+      ollamaImgs.forEach(img => {
+        img.src = nextTheme === 'light' ? '/assets/logos/ollama-black.svg' : '/assets/logos/ollama-white.svg';
+      });
+      
+      const hlTheme = document.getElementById('hljsTheme');
+      hlTheme.href = nextTheme === 'dark' 
+        ? 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css'
+        : 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css';
+    }
+  </script>
+</body>
+</html>
