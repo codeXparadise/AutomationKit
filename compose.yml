@@ -30,8 +30,8 @@ services:
         ]
       interval: 5s
       timeout: 5s
-      retries: 5
-      start_period: 10s
+      retries: 10
+      start_period: 30s
 
   # ==========================================
   # 2. Redis Cache & Key-Value Store
@@ -112,7 +112,9 @@ services:
       - N8N_SECURE_COOKIE=false
       - NODE_ENV=production
       - WEBHOOK_URL=http://n8n.local/
+      - N8N_WEBHOOK_URL=http://n8n.local/
       - GENERIC_TIMEZONE=Asia/Kolkata
+      - N8N_RUNNERS_TASK_TIMEOUT=300
 
       # Database Connection
       - DB_TYPE=postgresdb
@@ -326,6 +328,7 @@ services:
       - "5681:8080"
     environment:
       - SANDBOX_API_KEYS=${SANDBOX_API_KEYS}
+      - SANDBOX_API_RUNNER_API_KEY=${SANDBOX_API_RUNNER_API_KEY}
       - SANDBOX_API_RUNNER_REGISTRATION_TOKEN=${SANDBOX_API_RUNNER_REGISTRATION_TOKEN}
       - SANDBOX_API_GRPC_TLS_CERT_FILE=/tls/api/grpc-server.crt
       - SANDBOX_API_GRPC_TLS_KEY_FILE=/tls/api/grpc-server.key

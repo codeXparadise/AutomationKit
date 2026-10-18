@@ -1118,6 +1118,7 @@
             <div class="links-cluster">
               <a href="http://sandbox.local/healthz" target="_blank" class="chip-btn accent">http://sandbox.local</a>
               <a href="http://localhost:5681/healthz" target="_blank" class="chip-btn docs">:5681 /healthz</a>
+              <a href="http://localhost:5681/sandboxes" target="_blank" class="chip-btn">:5681 /sandboxes</a>
             </div>
 
             <div class="card-note">
@@ -1144,6 +1145,20 @@
                 <div class="cred-v-group">
                   <span class="cred-v" id="val-sandbox-key">295517vp</span>
                   <button class="copy-btn" onclick="copyFromId('val-sandbox-key')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Runner Token:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-sandbox-runner-reg">runner-reg-295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-sandbox-runner-reg')">Copy</button>
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-k">Runner API Key:</span>
+                <div class="cred-v-group">
+                  <span class="cred-v" id="val-sandbox-runner-key">runner-key-295517vp</span>
+                  <button class="copy-btn" onclick="copyFromId('val-sandbox-runner-key')">Copy</button>
                 </div>
               </div>
             </div>
@@ -1433,6 +1448,34 @@
         </div>
       </div>
 
+      <!-- 5. n8n Assistant Sandbox REST & Control Plane -->
+      <div class="swagger-card">
+        <div class="swagger-header">
+          <div class="swagger-title">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/docker.svg" width="20" height="20" alt="Docker Sandbox" style="filter: invert(45%) sepia(85%) saturate(1500%) hue-rotate(180deg);">
+            <span>n8n Assistant Sandbox REST & DinD Control API</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted);">Port 5681 &bull; Internal 8080</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary);">
+          Control plane API for managing isolated Docker-in-Docker execution environments for n8n AI Assistant code execution.
+        </p>
+        <div class="swagger-links">
+          <a href="http://sandbox.local/healthz" target="_blank" class="swagger-btn">
+            <span>Health Check (/healthz) ↗</span>
+          </a>
+          <a href="http://localhost:5681/sandboxes" target="_blank" class="swagger-btn">
+            <span>Active Sandboxes (/sandboxes) ↗</span>
+          </a>
+          <a href="http://sandbox.localhost/healthz" target="_blank" class="swagger-btn" style="background: var(--bg-muted); color: var(--text-muted); border-color: var(--border);">
+            <span>.localhost Fallback ↗</span>
+          </a>
+        </div>
+        <div class="card-note">
+          <strong>Authentication:</strong> Pass <code>X-Api-Key: 295517vp</code> header. Supports <code>GET /sandboxes</code>, <code>POST /sandboxes</code> (provision container), and <code>DELETE /sandboxes/{id}</code>.
+        </div>
+      </div>
+
     </div>
 
     <!-- BLUEPRINTS VIEW -->
@@ -1582,6 +1625,58 @@
         </div>
       </div>
 
+      <!-- n8n Assistant Sandbox Integration -->
+      <div class="bp-card">
+        <div class="bp-title-bar">
+          <div style="font-size: 13px; font-weight: 600;">n8n Assistant Sandbox Configuration</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Type: DinD Sandbox Provider</span>
+        </div>
+        <div class="bp-grid">
+          <div class="bp-field">
+            <span class="bp-label">Provider</span>
+            <div class="bp-row">
+              <span class="bp-val">n8n-sandbox</span>
+              <button class="copy-btn" onclick="copyText('n8n-sandbox')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Service URL</span>
+            <div class="bp-row">
+              <span class="bp-val">http://sandbox-api:8080</span>
+              <button class="copy-btn" onclick="copyText('http://sandbox-api:8080')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">API Key (X-Api-Key)</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-sandbox-key">295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-sandbox-key')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Runner Token</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-sandbox-reg-token">runner-reg-295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-sandbox-reg-token')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Runner API Key</span>
+            <div class="bp-row">
+              <span class="bp-val" id="bp-sandbox-runner-key">runner-key-295517vp</span>
+              <button class="copy-btn" onclick="copyFromId('bp-sandbox-runner-key')">Copy</button>
+            </div>
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Sandbox Image</span>
+            <div class="bp-row">
+              <span class="bp-val">ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0</span>
+              <button class="copy-btn" onclick="copyText('ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- .ENV VIEW -->
@@ -1653,7 +1748,12 @@
       NEO4J_PASSWORD: "295517vp",
       CRAWL4AI_API_TOKEN: "295517vp",
       DOCLING_API_KEY: "295517vp",
-      BROWSERLESS_TOKEN: "295517vp"
+      BROWSERLESS_TOKEN: "295517vp",
+      N8N_SANDBOX_VERSION: "1.9.0",
+      SANDBOX_API_KEYS: "295517vp",
+      SANDBOX_API_RUNNER_REGISTRATION_TOKEN: "runner-reg-295517vp",
+      SANDBOX_API_RUNNER_API_KEY: "runner-key-295517vp",
+      N8N_SANDBOX_SERVICE_API_KEY: "295517vp"
     };
 
     function renderEnvTable() {
@@ -1805,6 +1905,8 @@
       if (document.getElementById('val-neo-pass')) document.getElementById('val-neo-pass').textContent = envData.NEO4J_PASSWORD || '295517vp';
       if (document.getElementById('val-docling-key')) document.getElementById('val-docling-key').textContent = envData.DOCLING_API_KEY || '295517vp';
       if (document.getElementById('val-sandbox-key')) document.getElementById('val-sandbox-key').textContent = envData.SANDBOX_API_KEYS || '295517vp';
+      if (document.getElementById('val-sandbox-runner-reg')) document.getElementById('val-sandbox-runner-reg').textContent = envData.SANDBOX_API_RUNNER_REGISTRATION_TOKEN || 'runner-reg-295517vp';
+      if (document.getElementById('val-sandbox-runner-key')) document.getElementById('val-sandbox-runner-key').textContent = envData.SANDBOX_API_RUNNER_API_KEY || 'runner-key-295517vp';
       if (document.getElementById('val-pg-db')) document.getElementById('val-pg-db').textContent = envData.POSTGRES_DB || 'n8n_database';
       if (document.getElementById('val-pg-user')) document.getElementById('val-pg-user').textContent = envData.POSTGRES_USER || 'admin';
       if (document.getElementById('val-pg-pass')) document.getElementById('val-pg-pass').textContent = envData.POSTGRES_PASSWORD || '295517vp';
@@ -1816,6 +1918,9 @@
       if (document.getElementById('bp-redis-pass')) document.getElementById('bp-redis-pass').textContent = envData.REDIS_PASSWORD || '295517vp';
       if (document.getElementById('bp-qdrant-key')) document.getElementById('bp-qdrant-key').textContent = envData.QDRANT_API_KEY || 'admin:295517vp';
       if (document.getElementById('bp-crawl-auth')) document.getElementById('bp-crawl-auth').textContent = 'Bearer ' + (envData.CRAWL4AI_API_TOKEN || '295517vp');
+      if (document.getElementById('bp-sandbox-key')) document.getElementById('bp-sandbox-key').textContent = envData.SANDBOX_API_KEYS || '295517vp';
+      if (document.getElementById('bp-sandbox-reg-token')) document.getElementById('bp-sandbox-reg-token').textContent = envData.SANDBOX_API_RUNNER_REGISTRATION_TOKEN || 'runner-reg-295517vp';
+      if (document.getElementById('bp-sandbox-runner-key')) document.getElementById('bp-sandbox-runner-key').textContent = envData.SANDBOX_API_RUNNER_API_KEY || 'runner-key-295517vp';
     }
 
     // Ping check

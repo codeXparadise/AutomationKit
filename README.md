@@ -51,6 +51,7 @@ All 11 microservices run inside an isolated Docker bridge network (`automationki
 * **Zero-Collision Auto-Auth Gateway:** Caddy acts as the front door (`container_name: AutomationKit`), transparently injecting Bearer tokens to backend APIs (such as Crawl4AI Swagger & ReDoc) to eliminate `401 Unauthorized` prompts on direct browser navigation.
 * **Persistent Data Separation:** Container states live under `./data/{service}`, persistent cross-container file shares live in `./shared`, and custom configurations reside in `./config`. Recreating containers never loses user workflows or databases.
 * **External Task Runner Model:** n8n leverages dedicated task runners with pre-installed Python data science libraries (`pandas`, `numpy`, `yt-dlp`, `redis`, `requests`) isolated from the main orchestration engine.
+* **Isolated DinD AI Sandbox Execution:** n8n Assistant executes generated Python/JS code securely inside Docker-in-Docker sandboxes (`sandbox-runner-1`) managed by a dedicated mTLS control plane API (`sandbox-api:8080`), preventing untrusted code from accessing host infrastructure.
 
 ---
 
@@ -201,6 +202,19 @@ When building workflows inside n8n, use these connection parameters in your node
 * **Base URL:** `http://ollama:11434`
 * **Model Name:** `llama3.2` *(pull via `docker exec -it ollama ollama run llama3.2`)*
 
+### 8. n8n Assistant Sandbox Execution Integration
+* **Sandbox Provider:** `n8n-sandbox`
+* **Sandbox Service URL:** `http://sandbox-api:8080` (or `http://sandbox.local`)
+* **API Key:** `295517vp` (Header: `X-Api-Key: 295517vp`)
+* **Runner Registration Token:** `runner-reg-295517vp`
+* **Runner Control API Key:** `runner-key-295517vp`
+* **Sandbox Container Image:** `ghcr.io/n8n-io/n8n-sandbox-service-sandbox:1.9.0`
+* **Direct REST API Endpoints:**
+  * **Health Status:** `GET http://localhost:5681/healthz`
+  * **List Active Sandboxes:** `GET http://localhost:5681/sandboxes` (Header: `X-Api-Key: 295517vp`)
+  * **Spawn Ephemeral Sandbox:** `POST http://localhost:5681/sandboxes` (Header: `X-Api-Key: 295517vp`, Body: `{}`)
+  * **Terminate Sandbox:** `DELETE http://localhost:5681/sandboxes/{id}` (Header: `X-Api-Key: 295517vp`)
+
 ---
 
 ## 📖 Local Swagger & API Docs
@@ -213,6 +227,7 @@ AutomationKit features built-in, local Swagger and interactive API documentation
 * **Qdrant REST Console:** [http://localhost:6333/dashboard#/console](http://localhost:6333/dashboard#/console)
 * **Ollama Installed Models:** [http://localhost:11434/api/tags](http://localhost:11434/api/tags)
 * **SearXNG Settings & JSON API:** [http://localhost:8080/preferences](http://localhost:8080/preferences)
+* **n8n Assistant Sandbox API:** [http://localhost:5681/healthz](http://localhost:5681/healthz) | Sandboxes: [http://localhost:5681/sandboxes](http://localhost:5681/sandboxes) *(Header: `X-Api-Key: 295517vp`)*
 
 ---
 
@@ -266,6 +281,17 @@ Edit `services/runner/Dockerfile` and add your required packages via `pip instal
 ```bash
 docker compose up -d --build task-runners
 ```
+</details>
+
+<details>
+<summary><strong>5. How does the n8n Assistant Sandbox work and how is it secured?</strong></summary>
+
+AutomationKit includes the official n8n Assistant Sandbox stack consisting of three coordinated microservices:
+1. **`sandbox-certs`**: Ephemeral init service generating mTLS certificates (`bootstrap-mtls.sh`) into a shared Docker volume (`sandbox-tls`).
+2. **`sandbox-api`**: FastAPI/Go control plane listening on internal port `8080` (mapped to `5681`) that tracks sandbox state and exposes REST endpoints. Authenticates incoming n8n requests via `SANDBOX_API_KEYS` (`X-Api-Key`), and communicates with runners using `SANDBOX_API_RUNNER_API_KEY`.
+3. **`sandbox-runner-1`**: Privileged Docker-in-Docker (`dind`) daemon with gRPC mTLS control server on port `9091` that pulls and spins up isolated `n8n-sandbox-service-sandbox:1.9.0` micro-containers on demand.
+
+If you ever encounter an `rpc error: code = Unauthenticated desc = missing x-api-key` in `sandbox-api`, ensure `SANDBOX_API_RUNNER_API_KEY` is present in `compose.yml` matching `SANDBOX_RUNNER_API_KEYS` in `sandbox-runner-1`.
 </details>
 
 ---
