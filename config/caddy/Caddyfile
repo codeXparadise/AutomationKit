@@ -7,6 +7,10 @@ http://hub.local, http://hub.localhost, http://portal.local, http://portal.local
     handle /api/* {
         reverse_proxy automation-manager:3005
     }
+    handle_path /logos/* {
+        root * /srv/portal/assets/logos
+        file_server
+    }
     handle {
         root * /srv/portal
         file_server
