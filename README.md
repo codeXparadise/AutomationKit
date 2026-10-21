@@ -5,6 +5,7 @@
 ### The Production-Grade Local AI Orchestration & Microservices Cloud Stack
 
 <p align="center">
+  <a href="https://github.com/codeXparadise/AutomationKit/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/version-1.1.0-blueviolet.svg?style=flat-square" alt="Version 1.1.0" /></a>
   <a href="https://github.com/codeXparadise/AutomationKit/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT License" /></a>
   <a href="https://github.com/codeXparadise/AutomationKit"><img src="https://img.shields.io/badge/Docker-Compose_v2-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker Compose" /></a>
   <a href="https://github.com/codeXparadise/AutomationKit/stargazers"><img src="https://img.shields.io/github/stars/codeXparadise/AutomationKit?style=flat-square&logo=github" alt="GitHub Stars" /></a>
@@ -13,17 +14,18 @@
 </p>
 
 <p align="center">
-  <strong>AutomationKit</strong> is a turn-key, self-hosted developer platform that packages leading workflow automation, local LLMs, vector search, web scraping, document OCR, graph databases, and caching into a unified Docker network orchestrated behind a smart Caddy gateway.
+  <strong>AutomationKit</strong> is a turn-key, self-hosted developer platform that packages leading workflow automation, <strong>100% free WhatsApp automation (OpenWA)</strong>, local LLMs, vector search, web scraping, document OCR, graph databases, and caching into a unified Docker network orchestrated behind a smart Caddy gateway.
 </p>
 
 <p align="center">
   <a href="#-quickstart-guide">Quickstart</a> •
+  <a href="#-100-free-whatsapp-automation-openwa"><strong>📱 Free WhatsApp Automation</strong></a> •
   <a href="docs/README.md"><strong>📚 n8n API Docs & Blueprints</strong></a> •
   <a href="#-architecture--networking">Architecture</a> •
   <a href="#-service-matrix--endpoints">Service Matrix</a> •
   <a href="#-n8n-node-integration-blueprints">n8n Blueprints</a> •
   <a href="#-local-swagger--api-docs">Swagger & API Docs</a> •
-  <a href="CHANGELOG.md"><strong>📝 Changelog (v1.0.0)</strong></a> •
+  <a href="CHANGELOG.md"><strong>📝 Changelog (v1.1.0)</strong></a> •
   <a href="#-contributing--license">Contributing</a>
 </p>
 
@@ -38,6 +40,33 @@ AutomationKit runs n8n natively integrated with local Ollama models, Qdrant vect
 <div align="center">
   <img src="assets/n8n-demo.gif" alt="n8n AI Workflow Demo" width="100%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
 </div>
+
+---
+
+## 📱 100% Free WhatsApp Automation (OpenWA)
+
+> **Automate your WhatsApp entirely for completely free!**  
+> Say goodbye to expensive Cloud API fees, template approvals, monthly limits, and per-conversation charges. AutomationKit v1.1 embeds **OpenWA** alongside **n8n** so you can trigger workflows from incoming messages and send rich automated responses in real-time.
+
+```mermaid
+graph LR
+    User([📱 WhatsApp User]) <-->|Scan QR / Session| OpenWA[⚡ OpenWA Gateway<br/>rmyndharis/openwa:2785]
+    OpenWA -->|Real-time Inbound Webhook| n8nTrig[📩 n8n OpenWA Trigger]
+    n8nTrig --> AI[🧠 Local Ollama / RAG / DB]
+    AI --> n8nAct[📤 n8n OpenWA Action]
+    n8nAct -->|Instant Response / Media| OpenWA
+    OpenWA -->|Message Delivered| User
+    OpenWA -.-> PG[(PostgreSQL<br/>openwa DB)]
+    OpenWA -.-> Redis[(Redis BullMQ<br/>Queues)]
+```
+
+### ✨ What You Can Do
+* **Zero Cost**: No Meta Business API fees, no monthly software subscriptions.
+* **Instant Visual Webhooks**: Trigger n8n flows instantly on `message.received`, `session.status`, or `session.qr`.
+* **Rich Interactions**: Send text, images, video, audio, voice notes, PDFs, location coordinates, interactive buttons, and group management calls.
+* **Persistent & Multi-Session**: Connect multiple WhatsApp numbers simultaneously; all session tokens and chats persist across restarts in PostgreSQL and `./data/openwa/`.
+* **High Throughput**: Backed by Redis BullMQ async queues ensuring zero dropped messages during traffic spikes.
+* **Interactive Docs**: Complete Swagger UI documentation available at `http://openwa.local/api/docs` (or `http://localhost:2785/api/docs`).
 
 ---
 
@@ -71,6 +100,7 @@ All 11 microservices run inside an isolated Docker bridge network (`automationki
 | <img src="assets/logos/neo4j.svg" width="22" height="22" /> **Neo4j** | Graph Database & Knowledge Graphs | `5-community` | [neo4j.com/docs](https://neo4j.com/docs/) |
 | <img src="assets/logos/redis.svg" width="22" height="22" /> **Redis & Insight** | In-Memory Cache & Visual GUI | `7-alpine` | [redis.io/docs](https://redis.io/docs/) |
 | <img src="assets/logos/postgres.svg" width="22" height="22" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) |
+| <img src="assets/logos/openwa.svg" width="22" height="22" /> **OpenWA** | WhatsApp Gateway & Webhooks | `Latest` | [open-wa.org](https://open-wa.org/) |
 | <img src="assets/logos/docker.svg" width="22" height="22" /> **n8n Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) |
 | <img src="assets/logos/caddy.svg" width="22" height="22" /> **Caddy** | Reverse Proxy & Portal Gateway | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) |
 
@@ -114,7 +144,8 @@ Run the unified CLI script (or select Option `[6]`) to map `.local` domains into
 ```cmd
 automation.bat hosts
 ```
-*(On Linux/macOS, run `sudo bash scripts/add-local-domains.sh` to append entries to `/etc/hosts`. Otherwise, `.localhost` works natively in modern browsers without any host configuration).*
+*(Optionally, `.localhost` works natively in modern browsers without any host configuration).*
+
 
 ### 5. Launch AutomationKit
 Start the entire stack using the unified control CLI:
@@ -150,6 +181,7 @@ Once running, double-click **`automation.bat`** (Option `[4]`), run `automation.
 | <img src="assets/logos/ollama.svg" width="18" height="18" style="vertical-align: middle;" /> **Ollama Local LLM** | `http://ollama.local` / `http://localhost:11434` | `http://ollama.localhost` | `ollama:11434` | None (Open) |
 | <img src="assets/logos/postgres.svg" width="18" height="18" style="vertical-align: middle;" /> **PostgreSQL DB** | `localhost:5432` *(External SQL clients)* | N/A | `postgres:5432` | User: `admin`, Pass: `${POSTGRES_PASSWORD}`, DB: `n8n_database` |
 | <img src="assets/logos/redis.svg" width="18" height="18" style="vertical-align: middle;" /> **Redis Store** | `localhost:6379` *(External Redis clients)* | N/A | `redis:6379` | Password: `${REDIS_PASSWORD}` |
+| <img src="assets/logos/openwa.svg" width="18" height="18" style="vertical-align: middle;" /> **OpenWA Gateway** | `http://openwa.local` / `http://localhost:2785` | `http://openwa.localhost` | `openwa:2785` | Header: `X-API-Key: ${OPENWA_API_KEY}` |
 | <img src="assets/logos/docker.svg" width="18" height="18" style="vertical-align: middle;" /> **Shared Volume** | `http://files.local` | `http://files.localhost` | Mount: `/data/shared` | Local folder: `./shared` |
 
 ---
@@ -208,7 +240,19 @@ When building workflows inside n8n, use these connection parameters in your node
 * **Base URL:** `http://ollama:11434`
 * **Model Name:** `llama3.2` *(pull via `docker exec -it ollama ollama run llama3.2`)*
 
-### 8. n8n Assistant Sandbox Execution Integration
+### 8. OpenWA WhatsApp Gateway Node
+* **OpenWA Credential (`OpenWaApi`):**
+  * **Base URL:** `http://openwa:2785` *(or `http://localhost:2785`)*
+  * **API Key:** `${OPENWA_API_KEY}`
+* **Inbound Trigger (`OpenWaTrigger` Node):**
+  * **Session Name:** `default` *(or your registered session name)*
+  * **Events:** `message.received` *(or all events)*
+  * **Webhook Registration:** Handled automatically by n8n when workflow is activated!
+* **Outbound Action (`OpenWa` Node):**
+  * **Operation:** Send Text, Send Image/Video, Send Document, Buttons, or Manage Groups
+  * **Chat ID:** `[phone_number]@c.us` (e.g. `918433696619@c.us`)
+
+### 9. n8n Assistant Sandbox Execution Integration
 * **Sandbox Provider:** `n8n-sandbox`
 * **Sandbox Service URL:** `http://sandbox-api:8080` (or `http://sandbox.local`)
 * **API Key:** `${SANDBOX_API_KEYS}` (Header: `X-Api-Key: ${SANDBOX_API_KEYS}`)
@@ -227,6 +271,7 @@ When building workflows inside n8n, use these connection parameters in your node
 
 AutomationKit features built-in, local Swagger and interactive API documentation running inside your containers:
 
+* <img src="assets/logos/openwa.svg" width="16" height="16" style="vertical-align: middle;" /> **OpenWA WhatsApp API Swagger UI:** [http://localhost:2785/api/docs](http://localhost:2785/api/docs) *(or [http://openwa.local/api/docs](http://openwa.local/api/docs))*
 * <img src="assets/logos/crawl4ai.svg" width="16" height="16" style="vertical-align: middle;" /> **Crawl4AI Swagger UI:** [http://localhost:11235/docs](http://localhost:11235/docs) *(Auto-authenticated)*
 * <img src="assets/logos/crawl4ai.svg" width="16" height="16" style="vertical-align: middle;" /> **Crawl4AI ReDoc:** [http://localhost:11235/redoc](http://localhost:11235/redoc)
 * <img src="assets/logos/docling.svg" width="16" height="16" style="vertical-align: middle;" /> **Docling Swagger UI:** [http://localhost:5001/docs](http://localhost:5001/docs)

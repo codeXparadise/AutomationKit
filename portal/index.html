@@ -1230,6 +1230,15 @@ Run ollama list, ollama ps, or custom commands.</div>
           { name: 'supabase-edge-functions', role: 'Edge Runtime' },
           { name: 'supabase-imgproxy', role: 'ImgProxy Engine' }
         ]
+      },
+      {
+        id: 'openwa',
+        name: 'OpenWA WhatsApp Gateway',
+        port: ':2785',
+        container: 'openwa',
+        url: 'http://openwa.local',
+        docFile: 'openwa.md',
+        icon: 'openwa.svg'
       }
     ];
 
@@ -1268,6 +1277,11 @@ Run ollama list, ollama ps, or custom commands.</div>
         group: 'Core Infrastructure',
         icon: 'n8n.svg',
         containers: ['n8n', 'caddy', 'automation-manager']
+      },
+      {
+        group: 'Messaging & Gateways',
+        icon: 'openwa.svg',
+        containers: ['openwa']
       }
     ];
 
@@ -1288,6 +1302,7 @@ Run ollama list, ollama ps, or custom commands.</div>
       if (n.includes('searxng') || n.includes('search')) return 'searxng.svg';
       if (n.includes('sandbox')) return 'docker.svg';
       if (n.includes('caddy')) return 'caddy.svg';
+      if (n.includes('openwa')) return 'openwa.svg';
       return 'n8n.svg';
     }
 

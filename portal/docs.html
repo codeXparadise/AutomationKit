@@ -1193,7 +1193,8 @@
       { id: 'neo4j', name: 'Neo4j Graph DB', file: 'neo4j.md', port: ':7474', internal: 'http://neo4j:7474', auth: 'Basic Auth: neo4j / password', icon: 'neo4j.svg', role: 'Knowledge Graph & Cypher Query Engine' },
       { id: 'redis', name: 'Redis Database', file: 'redis.md', port: ':6379', internal: 'redis:6379', auth: 'AUTH: password', icon: 'redis.svg', role: 'In-Memory Caching & Pub/Sub Queue' },
       { id: 'postgres', name: 'PostgreSQL 16', file: 'postgres.md', port: ':5432', internal: 'postgres:5432', auth: 'DB User & Password', icon: 'postgres.svg', role: 'Relational Database Engine' },
-      { id: 'sandbox', name: 'DinD Sandbox', file: 'sandbox.md', port: ':8080', internal: 'http://sandbox-runner-1:8080', auth: 'Header: X-Runner-Key', icon: 'docker.svg', role: 'n8n Isolated Code Execution Sandbox' }
+      { id: 'sandbox', name: 'DinD Sandbox', file: 'sandbox.md', port: ':8080', internal: 'http://sandbox-runner-1:8080', auth: 'Header: X-Runner-Key', icon: 'docker.svg', role: 'n8n Isolated Code Execution Sandbox' },
+      { id: 'openwa', name: 'OpenWA WhatsApp Gateway', file: 'openwa.md', port: ':2785', internal: 'http://openwa:2785', auth: 'Header: X-API-Key', icon: 'openwa.svg', role: 'Self-Hosted WhatsApp Gateway with Redis & Postgres' }
     ];
 
     let cachedEnv = {};
@@ -1381,6 +1382,28 @@
         curlCmd = `curl -X GET "http://localhost:54321/rest/v1/" \\
   -H "apikey: ${supaKey}" \\
   -H "Authorization: Bearer ${supaKey}"`;
+      } else if (toolId === 'openwa') {
+        const openwaKey = cachedEnv['OPENWA_API_KEY'] || 'your-openwa-api-key';
+        stepsHtml = `
+          <div class="cred-step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">In n8n, navigate to <strong>Credentials</strong> → <strong>Add Credential</strong> → <strong>OpenWA API</strong>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">Server URL: <code class="code-badge">http://openwa:2785</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">API Key: <code class="code-badge">${openwaKey}</code>.</div>
+          </div>
+          <div class="cred-step-item">
+            <div class="step-number">4</div>
+            <div class="step-content">Pair your WhatsApp session via Dashboard at <code class="code-badge">http://openwa.local</code>.</div>
+          </div>
+        `;
+        curlCmd = `curl -X GET "http://localhost:2785/api/sessions" \\
+  -H "X-API-Key: ${openwaKey}"`;
       } else {
         stepsHtml = `
           <div class="cred-step-item">

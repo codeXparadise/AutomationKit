@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-10-22 — Full WhatsApp Automation & Robust TUI Orchestrator 📱⚡
+
+> ### 📢 Major Milestone: Automate WhatsApp Entirely for Completely Free!
+> You can now automate WhatsApp completely free using **OpenWA** without paid APIs, third-party subscription fees, or messaging limits. Fully integrated into **n8n** with native visual workflow nodes, PostgreSQL multi-session persistence, Redis BullMQ background queueing, and local media storage.
+
+---
+
+### 🚀 Added Features & Capabilities
+
+#### 1. 100% Free Self-Hosted WhatsApp API Gateway (OpenWA)
+* **OpenWA Microservice (`rmyndharis/openwa:latest`)**:
+  * Free, open-source WhatsApp API Gateway natively deployed in the unified Docker bridge network on port `2785`.
+  * **PostgreSQL Session & Message Store**: Dedicated `openwa` database in PostgreSQL for message histories, session states, and TypeORM relational migrations.
+  * **Redis & BullMQ Engine**: High-throughput asynchronous message queues (`bull:ingress-queue`, `bull:webhook-queue`) guaranteeing zero message drop under high volume.
+  * **Local Data Persistence**: Stored under `./data/openwa` (`media/`, `sessions/`, `plugins/`, `main.sqlite`), ensuring all chats, tokens, and media survive container recreation.
+  * **Caddy Reverse Proxy Integration**: Zero-SSL domain routing on `http://openwa.local` and `http://wa.local`, with full interactive Swagger documentation at `/api/docs`.
+  * **Internal Docker Networking & SSRF Hardening**: Configured `WEBHOOK_SSRF_PROTECT=false` and `SSRF_ALLOWED_HOSTS` with internal `.local` aliases on Caddy, enabling seamless container-to-container webhook dispatching to n8n (`http://n8n:5678` / `http://n8n.local`).
+
+#### 2. Native n8n WhatsApp Community Node Integration
+* Pre-installed official **`@rmyndharis/n8n-nodes-openwa`** package directly into the persistent n8n volume (`./data/n8n/.n8n/nodes/`):
+  * **OpenWA Action Node (`OpenWa`)**: Send text, images, videos, audio, documents, location pins, buttons, polls, fetch contacts, manage group chats, and manipulate session states.
+  * **OpenWA Trigger Node (`OpenWaTrigger`)**: Real-time inbound webhook trigger firing instantly on WhatsApp events (`message.received`, `message.ack`, `session.status`, `session.qr`).
+  * **OpenWA API Credential (`OpenWaApi`)**: Authenticates via internal host `http://openwa:2785` and master API key `${OPENWA_API_KEY}`.
+
+#### 3. Standalone Gemini-CLI Inspired TUI Orchestrator (`automation.bat` & `automation.ps1`)
+* Replaced loose root scripts (`scripts/`) with a single standalone executable and keyboard-driven terminal user interface:
+  * **Full Keyboard Navigation Engine**: Smooth navigation using `↑`/`k` and `↓`/`j`, execution via `Enter` or `Spacebar`, page jumping (`PageUp`/`PageDown`), start/end jumps (`Home`/`End`), numeric selection (`0-9`), and hotkeys (`s`, `x`, `r`, `u`, `d`, `c`, `p`, `l`, `w`, `m`, `q`).
+  * **ASCII Title Art & Telemetry Bar**: High-res "Automation Kit" ASCII banner with live status pills querying Docker status, container health counters (`26/26 ACTIVE`), and OpenWA status (`READY (2785)`).
+  * **Proactive Error Handling & Port Resolver**: Automatically checks critical ports (`80`, `443`, `2785`, `5678`, `5432`, `6379`) before startup, detects conflicting host PIDs, and offers to terminate them cleanly.
+  * **Docker Desktop Auto-Recovery**: Detects if Docker daemon is stopped, launches `Docker Desktop.exe`, and monitors readiness with progress indicators for up to 45 seconds.
+  * **Interactive Step-by-Step API Key Wizard**: First-time installation detection that collects required credentials one by one (`OPENWA_API_KEY`, `N8N_ENCRYPTION_KEY`, `POSTGRES_PASSWORD`, `REDIS_PASSWORD`, `CRAWL4AI_API_TOKEN`, `DOCLING_API_KEY`, `SUPABASE_JWT_SECRET`) with pre-calculated cryptographically secure suggestions.
+  * **Auto-Update Detection & Container Restarts (`automation.bat update`)**: Checks remote registries for image updates and npm for community node updates; automatically recreates and restarts only the affected containers.
+  * **Interactive Service Logs Selector**: Sub-menu to stream live container logs for OpenWA, n8n, Redis, Postgres, Caddy, Ollama, Qdrant, or all 26 services combined.
+
+#### 4. Web Control Hub & Comprehensive Documentation
+* Added OpenWA to the web portal launchpad (`portal/index.html`, `dashboard.html`) and documentation center (`docs.html`, `portal/docs.html`).
+* Added authentic official colored OpenWA SVG logo (`assets/logos/openwa.svg`, `portal/assets/logos/openwa.svg`).
+* Added complete integration documentation: [`docs/openwa.md`](file:///c:/Users/Vishal/Desktop/Automation/docs/openwa.md) and [`portal/docs/openwa.md`](file:///c:/Users/Vishal/Desktop/Automation/portal/docs/openwa.md) including ready-to-import n8n workflow blueprints, cURL recipes, and webhook lifecycle specifications.
+
+---
+
 ## [1.0.0] - 2026-10-19 — Stable v1 Release 🚀
 
 ### 🌟 Overview

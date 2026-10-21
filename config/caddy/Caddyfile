@@ -94,3 +94,9 @@ http://supabase.local, http://supabase.localhost {
 http://api.supabase.local, http://api.supabase.localhost {
     reverse_proxy supabase-kong:8000
 }
+
+# 13. OpenWA WhatsApp API Gateway
+http://openwa.local, http://openwa.localhost, http://wa.local, http://wa.localhost {
+    reverse_proxy openwa:2785
+}
+

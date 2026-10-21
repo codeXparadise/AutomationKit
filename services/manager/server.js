@@ -236,6 +236,7 @@ function categorizeContainer(name) {
   if (['n8n-runners', 'sandbox-runner-1', 'sandbox-api'].includes(name)) return 'runners';
   if (['crawl4ai', 'searxng'].includes(name)) return 'search_crawl';
   if (['redis', 'redisinsight'].includes(name)) return 'database';
+  if (name.includes('openwa')) return 'tools';
   return 'other';
 }
 

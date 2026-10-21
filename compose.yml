@@ -285,7 +285,27 @@ services:
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
     networks:
-      - Automation
+      Automation:
+        aliases:
+          - n8n.local
+          - hub.local
+          - portal.local
+          - openwa.local
+          - wa.local
+          - redis.local
+          - search.local
+          - searxng.local
+          - docling.local
+          - ollama.local
+          - qdrant.local
+          - crawl.local
+          - crawl4ai.local
+          - neo.local
+          - neo4j.local
+          - files.local
+          - sandbox.local
+          - supabase.local
+          - api.supabase.local
     depends_on:
       - n8n
       - automation-manager
@@ -299,6 +319,7 @@ services:
       - sandbox-api
       - supabase-studio
       - supabase-kong
+      - openwa
 
   # ==========================================
   # 12. n8n Assistant Sandbox TLS Init
@@ -817,6 +838,62 @@ services:
       Automation:
         aliases:
           - functions
+
+  # ==========================================
+  # 25. OpenWA WhatsApp API Gateway
+  # ==========================================
+  openwa:
+    image: rmyndharis/openwa:latest
+    container_name: openwa
+    restart: unless-stopped
+    stop_grace_period: 75s
+    ports:
+      - "${OPENWA_PORT:-2785}:2785"
+    environment:
+      - NODE_ENV=${OPENWA_NODE_ENV:-development}
+      - PORT=2785
+      - LOG_LEVEL=${OPENWA_LOG_LEVEL:-info}
+      - API_MASTER_KEY=${OPENWA_API_KEY:-}
+      # Local storage configured to store media and session files under data/openwa
+      - STORAGE_TYPE=local
+      - STORAGE_LOCAL_PATH=/app/data/media
+      # PostgreSQL Database Connection
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=${OPENWA_DB_NAME:-openwa}
+      - DATABASE_USERNAME=${POSTGRES_USER}
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - DATABASE_SYNCHRONIZE=false
+      # Redis Integration & Queue
+      - REDIS_ENABLED=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - QUEUE_ENABLED=true
+      # Webhook & Server config
+      - WEBHOOK_TIMEOUT=10000
+      - WEBHOOK_RETRY_DELAY=5000
+      - WEBHOOK_SSRF_PROTECT=false
+      - SSRF_ALLOWED_HOSTS=n8n,caddy,n8n.local,localhost,host.docker.internal
+      - SERVE_DASHBOARD=true
+      - BASE_URL=http://openwa.local
+    volumes:
+      - ./data/openwa:/app/data
+      - ./shared:/data/shared
+    networks:
+      - Automation
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2785/api/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   sandbox-tls:
