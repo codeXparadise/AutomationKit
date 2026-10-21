@@ -25,6 +25,7 @@
   <a href="#-service-matrix--endpoints">Service Matrix</a> •
   <a href="#-n8n-node-integration-blueprints">n8n Blueprints</a> •
   <a href="#-local-swagger--api-docs">Swagger & API Docs</a> •
+  <a href="#-credits--attributions"><strong>❤️ Credits & Attribution</strong></a> •
   <a href="CHANGELOG.md"><strong>📝 Changelog (v1.1.0)</strong></a> •
   <a href="#-contributing--license">Contributing</a>
 </p>
@@ -88,21 +89,21 @@ All 11 microservices run inside an isolated Docker bridge network (`automationki
 
 ## 🧰 The Technology Stack
 
-| Technology | Role | Version | Official Documentation |
-| :--- | :--- | :--- | :--- |
-| <img src="assets/logos/n8n.svg" width="22" height="22" /> **n8n** | Workflow Automation & AI Agents | `v2.43.7` | [docs.n8n.io](https://docs.n8n.io/) |
-| <img src="assets/logos/supabase.svg" width="22" height="22" /> **Supabase** | PostgREST API, Auth & Storage Cluster | `Latest` | [supabase.com/docs](https://supabase.com/docs) |
-| <img src="assets/logos/docling.svg" width="22" height="22" /> **Docling** | Document Parsing & PDF OCR | `Latest` | [ds4sd.github.io/docling](https://ds4sd.github.io/docling/) |
-| <img src="assets/logos/crawl4ai.svg" width="22" height="22" /> **Crawl4AI** | Async Web Crawler & LLM Parser | `Latest` | [crawl4ai.com](https://crawl4ai.com/) |
-| <img src="assets/logos/qdrant.svg" width="22" height="22" /> **Qdrant** | Vector Search Engine & RAG DB | `v1.19.2` | [qdrant.tech/documentation](https://qdrant.tech/documentation/) |
-| <img src="assets/logos/searxng.svg" width="22" height="22" /> **SearXNG** | Private Metasearch Engine | `Latest` | [docs.searxng.org](https://docs.searxng.org/) |
-| <img src="assets/logos/ollama.svg" width="22" height="22" /> **Ollama** | Local LLMs (Llama 3, Mistral, Qwen) | `Latest` | [ollama.com/library](https://ollama.com/library) |
-| <img src="assets/logos/neo4j.svg" width="22" height="22" /> **Neo4j** | Graph Database & Knowledge Graphs | `5-community` | [neo4j.com/docs](https://neo4j.com/docs/) |
-| <img src="assets/logos/redis.svg" width="22" height="22" /> **Redis & Insight** | In-Memory Cache & Visual GUI | `7-alpine` | [redis.io/docs](https://redis.io/docs/) |
-| <img src="assets/logos/postgres.svg" width="22" height="22" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) |
-| <img src="assets/logos/openwa.svg" width="22" height="22" /> **OpenWA** | WhatsApp Gateway & Webhooks | `Latest` | [open-wa.org](https://open-wa.org/) |
-| <img src="assets/logos/docker.svg" width="22" height="22" /> **n8n Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) |
-| <img src="assets/logos/caddy.svg" width="22" height="22" /> **Caddy** | Reverse Proxy & Portal Gateway | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) |
+| Technology | Role | Version | Official Documentation | Source Repository |
+| :--- | :--- | :--- | :--- | :--- |
+| <img src="assets/logos/n8n.svg" width="22" height="22" /> **n8n** | Workflow Automation & AI Agents | `v2.43.7` | [docs.n8n.io](https://docs.n8n.io/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-n8n--io%2Fn8n-181717?style=flat-square&logo=github)](https://github.com/n8n-io/n8n) |
+| <img src="assets/logos/openwa.svg" width="22" height="22" /> **OpenWA** | WhatsApp Gateway & Webhooks | `Latest` | [open-wa.org](https://open-wa.org/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-open--wa%2Fwa--automate--nodejs-25D366?style=flat-square&logo=whatsapp&logoColor=white)](https://github.com/open-wa/wa-automate-nodejs) [![Docker Repo](https://img.shields.io/badge/GitHub-rmyndharis%2Fopenwa-181717?style=flat-square&logo=github)](https://github.com/rmyndharis/openwa) |
+| <img src="assets/logos/crawl4ai.svg" width="22" height="22" /> **Crawl4AI** | Async Web Crawler & LLM Parser | `Latest` | [crawl4ai.com](https://crawl4ai.com/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-unclecode%2Fcrawl4ai-181717?style=flat-square&logo=github)](https://github.com/unclecode/crawl4ai) |
+| <img src="assets/logos/docling.svg" width="22" height="22" /> **Docling** | Document Parsing & PDF OCR | `Latest` | [ds4sd.github.io/docling](https://ds4sd.github.io/docling/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-DS4SD%2Fdocling-181717?style=flat-square&logo=github)](https://github.com/DS4SD/docling) |
+| <img src="assets/logos/qdrant.svg" width="22" height="22" /> **Qdrant** | Vector Search Engine & RAG DB | `v1.19.2` | [qdrant.tech/documentation](https://qdrant.tech/documentation/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-qdrant%2Fqdrant-DC382D?style=flat-square&logo=qdrant&logoColor=white)](https://github.com/qdrant/qdrant) |
+| <img src="assets/logos/ollama.svg" width="22" height="22" /> **Ollama** | Local LLMs (Llama 3, Mistral, Qwen) | `Latest` | [ollama.com/library](https://ollama.com/library) | [![GitHub Repo](https://img.shields.io/badge/GitHub-ollama%2Follama-181717?style=flat-square&logo=github)](https://github.com/ollama/ollama) |
+| <img src="assets/logos/searxng.svg" width="22" height="22" /> **SearXNG** | Private Metasearch Engine | `Latest` | [docs.searxng.org](https://docs.searxng.org/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-searxng%2Fsearxng-181717?style=flat-square&logo=github)](https://github.com/searxng/searxng) |
+| <img src="assets/logos/supabase.svg" width="22" height="22" /> **Supabase** | PostgREST API, Auth & Storage Cluster | `Latest` | [supabase.com/docs](https://supabase.com/docs) | [![GitHub Repo](https://img.shields.io/badge/GitHub-supabase%2Fsupabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://github.com/supabase/supabase) |
+| <img src="assets/logos/neo4j.svg" width="22" height="22" /> **Neo4j** | Graph Database & Knowledge Graphs | `5-community` | [neo4j.com/docs](https://neo4j.com/docs/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-neo4j%2Fneo4j-45818E?style=flat-square&logo=neo4j&logoColor=white)](https://github.com/neo4j/neo4j) |
+| <img src="assets/logos/redis.svg" width="22" height="22" /> **Redis & Insight** | In-Memory Cache & Visual GUI | `7-alpine` | [redis.io/docs](https://redis.io/docs/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-redis%2Fredis-DC382D?style=flat-square&logo=redis&logoColor=white)](https://github.com/redis/redis) |
+| <img src="assets/logos/postgres.svg" width="22" height="22" /> **PostgreSQL** | Relational SQL Storage | `16-alpine` | [postgresql.org/docs](https://www.postgresql.org/docs/16/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-postgres%2Fpostgres-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://github.com/postgres/postgres) |
+| <img src="assets/logos/docker.svg" width="22" height="22" /> **n8n Sandbox** | Isolated DinD Code Execution Sandbox | `v1.9.0` | [docs.n8n.io](https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-n8n-assistant/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-n8n--sandbox--service-181717?style=flat-square&logo=github)](https://github.com/n8n-io/n8n) |
+| <img src="assets/logos/caddy.svg" width="22" height="22" /> **Caddy** | Reverse Proxy & Portal Gateway | `2-alpine` | [caddyserver.com/docs](https://caddyserver.com/docs/) | [![GitHub Repo](https://img.shields.io/badge/GitHub-caddyserver%2Fcaddy-1F88C0?style=flat-square&logo=caddy&logoColor=white)](https://github.com/caddyserver/caddy) |
 
 ---
 
@@ -354,6 +355,29 @@ AutomationKit includes the official n8n Assistant Sandbox stack consisting of th
 
 If you ever encounter an `rpc error: code = Unauthenticated desc = missing x-api-key` in `sandbox-api`, ensure `SANDBOX_API_RUNNER_API_KEY` is present in `compose.yml` matching `SANDBOX_RUNNER_API_KEYS` in `sandbox-runner-1`.
 </details>
+
+---
+
+## ❤️ Credits & Attributions
+
+AutomationKit is made possible by the incredible open-source community. Deep gratitude and all credits go to the original creators and maintainers of these foundational projects:
+
+| Project | Original Creator / Maintainer | Description & Role | Official Repository |
+| :--- | :--- | :--- | :--- |
+| **n8n** | [Jan Oberhauser](https://github.com/janober) & [n8n.io](https://github.com/n8n-io) | Leading fair-code workflow automation and AI agent orchestrator | [![GitHub Repo](https://img.shields.io/badge/GitHub-n8n--io%2Fn8n-181717?style=flat-square&logo=github)](https://github.com/n8n-io/n8n) |
+| **OpenWA** | [Mohammed Shah](https://github.com/smashah) & [rmyndharis](https://github.com/rmyndharis) | 100% Free WhatsApp Web automation client, API gateway & n8n nodes | [![GitHub Repo](https://img.shields.io/badge/GitHub-open--wa%2Fwa--automate-25D366?style=flat-square&logo=whatsapp&logoColor=white)](https://github.com/open-wa/wa-automate-nodejs) [![Docker Repo](https://img.shields.io/badge/GitHub-rmyndharis%2Fopenwa-181717?style=flat-square&logo=github)](https://github.com/rmyndharis/openwa) [![n8n Node](https://img.shields.io/badge/npm-%40rmyndharis%2Fn8n--nodes--openwa-CB3837?style=flat-square&logo=npm)](https://github.com/rmyndharis/n8n-nodes-openwa) |
+| **Crawl4AI** | [UncleCode](https://github.com/unclecode) | High-performance open-source asynchronous LLM web crawler and scraper | [![GitHub Repo](https://img.shields.io/badge/GitHub-unclecode%2Fcrawl4ai-181717?style=flat-square&logo=github)](https://github.com/unclecode/crawl4ai) |
+| **Docling** | [IBM Research / DS4SD Team](https://github.com/DS4SD) | Advanced PDF and multi-format document parser, OCR & Markdown extractor | [![GitHub Repo](https://img.shields.io/badge/GitHub-DS4SD%2Fdocling-181717?style=flat-square&logo=github)](https://github.com/DS4SD/docling) |
+| **Qdrant** | [Qdrant Team](https://github.com/qdrant) | High-scale, lightning-fast vector database & similarity search engine for RAG | [![GitHub Repo](https://img.shields.io/badge/GitHub-qdrant%2Fqdrant-DC382D?style=flat-square&logo=qdrant&logoColor=white)](https://github.com/qdrant/qdrant) |
+| **Ollama** | [Jeffrey Morgan](https://github.com/jmorganca) & [Ollama Team](https://github.com/ollama) | Frictionless local execution engine for open-weights LLMs (Llama 3, Mistral, Qwen) | [![GitHub Repo](https://img.shields.io/badge/GitHub-ollama%2Follama-181717?style=flat-square&logo=github)](https://github.com/ollama/ollama) |
+| **SearXNG** | [SearXNG Community](https://github.com/searxng) | Free, private, self-hosted metasearch engine protecting user queries | [![GitHub Repo](https://img.shields.io/badge/GitHub-searxng%2Fsearxng-181717?style=flat-square&logo=github)](https://github.com/searxng/searxng) |
+| **Supabase** | [Paul Copplestone](https://github.com/kiwicopple), [Ant Wilson](https://github.com/awalias) & [Supabase Team](https://github.com/supabase) | Open-source Firebase alternative featuring PostgREST, Auth, and Storage | [![GitHub Repo](https://img.shields.io/badge/GitHub-supabase%2Fsupabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://github.com/supabase/supabase) |
+| **Neo4j** | [Emil Eifrem](https://github.com/emileifrem) & [Neo4j Community](https://github.com/neo4j) | The world's leading native graph database engine and Cypher query processor | [![GitHub Repo](https://img.shields.io/badge/GitHub-neo4j%2Fneo4j-45818E?style=flat-square&logo=neo4j&logoColor=white)](https://github.com/neo4j/neo4j) |
+| **Redis** | [Salvatore Sanfilippo (antirez)](https://github.com/antirez) & [Redis Community](https://github.com/redis) | In-memory data structure store, high-speed cache, and message queue broker | [![GitHub Repo](https://img.shields.io/badge/GitHub-redis%2Fredis-DC382D?style=flat-square&logo=redis&logoColor=white)](https://github.com/redis/redis) |
+| **PostgreSQL** | [PostgreSQL Global Development Group](https://www.postgresql.org/) | World's most advanced enterprise-grade open-source relational database | [![GitHub Repo](https://img.shields.io/badge/GitHub-postgres%2Fpostgres-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://github.com/postgres/postgres) |
+| **Caddy** | [Matthew Holt](https://github.com/mholt) & [Caddy Community](https://github.com/caddyserver) | Enterprise-grade, modern HTTP/2 & HTTP/3 reverse proxy with automatic local HTTPS | [![GitHub Repo](https://img.shields.io/badge/GitHub-caddyserver%2Fcaddy-1F88C0?style=flat-square&logo=caddy&logoColor=white)](https://github.com/caddyserver/caddy) |
+
+Please consider supporting, starring, and sponsoring these projects!
 
 ---
 

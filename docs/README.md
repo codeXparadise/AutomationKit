@@ -33,6 +33,7 @@ Welcome to the comprehensive API and n8n integration documentation for the **Aut
 | <img src="../assets/logos/neo4j.svg" width="20" height="20" style="vertical-align: middle;" /> **Neo4j** | Graph Database & Cypher API | `http://neo4j:7474` (HTTP)<br>`bolt://neo4j:7687` | `http://localhost:7474` | Basic Auth: `neo4j` / `${NEO4J_PASSWORD}` | [Neo4j Guide](neo4j.md) |
 | <img src="../assets/logos/redis.svg" width="20" height="20" style="vertical-align: middle;" /> **Redis** | In-Memory Cache & Key-Value | `redis:6379` | `localhost:6379` | Password: `${REDIS_PASSWORD}` | [Redis Guide](redis.md) |
 | <img src="../assets/logos/postgres.svg" width="20" height="20" style="vertical-align: middle;" /> **PostgreSQL**| Relational Database | `postgres:5432` | `localhost:5432` | User: `admin`, Pass: `${POSTGRES_PASSWORD}`, DB: `n8n_database` | [PostgreSQL Guide](postgres.md) |
+| <img src="../assets/logos/openwa.svg" width="20" height="20" style="vertical-align: middle;" /> **OpenWA** | 100% Free WhatsApp API Gateway | `http://openwa:2785` | `http://localhost:2785` | Header `X-API-Key: ${OPENWA_API_KEY}` | [OpenWA Guide](openwa.md) |
 | <img src="../assets/logos/docker.svg" width="20" height="20" style="vertical-align: middle;" /> **Sandbox API**| Isolated Code Execution Runner | `http://sandbox-api:8080` | `http://localhost:5681` | Header `X-API-Key: ${SANDBOX_API_KEYS}` | [Sandbox Guide](sandbox.md) |
 
 ---
@@ -97,6 +98,7 @@ Click any tool below for dedicated, step-by-step documentation with sidebars, cu
 - 🕸️ **[Neo4j Documentation](neo4j.md)** — Knowledge graph operations, relationship analysis, and Cypher query execution via HTTP & Bolt.
 - 🟥 **[Redis Documentation](redis.md)** — Fast caching, rate-limiting, temporary memory, and task queues in n8n.
 - 🐘 **[PostgreSQL Documentation](postgres.md)** — Relational data storage, automated transactions, and complex SQL data transformations.
+- 📱 **[OpenWA Documentation](openwa.md)** — 100% Free self-hosted WhatsApp automation gateway, visual webhooks, and n8n community nodes.
 - 📦 **[Sandbox Runner Documentation](sandbox.md)** — Isolated DinD micro-runners for custom Python and Node.js execution inside n8n.
 
 ---

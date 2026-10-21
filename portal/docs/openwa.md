@@ -216,3 +216,17 @@ Copy the workflow JSON below and paste directly (`Ctrl+V`) into your n8n canvas:
 | **Redis Queue Delayed** | BullMQ waiting on Redis Auth | OpenWA connects with `${REDIS_PASSWORD}` configured automatically. |
 | **Destination address is not allowed** | OpenWA SSRF guard blocking internal Docker bridge IPs | Fixed in AutomationKit via `WEBHOOK_SSRF_PROTECT=false` and `SSRF_ALLOWED_HOSTS=n8n,caddy,localhost,host.docker.internal`. |
 
+---
+
+## 8. ❤️ Credits & Official Repositories
+
+Special thanks and full credit to the authors of OpenWA and its n8n community ecosystem:
+
+* **OpenWA Core Engine (`wa-automate-nodejs`)**: Created by [Mohammed Shah (@smashah)](https://github.com/smashah)  
+  [![GitHub Repo](https://img.shields.io/badge/GitHub-open--wa%2Fwa--automate--nodejs-25D366?style=flat-square&logo=whatsapp&logoColor=white)](https://github.com/open-wa/wa-automate-nodejs)
+* **OpenWA Docker API Gateway (`openwa`)**: Packaged & maintained by [R. Myndharis (@rmyndharis)](https://github.com/rmyndharis)  
+  [![GitHub Repo](https://img.shields.io/badge/GitHub-rmyndharis%2Fopenwa-181717?style=flat-square&logo=github)](https://github.com/rmyndharis/openwa)
+* **n8n Community Node (`@rmyndharis/n8n-nodes-openwa`)**: Authored by [R. Myndharis (@rmyndharis)](https://github.com/rmyndharis)  
+  [![GitHub Repo](https://img.shields.io/badge/GitHub-rmyndharis%2Fn8n--nodes--openwa-CB3837?style=flat-square&logo=npm)](https://github.com/rmyndharis/n8n-nodes-openwa)
+
+
